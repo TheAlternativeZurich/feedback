@@ -28,6 +28,7 @@ class LoadSemester extends BaseFixture
     {
         $semester = new Semester();
         $semester->setName('HS 2018');
+        $semester->setCreationDate(new \DateTime());
         $manager->persist($semester);
         $manager->flush();
     }

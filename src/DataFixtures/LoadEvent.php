@@ -47,12 +47,16 @@ class LoadEvent extends BaseFixture
      */
     public function load(ObjectManager $manager)
     {
+        //prepare resources
         $templateName = 'default.json';
         $template = file_get_contents($this->publicDir . '/templates/' . $templateName);
+        $json = file_get_contents(__DIR__ . '/Resources/events.json');
+
+        //fill semester with events
         $semesters = $manager->getRepository(Semester::class)->findAll();
         foreach ($semesters as $semester) {
             /** @var Event[] $events */
-            $events = $this->serializer->deserialize(file_get_contents(__DIR__ . '/Resources/events.json'), Event::class, 'json');
+            $events = $this->serializer->deserialize($json, Event::class, 'json');
             foreach ($events as $event) {
                 $event->setSemester($semester);
                 $event->setTemplateName($templateName);

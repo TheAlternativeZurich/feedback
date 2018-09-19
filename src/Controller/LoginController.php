@@ -12,7 +12,8 @@
 namespace App\Controller;
 
 use App\Controller\Base\BaseFormController;
-use App\Form\Event\LoginType;
+use App\Form\PasswordContainer\LoginType;
+use App\Model\PasswordContainer;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -32,23 +33,13 @@ class LoginController extends BaseFormController
      */
     public function indexAction(AuthenticationUtils $authenticationUtils)
     {
-        $lastUsername = $authenticationUtils->getLastUsername();
+        //check if auth failed last try
         if (null !== $authenticationUtils->getLastAuthenticationError(true)) {
-            $lastUser = $this->getDoctrine()->getRepository(FrontendUser::class)->findOneBy(['email' => $lastUsername]);
-            if (null === $lastUser) {
-                $this->displayError($this->getTranslator()->trans('login.error.email_not_found', [], 'login'));
-            } elseif (!$lastUser->getCanLogin()) {
-                $this->displayError($this->getTranslator()->trans('login.error.login_disabled', [], 'login'));
-            } else {
-                $this->displayError($this->getTranslator()->trans('login.error.login_failed', [], 'login'));
-            }
+            $this->displayError($this->getTranslator()->trans('login.error.login_failed', [], 'login'));
         }
 
-        $user = new FrontendUser();
-        $user->setEmail($lastUsername);
-
         // create login form
-        $form = $this->createForm(LoginType::class, $user);
+        $form = $this->createForm(LoginType::class, new PasswordContainer(''));
         $form->add('form.login', SubmitType::class, ['translation_domain' => 'login', 'label' => 'login.do_login']);
 
         return $this->render('login/login.html.twig', ['form' => $form->createView()]);

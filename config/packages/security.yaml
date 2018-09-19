@@ -2,16 +2,13 @@ security:
   access_decision_manager:
     strategy: unanimous
 
-  encoders:
-    App\Entity\FrontendUser: bcrypt
-
   role_hierarchy:
     ROLE_ADMIN:       ROLE_USER
     ROLE_SUPER_ADMIN: ROLE_ADMIN
 
   providers:
-    frontend_user_provider:
-      id: App\Security\FrontendUserProvider
+    password_container_provider:
+      id: App\Security\PasswordContainerProvider
 
   firewalls:
     # disables authentication for assets and the profiler
@@ -22,8 +19,9 @@ security:
     # main firewall for logged in users
     main:
       pattern:   ^/
-      provider: frontend_user_provider
-      form_login:
+      provider: password_container_provider
+      simple_form:
+        authenticator: App\Security\PasswordAuthenticator
         login_path: login
         check_path: login_check
         default_target_path: index

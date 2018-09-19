@@ -92,14 +92,14 @@ class Event extends BaseEntity
     /**
      * @var Participant[]|ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="Answer", mappedBy="participant")
+     * @ORM\OneToMany(targetEntity="App\Entity\Participant", mappedBy="event")
      */
     private $participants;
 
     /**
      * @var Semester
      *
-     * @ORM\OneToMany(targetEntity="App\Entity\Semester", indexBy="events")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Semester", inversedBy="events")
      */
     private $semester;
 

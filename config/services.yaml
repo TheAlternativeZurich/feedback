@@ -24,21 +24,6 @@ services:
     resource: '../src/Controller'
     tags: ['controller.service_arguments']
 
-  App\Security\AdminUserProvider:
-    arguments: ["@doctrine", "%env(ADMIN_EMAIL)%"]
-
-  App\Service\ExchangeService:
-    arguments: ["@translator", "@session.flash_bag", "@validator", "@doctrine"]
-
-  App\Service\EventPastEvaluationService:
-    arguments: ["@doctrine"]
-
-  App\Service\EventGenerationService:
-    arguments: ["@doctrine","@translator","@session"]
-
-  App\Service\EmailService:
-    arguments: ["@mailer", "@doctrine", "@logger","@twig","%env(MAILER_SENDER)%"]
-
   App\Normalizer\EntityNormalizer:
     public: false
     autowire: true
