@@ -11,13 +11,11 @@
 
 namespace App\Security\Voter\Base;
 
-use App\Entity\FrontendUser;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
 abstract class BaseVoter extends Voter
 {
-    const MODIFY = 1;
     const VIEW = 2;
 
     /**
@@ -29,12 +27,6 @@ abstract class BaseVoter extends Voter
      */
     protected function voteOnAttribute($attribute, $subject, TokenInterface $token)
     {
-        $user = $token->getUser();
-
-        if (!$user instanceof FrontendUser) {
-            return false;
-        }
-
-        return $user->isAdministrator();
+        return $attribute === self::VIEW;
     }
 }

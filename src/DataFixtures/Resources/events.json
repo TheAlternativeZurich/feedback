@@ -1,0 +1,66 @@
+[
+  {
+    "name": "Introduction to Free Software",
+    "date": "2018-10-01",
+    "feedbackStartTime": "18:00",
+    "feedbackEndTime": "21:00",
+    "hasLecture": true
+  },
+  {
+    "name": "Introduction to Linux",
+    "date": "2018-10-03",
+    "feedbackStartTime": "18:00",
+    "feedbackEndTime": "21:00",
+    "hasLecture": true
+  },
+  {
+    "name": "Install Event (hands-on)",
+    "date": "2018-10-10",
+    "feedbackStartTime": "17:30",
+    "feedbackEndTime": "23:59"
+  },
+  {
+    "name": "Install Event (hands-on)",
+    "date": "2018-10-12",
+    "feedbackStartTime": "17:30",
+    "feedbackEndTime": "23:59"
+  },
+  {
+    "name": "The Console Toolkit",
+    "date": "2018-10-15",
+    "feedbackStartTime": "17:30",
+    "feedbackEndTime": "20:00",
+    "hasLecture": true,
+    "hasExercise": true
+  },
+  {
+    "name": "The Console Toolkit",
+    "date": "2018-10-17",
+    "feedbackStartTime": "17:30",
+    "feedbackEndTime": "20:00",
+    "hasLecture": true,
+    "hasExercise": true
+  },
+  {
+    "name": "Bash Workshop (hands-on)",
+    "date": "2018-10-22",
+    "feedbackStartTime": "17:30",
+    "feedbackEndTime": "20:00",
+    "hasLecture": true,
+    "hasExercise": true
+  },
+  {
+    "name": "Container Orchestration with Kubernetes",
+    "date": "2018-10-24",
+    "feedbackStartTime": "17:30",
+    "feedbackEndTime": "20:00",
+    "hasLecture": true
+  },
+  {
+    "name": "Virtual Computers for Real Life Tasks",
+    "date": "2018-10-25",
+    "feedbackStartTime": "17:30",
+    "feedbackEndTime": "20:00",
+    "hasLecture": true
+  }
+]

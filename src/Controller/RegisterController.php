@@ -13,7 +13,7 @@ namespace App\Controller;
 
 use App\Controller\Base\BaseUserController;
 use App\Entity\FrontendUser;
-use App\Form\FrontendUser\RegisterType;
+use App\Form\Event\RegisterType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;

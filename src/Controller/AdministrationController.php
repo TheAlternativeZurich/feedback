@@ -27,6 +27,6 @@ class AdministrationController extends BaseController
      */
     public function indexAction()
     {
-        return $this->render('administration/index.html.twig');
+        return $this->redirectToRoute('administration_semesters');
     }
 }

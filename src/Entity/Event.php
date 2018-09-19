@@ -13,7 +13,15 @@ namespace App\Entity;
 
 use App\Entity\Base\BaseEntity;
 use App\Entity\Traits\IdTrait;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\Mapping as ORM;
 
+/**
+ * an event determines how the questionnaire looks like.
+ *
+ * @ORM\Entity()
+ * @ORM\HasLifecycleCallbacks
+ */
 class Event extends BaseEntity
 {
     use IdTrait;
@@ -26,9 +34,9 @@ class Event extends BaseEntity
     private $name;
 
     /**
-     * @var \DateTime
+     * @var string
      *
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="text")
      */
     private $date;
 
@@ -54,18 +62,54 @@ class Event extends BaseEntity
     private $template;
 
     /**
-     * @var bool
+     * @var string
      *
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="text")
      */
-    private $hasLecture;
+    private $templateName;
 
     /**
      * @var bool
      *
      * @ORM\Column(type="boolean")
      */
-    private $hasExercise;
+    private $hasLecture = false;
+
+    /**
+     * @var bool
+     *
+     * @ORM\Column(type="boolean")
+     */
+    private $hasExercise = false;
+
+    /**
+     * @var bool
+     *
+     * @ORM\Column(type="boolean")
+     */
+    private $finalTemplateVersionLoaded = false;
+
+    /**
+     * @var Participant[]|ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="Answer", mappedBy="participant")
+     */
+    private $participants;
+
+    /**
+     * @var Semester
+     *
+     * @ORM\OneToMany(targetEntity="App\Entity\Semester", indexBy="events")
+     */
+    private $semester;
+
+    /**
+     * Event constructor.
+     */
+    public function __construct()
+    {
+        $this->participants = new ArrayCollection();
+    }
 
     /**
      * @return string
@@ -81,22 +125,6 @@ class Event extends BaseEntity
     public function setName(string $name): void
     {
         $this->name = $name;
-    }
-
-    /**
-     * @return \DateTime
-     */
-    public function getDate(): \DateTime
-    {
-        return $this->date;
-    }
-
-    /**
-     * @param \DateTime $date
-     */
-    public function setDate(\DateTime $date): void
-    {
-        $this->date = $date;
     }
 
     /**
@@ -177,5 +205,136 @@ class Event extends BaseEntity
     public function setHasExercise(bool $hasExercise): void
     {
         $this->hasExercise = $hasExercise;
+    }
+
+    /**
+     * @return Participant[]|ArrayCollection
+     */
+    public function getParticipants()
+    {
+        return $this->participants;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDate(): string
+    {
+        return $this->date;
+    }
+
+    /**
+     * @param string $date
+     */
+    public function setDate(string $date): void
+    {
+        $this->date = $date;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTemplateName(): string
+    {
+        return $this->templateName;
+    }
+
+    /**
+     * @param string $templateName
+     */
+    public function setTemplateName(string $templateName): void
+    {
+        $this->templateName = $templateName;
+    }
+
+    /**
+     * @return Semester
+     */
+    public function getSemester(): Semester
+    {
+        return $this->semester;
+    }
+
+    /**
+     * @param Semester $semester
+     */
+    public function setSemester(Semester $semester): void
+    {
+        $this->semester = $semester;
+    }
+
+    /**
+     * which categories should be displayed to the user.
+     *
+     * @return array
+     */
+    public function categoryWhitelist()
+    {
+        $base = ['event'];
+        if ($this->getHasExercise()) {
+            $base[] = 'exercise';
+        }
+        if ($this->getHasLecture()) {
+            $base[] = 'lecture';
+        }
+
+        return $base;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isFinalTemplateVersionLoaded(): bool
+    {
+        return $this->finalTemplateVersionLoaded;
+    }
+
+    /**
+     * @param bool $finalTemplateVersionLoaded
+     */
+    public function setFinalTemplateVersionLoaded(bool $finalTemplateVersionLoaded): void
+    {
+        $this->finalTemplateVersionLoaded = $finalTemplateVersionLoaded;
+    }
+
+    /**
+     * @return bool
+     */
+    public function feedbackHasStarted()
+    {
+        $now = new \DateTime();
+        $today = $now->format('Y-m-d');
+        $time = $now->format('H:i');
+
+        return $today > $this->getDate() || ($today === $this->getDate() && $time >= $this->getFeedbackStartTime());
+    }
+
+    /**
+     * @return string
+     */
+    public function getTemplateFilepath()
+    {
+        return 'templates/' . $this->getTemplateName();
+    }
+
+    /**
+     * @param $publicDir
+     *
+     * @return bool
+     */
+    public function loadTemplateIfSafe($publicDir)
+    {
+        if ($this->finalTemplateVersionLoaded) {
+            return true;
+        }
+
+        if ($this->feedbackHasStarted()) {
+            $this->finalTemplateVersionLoaded = true;
+        }
+
+        $filePath = $publicDir . '/' . $this->getTemplateFilepath();
+        if (file_exists($filePath)) {
+            $this->template = file_get_contents($filePath);
+        }
     }
 }

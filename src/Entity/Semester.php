@@ -13,7 +13,15 @@ namespace App\Entity;
 
 use App\Entity\Base\BaseEntity;
 use App\Entity\Traits\IdTrait;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\Mapping as ORM;
 
+/**
+ * a semester contains of events.
+ *
+ * @ORM\Entity()
+ * @ORM\HasLifecycleCallbacks
+ */
 class Semester extends BaseEntity
 {
     use IdTrait;
@@ -24,6 +32,29 @@ class Semester extends BaseEntity
      * @ORM\Column(type="text")
      */
     private $name;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(type="datetime")
+     */
+    private $creationDate;
+
+    /**
+     * @var Event[]|ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="Event", mappedBy="semester")
+     * @ORM\OrderBy({"date" = "DESC", "feedbackStartTime" = "DESC", "feedbackEndTime" = "DESC"})
+     */
+    private $events;
+
+    /**
+     * Semester constructor.
+     */
+    public function __construct()
+    {
+        $this->events = new ArrayCollection();
+    }
 
     /**
      * @return string
@@ -39,5 +70,29 @@ class Semester extends BaseEntity
     public function setName(string $name): void
     {
         $this->name = $name;
+    }
+
+    /**
+     * @return Event[]|ArrayCollection
+     */
+    public function getEvents()
+    {
+        return $this->events;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getCreationDate(): \DateTime
+    {
+        return $this->creationDate;
+    }
+
+    /**
+     * @param \DateTime $creationDate
+     */
+    public function setCreationDate(\DateTime $creationDate): void
+    {
+        $this->creationDate = $creationDate;
     }
 }

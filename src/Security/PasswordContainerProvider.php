@@ -12,6 +12,7 @@
 namespace App\Security;
 
 use App\Model\PasswordContainer;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
@@ -23,9 +24,14 @@ class PasswordContainerProvider implements UserProviderInterface
      */
     private $password;
 
-    public function __construct(string $password)
+    /**
+     * PasswordContainerProvider constructor.
+     *
+     * @param ParameterBagInterface $parameterBag
+     */
+    public function __construct(ParameterBagInterface $parameterBag)
     {
-        $this->password = $password;
+        $this->password = $parameterBag->get('ADMIN_PASSWORD');
     }
 
     /**     *
