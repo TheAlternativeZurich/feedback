@@ -5,7 +5,7 @@
 declare(strict_types=1);
 
 /*
- * This file is part of the symfony-template project.
+ * This file is part of the feedback project.
  *
  * (c) Florian Moser <git@famoser.ch>
  *

@@ -17,7 +17,7 @@ set('bin_dir', 'bin');
 set('var_dir', 'var');
 
 // Configuration
-set('repository', 'git@github.com:famoser/symfony-template.git');
+set('repository', 'git@github.com:TheAlternativeZurich/feedback.git');
 set('shared_files', array_merge(get('shared_files'), ['var/data.sqlite']));
 set('shared_dirs', array_merge(get('shared_dirs'), ['public/upload']));
 set('symfony_env_file', '.env');
@@ -41,7 +41,6 @@ set(
 //build yarn stuff & upload
 task('frontend:build', function () {
     runLocally('yarn install');
-    runLocally('yarn upgrade');
     runLocally('yarn run encore production');
     runLocally('rsync -azP public/dist {{user}}@{{hostname}}:{{release_path}}/public');
 })->desc('Build frontend assets');

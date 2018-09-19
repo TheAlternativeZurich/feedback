@@ -1,16 +1,16 @@
 .base: &base
-  hostname: ftp.HOST.ch
+  hostname: feedback.thealternative.ch
   user: USER
   http_user: USER
   branch: master
-  deploy_path: ~/www/deploy/example.com/{{stage}}
+  deploy_path: ~/www/feedback.thealternative.ch/{{stage}}
   sshOptions:
     StrictHostKeyChecking: no
 
 dev:
   <<: *base
   stage: dev
-  branch: develop
+  branch: master
 
 production:
   <<: *base
