@@ -1,0 +1,170 @@
+{
+  "start_text": "We need your feedback so we may improve this course for next semester. Thanks for your help!",
+  "questions": [
+    {
+      "category": "lecture",
+      "type": "choice",
+      "title": "the lecturer",
+      "choices": [
+        {
+          "title": "explained well",
+          "off_text": "how could the lecturer improve his explanations?"
+        },
+        {
+          "title": "spoke clearly and understandable"
+        },
+        {
+          "title": "seemed confident and well prepared"
+        }
+      ]
+    },
+    {
+      "category": "lecture",
+      "type": "choice",
+      "title": "the lecture",
+      "choices": [
+        {
+          "title": "was clearly structured",
+          "off_text": "how could we restructure the lecture that it makes more sense?"
+        },
+        {
+          "title": "contained information useful to me",
+          "off_text": "what would have been useful for you to learn today?",
+          "on_text": "what was the most useful you have learnt today?"
+        },
+        {
+          "title": "did not contain terminology unknown to me",
+          "off_text": "which term(s) should we explain the next time?"
+        },
+        {
+          "title": "sufficiently prepared me for the exercises",
+          "off_text": "what should we include in the lecture that it helps you solve the exercises best?",
+          "has_exercise_only": true
+        }
+      ]
+    },
+    {
+      "category": "lecture",
+      "type": "slider",
+      "title": "next semester, the lecture should be",
+      "min": "faster",
+      "center": "the same",
+      "max": "more detailed",
+      "start_value": 50
+    },
+    {
+      "category": "lecture",
+      "type": "open_feedback",
+      "title": "open feedback"
+    },
+    {
+      "category": "exercise",
+      "type": "choice",
+      "title": "the questions",
+      "choices": [
+        {
+          "title": "were clearly formulated",
+          "off_text": "can you tell us of a specific question which was poorly formulated?"
+        },
+        {
+          "title": "were solvable",
+          "off_text": "how can we prepare you better for the exercises?"
+        },
+        {
+          "title": "helped to improve my skills",
+          "on_text": "which question did you like best?"
+        }
+      ]
+    },
+    {
+      "category": "exercise",
+      "type": "choice",
+      "title": "the solutions",
+      "choices": [
+        {
+          "title": "were easy understandable",
+          "off_text": "how can we improve our solutions?"
+        }
+      ]
+    },
+    {
+      "category": "exercise",
+      "type": "slider",
+      "title": "next semester, additional exercises should be",
+      "min": "easier",
+      "center": "harder",
+      "max": "way harder!",
+      "start_value": 25,
+      "max_text": "JOIN US, we need you! At the end of the questionnaire, you can leave us your E-Mail :)"
+    },
+    {
+      "category": "exercise",
+      "type": "slider",
+      "title": "next semester, the focus should be",
+      "min": "more lecture",
+      "center": "the same",
+      "max": "more exercises",
+      "start_value": 50,
+      "has_lecture_only": true
+    },
+    {
+      "category": "exercise",
+      "type": "open_feedback",
+      "title": "open feedback"
+    },
+    {
+      "category": "event",
+      "type": "choice",
+      "title": "the event",
+      "choices": [
+        {
+          "title": "was well organized",
+          "off_text": "how can we improve our organisation?"
+        }
+        {
+          "title": "fulfilled my expectations",
+          "off_text": "what should have been included in the course which wasn't?"
+        },
+        {
+          "title": "will be recommended by me to others"
+        }
+      ]
+    },
+    {
+      "category": "event",
+      "type": "event_list",
+      "title": "other courses I'll visit"
+    },
+    {
+      "category": "event",
+      "type": "personal_questions",
+      "title": "your background",
+      "field_of_studies": [
+        "Architecture and Civil Engineering",
+        "Mechanical Engineering",
+        "Electrical Engineering and Information Technology",
+        "Computer Science",
+        "Materials Science",
+        "Natural Sciences and Mathematics",
+        "System-oriented Natural Sciences",
+        "Management and Social Sciences",
+        "Other"
+      ],
+      "study_places": [
+        "ETH",
+        "UZH",
+        "other"
+      ]
+    },
+    {
+      "category": "event",
+      "type": "open_feedback",
+      "title": "open feedback"
+    },
+    {
+      "category": "event",
+      "type": "email",
+      "title": "I want to get to know TheAlt better!"
+    }
+  ]
+}
