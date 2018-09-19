@@ -56,7 +56,7 @@ class LoadEvent extends BaseFixture
         $semesters = $manager->getRepository(Semester::class)->findAll();
         foreach ($semesters as $semester) {
             /** @var Event[] $events */
-            $events = $this->serializer->deserialize($json, Event::class, 'json');
+            $events = $this->serializer->deserialize($json, Event::class . '[]', 'json');
             foreach ($events as $event) {
                 $event->setSemester($semester);
                 $event->setTemplateName($templateName);
