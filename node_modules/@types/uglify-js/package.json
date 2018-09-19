@@ -1,0 +1,34 @@
+{
+    "name": "@types/uglify-js",
+    "version": "3.0.3",
+    "description": "TypeScript definitions for UglifyJS",
+    "license": "MIT",
+    "contributors": [
+        {
+            "name": "Alan Agius",
+            "url": "https://github.com/alan-agius4",
+            "githubUsername": "alan-agius4"
+        },
+        {
+            "name": "Tanguy Krotoff",
+            "url": "https://github.com/tkrotoff",
+            "githubUsername": "tkrotoff"
+        },
+        {
+            "name": "John Reilly",
+            "url": "https://github.com/johnnyreilly",
+            "githubUsername": "johnnyreilly"
+        }
+    ],
+    "main": "",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/DefinitelyTyped/DefinitelyTyped.git"
+    },
+    "scripts": {},
+    "dependencies": {
+        "source-map": "^0.6.1"
+    },
+    "typesPublisherContentHash": "1e48b07c8913482ab04d25a42a0d1de69d0f541ef98378524f192784bf976521",
+    "typeScriptVersion": "2.2"
+}

@@ -1,0 +1,57 @@
+{% extends "single_content_base.html.twig" %}
+
+{% block title %}{{ "index.title"|trans }}{% endblock %}
+{% block description %}{{ "index.description"|trans }}{% endblock %}
+
+{% trans_default_domain "administration_frontend_user" %}
+
+{% block single_content %}
+    <p>
+        <a class="btn btn-secondary" href="{{ path("administration_frontend_user_create") }}">
+            {{ "create.title"|trans }}
+        </a>
+    </p>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>{{ "full_name"|trans({}, "trait_person") }}</th>
+            <th>{{ "email"|trans({}, "trait_user") }}</th>
+            <th>{{ "can_login"|trans({}, "trait_user") }}</th>
+            <th>{{ "last_login"|trans({}, "trait_user") }}</th>
+            <th class="minimal-width"></th>
+            <th class="minimal-width"></th>
+        </tr>
+        </thead>
+        <tbody>
+
+        {% for frontend_user in frontend_users %}
+            <tr>
+                <td>{{ frontend_user.fullName }}</td>
+                <td>{{ frontend_user.email }}</td>
+                <td>
+                    {{ frontend_user.canLogin|booleanFormat }}
+                    <br/>
+                    <a href="{{ path("administration_frontend_user_toggle_can_login", {"frontendUser" : frontend_user.id}) }}">
+                        {{ "toggle_login_enabled.change"|trans }}
+                    </a>
+                </td>
+                <td>
+                    {{ frontend_user.lastLogin|dateTimeFormat }}
+                </td>
+                <td>
+                    <a class="btn btn-secondary"
+                       href="{{ path("administration_frontend_user_update", {"frontendUser" : frontend_user.id}) }}">
+                        <i class="fal fa-pencil"></i>
+                    </a>
+                </td>
+                <td>
+                    <a class="btn btn-secondary"
+                       href="{{ path("administration_frontend_user_delete", {"frontendUser" : frontend_user.id}) }}">
+                        <i class="fal fa-trash"></i>
+                    </a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

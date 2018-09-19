@@ -1,0 +1,7 @@
+index:
+  title: "Registrieren"
+  description: "Erhalten Sie Zugriff"
+  success:
+    registered: "Sie wurden erfolgreich registriert. Willkommen :)."
+  error:
+    email_already_in_use: "Diese E-Mail wird bereits verwendet. Sie können das Passwort zurücksetzen, falls dies Ihre E-Mail ist."

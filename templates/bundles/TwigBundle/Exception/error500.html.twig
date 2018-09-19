@@ -1,0 +1,10 @@
+{% extends 'bundles/TwigBundle/Exception/error.html.twig' %}
+
+{% trans_default_domain "error" %}
+
+{% block additional_error_info %}
+    <p class="text-secondary">
+        {{ "error.500"|trans }}
+        <a href="{{ path("contact") }}">{{ "index.title"|trans({}, "contact") }}</a>
+    </p>
+{% endblock %}

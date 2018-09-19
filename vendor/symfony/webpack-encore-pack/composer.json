@@ -1,0 +1,15 @@
+{
+    "name": "symfony/webpack-encore-pack",
+    "type": "symfony-pack",
+    "license": "MIT",
+    "description": "A pack for Symfony Encore",
+    "require": {
+        "symfony/asset": "^3.3|^4.0"
+    },
+    "extra": {
+        "thanks": {
+            "name": "symfony/webpack-encore",
+            "url": "https://github.com/symfony/webpack-encore"
+        }
+    }
+}

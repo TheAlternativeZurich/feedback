@@ -1,0 +1,5 @@
+trait:
+  name: 'Objekt'
+
+name: 'Name'
+description: 'Beschreibung'

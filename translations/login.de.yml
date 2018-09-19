@@ -1,0 +1,32 @@
+login:
+  title: 'Login'
+  description: 'Willkommen zurück!'
+  problems_with_login: 'Probleme beim Einloggen?'
+  do_login: "einloggen"
+  error:
+    login_failed: 'Login fehlgeschlagen'
+    email_not_found: 'Diese E-Mail wurde nicht gefunden.'
+    login_disabled: 'Ihr Account wurde vom Administrator deaktiviert.'
+
+recover:
+  title: 'Passwort zurücksetzen'
+  description: 'Setzen Sie Ihr Passwort mit Ihrer E-Mail zurück'
+  use_login_email: 'Geben Sie die E-Mail ein, die Sie beim Login verwenden. Wir senden Ihnen dann einen Link zu, mit dem Sie das Passwort neu setzen können.'
+  send_email: 'E-Mail zusenden'
+  success:
+    email_sent: 'Wir haben Ihnen soeben eine E-Mail versandt.'
+  danger:
+    email_not_found: 'Diese E-Mail wurde nicht in unserem System gefunden.'
+  email:
+    reset_password:
+      subject: 'Passwort zurücksetzen'
+      message: 'Sie können mit dem Knopf unten Ihr Passwort zurücksetzen. Haben Sie dieses E-Mail nicht angefordert, können Sie es ignorieren.'
+      action_text: 'Jetzt Passwort zurücksetzen'
+
+reset:
+  title: 'Passwort setzen'
+  description: 'Setzen Sie Ihr neues Passwort'
+  success:
+    password_set: 'Neues Passwort erfolgreich gesetzt. Willkommen zurück :)'
+  error:
+    invalid_hash: "Dieser Link ist nicht mehr gültig. Beachten Sie, das jeder Link nur einmal benutzt werden kann."

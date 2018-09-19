@@ -1,0 +1,11 @@
+index:
+  title: 'Profil'
+  description: 'Profil & Passwort'
+  change_password: 'Passwort ändern'
+  do_change_password: 'Neues Passwort setzen'
+  update: 'Daten ändern'
+  hi: 'Hallo %name%'
+  success:
+    password_changed: 'Ihr Passwort wurde erfolgreich geändert.'
+  error:
+    email_taken: 'Ein Benutzer mit dieser E-Mail ist bereits registriert.'

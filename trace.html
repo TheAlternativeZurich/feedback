@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- fav icons -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/manifest.json">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#496a6a">
+    <meta name="theme-color" content="#496a6a">
+
+
+    <title>Login</title>
+
+
+    <link rel="stylesheet" type="text/css" href="http://localhost:8080/dist/app.css"/>
+    <link rel="icon" type="image/x-icon" href="/favicon.ico"/>
+    <meta name="description" content="Willkommen zurück!">
+    <base href="/" target="_self">
+</head>
+<body>
+
+
+<div class="content-wrapper">
+
+    <div class="container">
+        <div class="row">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+
+                    <li class="breadcrumb-item active" aria-current="page">
+                        Login
+                    </li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="card w-100">
+                <div class="card-body">
+                    <h1 class="display-4">Login</h1>
+                    <p class="lead">Willkommen zurück!</p>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <hr/>
+                            <form name="login" method="post" action="/login/login_check">
+
+                                <input type="hidden" name="_csrf_token"
+                                       value="8wBGO9qf22JQ7KPjrFYXueYlomENZ0XOURuJwHIpFWA">
+                                <div class="form-group"><label for="login_email" class="required">Email</label><input
+                                        type="text" id="login_email" name="login[email]" required="required"
+                                        class="form-control"/></div>
+                                <div class="form-group"><label for="login_password"
+                                                               class="required">Passwort</label><input type="password"
+                                                                                                       id="login_password"
+                                                                                                       name="login[password]"
+                                                                                                       required="required"
+                                                                                                       class="form-control"/>
+                                </div>
+                                <div class="form-group">
+                                    <button type="submit" id="login_form.login" name="login[form.login]"
+                                            class="btn-secondary btn">einloggen
+                                    </button>
+                                </div>
+                                <input type="hidden" id="login__token" name="login[_token]"
+                                       value="YjGBFF8trtLMhWxQCeufb0uqTlU3ws0ZV1vLARa77jM"/></form>
+                        </div>
+                        <div class="col-md-8">
+                            <hr/>
+                            <p>
+                                Probleme beim Einloggen?<br/>
+                                <a href="/login/recover">Passwort zurücksetzen</a><br/>
+                                <a href="/register">Registrieren</a><br/>
+                                <a href="/contact">Administrator kontaktieren</a><br/>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="http://localhost:8080/dist/app.js"></script>
+
+</body>
+</html>
