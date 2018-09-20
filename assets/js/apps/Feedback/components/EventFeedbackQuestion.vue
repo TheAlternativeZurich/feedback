@@ -1,23 +1,32 @@
 <template>
     <div>
         <div class="form-group">
-            <ChoiceQuestion v-if="questionContainer.question.type === 'choice'"
-                            :key="questionContainer.key"
-                            :question-container="questionContainer"
-                            @answer="answer(questionContainer, arguments[0])"/>
-            <SliderQuestion v-else-if="questionContainer.question.type === 'slider'"
-                            :key="questionContainer.key"
-                            :question-container="questionContainer"
-                            @answer="answer(questionContainer, arguments[0])"/>
-            <OpenFeedbackQuestion v-else-if="questionContainer.question.type === 'open_feedback'"
-                                  :key="questionContainer.key"
-                                  :question-container="questionContainer"
-                                  @answer="answer(questionContainer, arguments[0])"/>
-            <EventListQuestion v-else-if="questionContainer.question.type === 'event_list'"
-                                  :key="questionContainer.key"
-                                  :question-container="questionContainer"
-                                  :events="futureEvents"
-                                  @answer="answer(questionContainer, arguments[0])"/>
+            <ChoiceQuestion
+                    v-if="questionContainer.question.type === 'choice'"
+                    :key="questionContainer.key"
+                    :question-container="questionContainer"
+                    @answer="answer(questionContainer, arguments[0])"/>
+            <SliderQuestion
+                    v-else-if="questionContainer.question.type === 'slider'"
+                    :key="questionContainer.key"
+                    :question-container="questionContainer"
+                    @answer="answer(questionContainer, arguments[0])"/>
+            <OpenFeedbackQuestion
+                    v-else-if="questionContainer.question.type === 'open_feedback'"
+                    :key="questionContainer.key"
+                    :question-container="questionContainer"
+                    @answer="answer(questionContainer, arguments[0])"/>
+            <EventListQuestion
+                    v-else-if="questionContainer.question.type === 'event_list'"
+                    :key="questionContainer.key"
+                    :question-container="questionContainer"
+                    :events="futureEvents"
+                    @answer="answer(questionContainer, arguments[0])"/>
+            <AcademicBackgroundQuestion
+                    v-else-if="questionContainer.question.type === 'academic_background'"
+                    :key="questionContainer.key"
+                    :question-container="questionContainer"
+                    @answer="answer(questionContainer, arguments[0])"/>
         </div>
     </div>
 </template>
@@ -27,9 +36,16 @@
     import SliderQuestion from "./SliderQuestion";
     import OpenFeedbackQuestion from "./OpenFeedbackQuestion";
     import EventListQuestion from "./EventListQuestion";
+    import AcademicBackgroundQuestion from "./AcademicBackgroundQuestion";
 
     export default {
-        components: {EventListQuestion, OpenFeedbackQuestion, SliderQuestion, ChoiceQuestion},
+        components: {
+            AcademicBackgroundQuestion,
+            EventListQuestion,
+            OpenFeedbackQuestion,
+            SliderQuestion,
+            ChoiceQuestion
+        },
         props: {
             questionContainer: {
                 type: Object,

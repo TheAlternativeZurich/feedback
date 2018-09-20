@@ -54,7 +54,7 @@
     },
     {
       "category": "lecture",
-      "type": "open_feedback",
+      "type": "text",
       "title": "open feedback",
       "private": true
     },
@@ -110,7 +110,7 @@
     },
     {
       "category": "exercise",
-      "type": "open_feedback",
+      "type": "text",
       "title": "open feedback",
       "private": true
     },
@@ -139,9 +139,9 @@
     },
     {
       "category": "event",
-      "type": "personal_questions",
+      "type": "academic_background",
       "title": "your background",
-      "field_of_studies": [
+      "fields": [
         "Architecture and Civil Engineering",
         "Mechanical Engineering",
         "Electrical Engineering and Information Technology",
@@ -152,7 +152,7 @@
         "Management and Social Sciences",
         "Other"
       ],
-      "study_places": [
+      "institutions": [
         "ETH",
         "UZH",
         "other"
@@ -160,7 +160,7 @@
     },
     {
       "category": "event",
-      "type": "open_feedback",
+      "type": "text",
       "title": "open feedback",
       "private": true
     },
