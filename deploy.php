@@ -17,7 +17,7 @@ set('bin_dir', 'bin');
 set('var_dir', 'var');
 
 // Configuration
-set('repository', 'git@github.com:TheAlternativeZurich/feedback.git');
+set('repository', ' https://github.com/TheAlternativeZurich/feedback.git');
 set('shared_files', array_merge(get('shared_files'), ['var/data.sqlite']));
 set('shared_dirs', array_merge(get('shared_dirs'), ['public/upload']));
 set('symfony_env_file', '.env');
