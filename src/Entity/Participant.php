@@ -27,6 +27,20 @@ class Participant extends BaseEntity
     use IdTrait;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(type="text")
+     */
+    private $identifier;
+
+    /**
+     * @var int|null
+     *
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $timeNeededInMinutes;
+
+    /**
      * @var Answer[]|ArrayCollection
      *
      * @ORM\OneToMany(targetEntity="Answer", mappedBy="participant")
@@ -70,5 +84,37 @@ class Participant extends BaseEntity
     public function setEvent(Event $event): void
     {
         $this->event = $event;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getTimeNeededInMinutes(): ?int
+    {
+        return $this->timeNeededInMinutes;
+    }
+
+    /**
+     * @param int|null $timeNeededInMinutes
+     */
+    public function setTimeNeededInMinutes(?int $timeNeededInMinutes): void
+    {
+        $this->timeNeededInMinutes = $timeNeededInMinutes;
+    }
+
+    /**
+     * @return string
+     */
+    public function getIdentifier(): string
+    {
+        return $this->identifier;
+    }
+
+    /**
+     * @param string $identifier
+     */
+    public function setIdentifier(string $identifier): void
+    {
+        $this->identifier = $identifier;
     }
 }

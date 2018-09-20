@@ -41,10 +41,6 @@ security:
   access_control:
   #enable login
   - { path: ^/login, role: IS_AUTHENTICATED_ANONYMOUSLY }
-  - { path: ^/reset, role: IS_AUTHENTICATED_ANONYMOUSLY }
-  - { path: ^/recover, role: IS_AUTHENTICATED_ANONYMOUSLY }
-  - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
-
   #allow debugging routes
   - { path: ^/_, role: IS_AUTHENTICATED_ANONYMOUSLY }
 

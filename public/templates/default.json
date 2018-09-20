@@ -1,5 +1,5 @@
 {
-  "start_text": "We need your feedback so we may improve this course for next semester. Thanks for your help!",
+  "start_text": "We need your feedback so we can improve this course in the next semester. Thanks for your help!",
   "questions": [
     {
       "category": "lecture",
@@ -55,7 +55,8 @@
     {
       "category": "lecture",
       "type": "open_feedback",
-      "title": "open feedback"
+      "title": "open feedback",
+      "private": true
     },
     {
       "category": "exercise",
@@ -110,7 +111,8 @@
     {
       "category": "exercise",
       "type": "open_feedback",
-      "title": "open feedback"
+      "title": "open feedback",
+      "private": true
     },
     {
       "category": "event",
@@ -159,12 +161,14 @@
     {
       "category": "event",
       "type": "open_feedback",
-      "title": "open feedback"
+      "title": "open feedback",
+      "private": true
     },
     {
       "category": "event",
       "type": "email",
-      "title": "I want to get to know TheAlt better!"
+      "title": "I want to get to know TheAlt better!",
+      "private": true
     }
   ]
 }

@@ -40,6 +40,13 @@ class Answer extends BaseEntity
     private $value;
 
     /**
+     * @var bool
+     *
+     * @ORM\Column(type="boolean")
+     */
+    private $private;
+
+    /**
      * @var Participant
      *
      * @ORM\ManyToOne(targetEntity="App\Entity\Participant", inversedBy="answers")
@@ -92,5 +99,21 @@ class Answer extends BaseEntity
     public function setParticipant(Participant $participant): void
     {
         $this->participant = $participant;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isPrivate(): bool
+    {
+        return $this->private;
+    }
+
+    /**
+     * @param bool $private
+     */
+    public function setPrivate(bool $private): void
+    {
+        $this->private = $private;
     }
 }

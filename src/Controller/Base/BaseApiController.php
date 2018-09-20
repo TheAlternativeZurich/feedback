@@ -49,9 +49,35 @@ class BaseApiController extends BaseDoctrineController
      *
      * @return JsonResponse
      */
-    protected function returnEvent($events)
+    protected function returnActiveEvent($events)
     {
         return $this->returnJson($events, ['id', 'name', 'date', 'template', 'categoryWhitelist']);
+    }
+
+    /**
+     * @param Event|Event[] $events
+     *
+     * @return JsonResponse
+     */
+    protected function returnEventPublic($events)
+    {
+        return $this->returnJson($events, ['id', 'name', 'date', 'template', 'categoryWhitelist', 'publicFeedback' => [
+            'questionNumber', 'value',
+        ]]);
+    }
+
+    /**
+     * @param Event|Event[] $events
+     *
+     * @return JsonResponse
+     */
+    protected function returnEventPrivate($events)
+    {
+        return $this->returnJson($events, ['id', 'name', 'date', 'template', 'categoryWhitelist', 'participants' => [
+            'timeNeededInMinutes', 'answers' => [
+                'questionNumber', 'value',
+            ],
+        ]]);
     }
 
     /**

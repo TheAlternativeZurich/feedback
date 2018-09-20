@@ -88,14 +88,12 @@ class LoginControllerTest extends WebTestCase
 
     public function getPublicUrls()
     {
-        yield ['/contact'];
-        yield ['/register'];
-        yield ['/login'];
+        yield ['/'];
     }
 
     public function getSecureUrls()
     {
-        yield ['/'];
+        yield ['/administration'];
     }
 
     public function get404Urls()

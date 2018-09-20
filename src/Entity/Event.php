@@ -319,13 +319,11 @@ class Event extends BaseEntity
 
     /**
      * @param $publicDir
-     *
-     * @return bool
      */
     public function loadTemplateIfSafe($publicDir)
     {
         if ($this->finalTemplateVersionLoaded) {
-            return true;
+            return;
         }
 
         if ($this->feedbackHasStarted()) {
@@ -336,5 +334,27 @@ class Event extends BaseEntity
         if (file_exists($filePath)) {
             $this->template = file_get_contents($filePath);
         }
+    }
+
+    /**
+     * @return Answer[]
+     */
+    public function getPublicFeedback()
+    {
+        //to preserve privacy, no feedback shown if not enough participants
+        if ($this->getParticipants()->count() <= 5) {
+            return [];
+        }
+
+        $feedback = [];
+        foreach ($this->getParticipants() as $participant) {
+            foreach ($participant->getAnswers() as $answer) {
+                if (!$answer->isPrivate()) {
+                    $feedback[] = $answer;
+                }
+            }
+        }
+
+        return $feedback;
     }
 }
