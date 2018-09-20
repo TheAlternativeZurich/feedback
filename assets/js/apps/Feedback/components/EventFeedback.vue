@@ -4,6 +4,7 @@
         <EventFeedbackPage class="mt-5" v-for="pageContainer in pageContainers"
                            :key="pageContainer.key"
                            :pageContainer="pageContainer"
+                           :future-events="futureEvents"
                            @answer="$emit('answer', arguments[0])"
         />
     </div>
@@ -16,6 +17,10 @@
         props: {
             eventContainer: {
                 type: Object,
+                required: true
+            },
+            futureEvents: {
+                type: Array,
                 required: true
             }
         },
@@ -58,7 +63,6 @@
                 }
                 questionIndex++;
             });
-            console.log(pageContainers);
             this.pageContainers = pageContainers;
         }
     }

@@ -4,6 +4,7 @@
         <EventFeedbackQuestion v-for="questionContainer in pageContainer.questionContainers"
                                :key="questionContainer.key"
                                :question-container="questionContainer"
+                               :future-events="futureEvents"
                                @answer="$emit('answer', arguments[0])"/>
         <hr/>
     </div>
@@ -16,6 +17,10 @@
         props: {
             pageContainer: {
                 type: Object,
+                required: true
+            },
+            futureEvents: {
+                type: Array,
                 required: true
             }
         },

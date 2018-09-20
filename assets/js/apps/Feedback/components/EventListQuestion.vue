@@ -19,12 +19,16 @@
             questionContainer: {
                 type: Object,
                 required: true
+            },
+            events: {
+                type: Array,
+                required: true
             }
         },
         methods: {
             valueChanged: function (choiceContainer) {
                 let answer = {
-                    value: choiceContainer.answerIndex,
+                    value: choiceContainer.eventId
                 };
 
                 if (choiceContainer.selected) {
@@ -40,15 +44,15 @@
         computed: {
             choiceContainers: function () {
                 let choiceContainers = [];
-                let answerIndex = 0;
-                this.questionContainer.question.choices.forEach(c => {
+                this.events.forEach(e => {
                     choiceContainers.push({
-                        key: this.questionContainer.key + "_" + answerIndex,
-                        answerIndex: answerIndex,
-                        choice: c,
-                        selected: this.questionContainer.answers.filter(a => a.value == answerIndex).length > 0
+                        key: this.questionContainer.key + "_" + e.id,
+                        eventId: e.id,
+                        choice: {
+                            title: (new Date(e.date)).toLocaleDateString() + ": " + e.name
+                        },
+                        selected: this.questionContainer.answers.filter(a => a.value == e.id).length > 0
                     });
-                    answerIndex++;
                 });
 
                 return choiceContainers;

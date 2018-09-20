@@ -1,0 +1,55 @@
+<template>
+    <div>
+        <label :for="questionContainer.key"><b>{{questionContainer.question.title}}</b></label>
+        <input type="range" class="form-control-range" min="0" max="100"
+               :id="questionContainer.key"
+               v-model="sliderValue"
+               @input="valueChanged">
+        <div class="row">
+            <div class="col text-left">
+                {{questionContainer.question.min}}
+            </div>
+            <div class="col text-center">
+                {{questionContainer.question.center}}
+            </div>
+            <div class="col text-right">
+                {{questionContainer.question.max}}
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+    import debounce from 'debounce'
+
+    export default {
+        props: {
+            questionContainer: {
+                type: Object,
+                required: true
+            }
+        },
+        data() {
+            return {
+                sliderValue: null
+            };
+        },
+        methods: {
+            valueChanged: debounce(function () {
+                let answer = {
+                    value: this.sliderValue,
+                    action: "override"
+                };
+
+                this.$emit('answer', answer);
+            }, 500)
+        },
+        mounted() {
+            if (this.questionContainer.answers.length > 0) {
+                this.sliderValue = this.questionContainer.answers[0].value;
+            } else {
+                this.sliderValue = this.questionContainer.question.start_value;
+            }
+        }
+    }
+</script>

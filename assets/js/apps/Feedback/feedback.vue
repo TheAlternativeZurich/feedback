@@ -9,8 +9,10 @@
         </div>
         <div v-else-if="activeEventContainer !== null" class="row">
             <div class="col">
-                <EventFeedback @answer="answer(activeEventContainer, arguments[0])" class="feedback-content"
-                               :eventContainer="activeEventContainer"/>
+                <EventFeedback class="feedback-content"
+                               :eventContainer="activeEventContainer"
+                               :future-events="futureEvents"
+                               @answer="answer(activeEventContainer, arguments[0])"/>
             </div>
             <div class="col-md-auto text-right">
                 <h3>{{activeEventContainer.event.name}}</h3>
@@ -43,19 +45,24 @@
             finish: function () {
             },
             answer: function (eventContainer, answer) {
-                console.log(answer);
                 answer.identifier = this.identifier;
-
-                axios.post("/api/" + eventContainer.event.id + "/answer", answer)
-                    .then((response) => {
-                        console.log(response);
-                    });
+                axios.post("/api/" + eventContainer.event.id + "/answer", answer);
             }
         },
         computed: {
             formattedEventDate: function () {
                 let date = new Date(this.activeEventContainer.event.date);
                 return date.toLocaleDateString();
+            },
+            futureEvents: function () {
+                let events = [];
+                const now = new Date();
+                const todayDate = now.getFullYear() + "-" + ("0" + now.getMonth()).slice(-2) + "-" + ("0" + now.getDay()).slice(-2);
+                this.semesters.forEach(s => {
+                    events = events.concat(s.events.filter(e => e.date > todayDate));
+                });
+                events.reverse();
+                return events;
             }
         },
         mounted() {
@@ -103,6 +110,6 @@
 
 <style>
     .feedback-content {
-        max-width: 600px;
+        max-width: 500px;
     }
 </style>
