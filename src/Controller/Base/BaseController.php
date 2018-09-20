@@ -90,12 +90,7 @@ class BaseController extends AbstractController
      */
     protected function getIndexBreadcrumbs()
     {
-        return [
-            new Breadcrumb(
-                $this->generateUrl('index'),
-                $this->getTranslator()->trans('index.title', [], 'index')
-            ),
-        ];
+        return [];
     }
 
     /**
