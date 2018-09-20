@@ -30,7 +30,7 @@ class Answer extends BaseEntity
      *
      * @ORM\Column(type="integer")
      */
-    private $questionNumber;
+    private $questionIndex;
 
     /**
      * @var string
@@ -56,17 +56,17 @@ class Answer extends BaseEntity
     /**
      * @return int
      */
-    public function getQuestionNumber(): int
+    public function getQuestionIndex(): int
     {
-        return $this->questionNumber;
+        return $this->questionIndex;
     }
 
     /**
-     * @param int $questionNumber
+     * @param int $questionIndex
      */
-    public function setQuestionNumber(int $questionNumber): void
+    public function setQuestionIndex(int $questionIndex): void
     {
-        $this->questionNumber = $questionNumber;
+        $this->questionIndex = $questionIndex;
     }
 
     /**

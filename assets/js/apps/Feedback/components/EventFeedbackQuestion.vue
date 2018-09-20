@@ -1,43 +1,31 @@
 <template>
     <div>
-        <div v-if="questionContainer.question.type === 'choice'">
-
-            <div v-for="choiceContainer in choiceContainers"
-                 :key="choiceContainer.key"
-                 class="custom-control custom-checkbox">
-                <input type="checkbox" class="custom-control-input"
-                       :id="questionContainer.key + '_' + choiceContainer.key">
-                <label class="custom-control-label"
-                       :for="questionContainer.key + '_' + choiceContainer.key">
-                    {{choiceContainer.choice.title}}
-                </label>
-            </div>
+        <span><b>{{questionContainer.question.title}}</b></span>
+        <div class="form-group">
+            <ChoiceQuestion v-if="questionContainer.question.type === 'choice'"
+                            :key="questionContainer.key"
+                            :question-container="questionContainer"
+                            @answer="answer(questionContainer, arguments[0])"/>
         </div>
     </div>
 </template>
 
 <script>
+    import ChoiceQuestion from "./ChoiceQuestion";
+
     export default {
+        components: {ChoiceQuestion},
         props: {
             questionContainer: {
                 type: Object,
                 required: true
             }
         },
-        methods: {},
-        computed: {
-            choiceContainers: function () {
-                let choiceContainers = [];
-                let answerIndex = 0;
-                this.questionContainer.question.choices.forEach(c => {
-                    choiceContainers.push({
-                        key: answerIndex,
-                        choice: c
-                    });
-                    answerIndex++;
-                });
-
-                return choiceContainers;
+        methods: {
+            answer: function (questionContainer, answer) {
+                answer.questionIndex = questionContainer.questionIndex;
+                answer.private = "private" in questionContainer.question && questionContainer.question.private;
+                this.$emit('answer', answer);
             }
         }
     }

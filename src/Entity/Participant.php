@@ -65,7 +65,7 @@ class Participant extends BaseEntity
     /**
      * @return Answer[]|ArrayCollection
      */
-    public function getAnswers(): array
+    public function getAnswers()
     {
         return $this->answers;
     }

@@ -1,5 +1,6 @@
 export default {
-    de: {
+    en: {
+        about_the: "About the ",
         messages: {
             no_active_feedback: "Currently no questionnaire is open.",
             future_courses: "We'll be happy to welcome you at one of our future events:",

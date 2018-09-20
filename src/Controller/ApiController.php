@@ -102,15 +102,26 @@ class ApiController extends BaseApiController
         }
 
         //get request fields
-        $identifier = $request->request->get('identifier');
-        $questionNumber = $request->request->get('questionNumber');
-        $value = $request->request->get('value');
-        $private = $request->request->get('private') === 'true';
-        $action = $request->request->get('action', 'override');
+        $payload = json_decode($request->getContent());
+        $requiredFields = ['identifier', 'questionIndex', 'value', 'action'];
+        foreach ($requiredFields as $requiredField) {
+            if (!property_exists($payload, $requiredField)) {
+                return $this->json(false);
+            }
+        }
 
-        //ensure all fields set
-        if (!isset($identifier) || !isset($questionNumber) || !isset($value) || !isset($private) || !\in_array($action, ['override', 'ensure_value_exists', 'remove_value'], true)) {
-            return $this->json(false);
+        //write fields
+        $identifier = $payload->identifier;
+        $questionIndex = $payload->questionIndex;
+        $value = $payload->value;
+        $action = $payload->action;
+        $private = property_exists($payload, 'private') && $payload->private === 'true';
+
+        //ensure all fields set & valid
+        if (!isset($identifier) || !\is_int($questionIndex) || !isset($value) || !\in_array($action, ['override', 'ensure_value_exists', 'remove_value'], true)) {
+            dump($request->getContent());
+
+            return $this->json(3);
         }
 
         //get participant or create a new one
@@ -123,7 +134,7 @@ class ApiController extends BaseApiController
         }
 
         //try to find existing answer
-        $conditions = ['questionNumber' => $questionNumber, 'participant' => $participant->getId()];
+        $conditions = ['questionIndex' => $questionIndex, 'participant' => $participant->getId()];
         if ($action === 'ensure_value_exists' || $action === 'remove_value') {
             $conditions += ['value' => $value];
         }
@@ -134,7 +145,7 @@ class ApiController extends BaseApiController
             $answer = new Answer();
             $answer->setParticipant($participant);
             $answer->setPrivate($private);
-            $answer->setQuestionNumber($questionNumber);
+            $answer->setQuestionIndex($questionIndex);
         }
         $answer->setValue($value);
 

@@ -1,10 +1,10 @@
 <template>
     <div>
         <p>{{eventContainer.template.start_text}}</p>
-
-        <EventFeedbackPage v-for="pageContainer in pageContainers"
+        <EventFeedbackPage class="mt-5" v-for="pageContainer in pageContainers"
                            :key="pageContainer.key"
                            :pageContainer="pageContainer"
+                           @answer="$emit('answer', arguments[0])"
         />
     </div>
 </template>
@@ -27,25 +27,26 @@
         components: {
             EventFeedbackPage
         },
-        methods: {},
+        methods: {
+        },
         mounted() {
-            //create page containers
+            //create page & question containers
             let pageContainers = {};
             const whiteList = this.eventContainer.event.categoryWhitelist;
-            let pageIndex = 0;
-            whiteList.forEach(p => {
-                pageContainers[p] = {
-                    key: pageIndex,
-                    title: p,
-                    questionContainers: [],
-                };
-                pageIndex++;
-            });
-
-            //fill containers
             let questionIndex = 0;
+            let pageIndex = 0;
             this.eventContainer.template.questions.forEach(q => {
                 if (whiteList.indexOf(q.category) > -1) {
+                    //add page container if not yet
+                    if (!(q.category in pageContainers)) {
+                        pageContainers[q.category] = {
+                            key: pageIndex,
+                            title: q.category,
+                            questionContainers: [],
+                        };
+                        pageIndex++;
+                    }
+
                     //add question to page
                     let questionContainer = {
                         key: questionIndex,

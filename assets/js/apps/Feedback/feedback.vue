@@ -9,7 +9,8 @@
         </div>
         <div v-else-if="activeEventContainer !== null" class="row">
             <div class="col">
-                <EventFeedback class="feedback-content" :eventContainer="activeEventContainer"/>
+                <EventFeedback @answer="answer(activeEventContainer, arguments[0])" class="feedback-content"
+                               :eventContainer="activeEventContainer"/>
             </div>
             <div class="col-md-auto text-right">
                 <h3>{{activeEventContainer.event.name}}</h3>
@@ -40,6 +41,15 @@
         },
         methods: {
             finish: function () {
+            },
+            answer: function (eventContainer, answer) {
+                console.log(answer);
+                answer.identifier = this.identifier;
+
+                axios.post("/api/" + eventContainer.event.id + "/answer", answer)
+                    .then((response) => {
+                        console.log(response);
+                    });
             }
         },
         computed: {
