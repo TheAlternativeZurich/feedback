@@ -3,15 +3,15 @@ import VueI18n from 'vue-i18n'
 // components
 import {FontAwesomeIcon} from '@fortawesome/vue-fontawesome'
 // app
-import Vote from './vote'
+import Feedback from './feedback'
 // messages
-import Messages from '../../localization/vote'
+import Messages from '../../localization/feedback'
 import mergeMessages from '../../localization/shared/_all'
 
 Vue.config.productionTip = false;
 
 
-if (document.getElementById("vote") !== null) {
+if (document.getElementById("feedback") !== null) {
     // register plugins
     Vue.use(VueI18n);
 
@@ -27,8 +27,8 @@ if (document.getElementById("vote") !== null) {
     // boot app
     new Vue({
         i18n,
-        el: '#vote',
-        template: '<Vote/>',
-        components: {Vote}
+        el: '#feedback',
+        template: '<Feedback/>',
+        components: {Feedback}
     });
 }

@@ -1,4 +1,4 @@
-{% extends 'layout_base.html.twig' %}
+{% extends 'single_content_base.html.twig' %}
 {% import _self as local_macro %}
 
 {% block title %}{{ "index.title"|trans }}{% endblock %}
@@ -6,8 +6,8 @@
 
 {% trans_default_domain "index" %}
 
-{% block content %}
-    <div id="vote">
+{% block single_content %}
+    <div id="feedback">
 
     </div>
 {% endblock %}

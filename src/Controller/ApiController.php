@@ -16,7 +16,6 @@ use App\Entity\Answer;
 use App\Entity\Event;
 use App\Entity\Participant;
 use App\Entity\Semester;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -27,7 +26,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class ApiController extends BaseApiController
 {
     /**
-     * @Route("/active_event", name="api_active_event")
+     * @Route("/active", name="api_active")
      *
      * @return JsonResponse
      */
@@ -50,6 +49,31 @@ class ApiController extends BaseApiController
     }
 
     /**
+     * @Route("/{event}/{identifier}/answers", name="api_active_answers")
+     *
+     * @param Event $event
+     * @param $identifier
+     *
+     * @throws \Exception
+     *
+     * @return JsonResponse
+     */
+    public function activeAnswersAction(Event $event, $identifier)
+    {
+        if (!$this->canGiveFeedback($event)) {
+            return $this->json([]);
+        }
+
+        //get participant & return answers
+        $participant = $this->getDoctrine()->getRepository(Participant::class)->findOneBy(['event' => $event->getId(), 'identifier' => $identifier]);
+        if ($participant !== null) {
+            return $this->returnAnswers($participant->getAnswers());
+        }
+
+        return $this->json([]);
+    }
+
+    /**
      * @Route("/semesters", name="api_semesters")
      *
      * @return JsonResponse
@@ -59,52 +83,6 @@ class ApiController extends BaseApiController
         $semesters = $this->getDoctrine()->getRepository(Semester::class)->findBy([], ['name' => 'DESC']);
 
         return $this->returnSemester($semesters);
-    }
-
-    /**
-     * @Route("/{event}/public", name="api_event_public")
-     *
-     * @param Event $event
-     *
-     * @return JsonResponse
-     */
-    public function eventPublicAction(Event $event)
-    {
-        return $this->returnEventPublic($event->feedbackHasStarted() ? $event : null);
-    }
-
-    /**
-     * @param Event $event
-     *
-     * @throws \Exception
-     *
-     * @return bool
-     */
-    private function canGiveFeedback(Event $event)
-    {
-        //prevent hand in too early
-        if (!$event->feedbackHasStarted()) {
-            return false;
-        }
-
-        //prevent hand in on other days
-        $now = new \DateTime();
-        $today = $now->format('Y-m-d');
-        if ($today !== $event->getDate()) {
-            return false;
-        }
-
-        //prevent hand in too late
-        $currentTime = $now->format('H:i');
-        $eventEndTime = \DateTime::createFromFormat('H:i', $event->getFeedbackEndTime());
-        //allow additional 1 hour to hand in after the feedback has been closed
-        $threshold = $eventEndTime->add(new \DateInterval('PT1H'))->format('H:i');
-        //prevent if current time higher than threshold & threshold has not done a wrap around
-        if ($currentTime > $threshold && $event->getFeedbackEndTime() < $threshold) {
-            return false;
-        }
-
-        return true;
     }
 
     /**
@@ -203,15 +181,48 @@ class ApiController extends BaseApiController
     }
 
     /**
-     * @Route("/{event}/private", name="api_event_private")
-     * @Security("has_role('ROLE_ADMIN')")
+     * @Route("/{event}", name="api_event")
      *
      * @param Event $event
      *
      * @return JsonResponse
      */
-    public function eventPrivateAction(Event $event)
+    public function eventPublicAction(Event $event)
     {
-        return $this->returnEventPrivate($event);
+        return $this->returnEventPublic($event->feedbackHasStarted() ? $event : null);
+    }
+
+    /**
+     * @param Event $event
+     *
+     * @throws \Exception
+     *
+     * @return bool
+     */
+    private function canGiveFeedback(Event $event)
+    {
+        //prevent hand in too early
+        if (!$event->feedbackHasStarted()) {
+            return false;
+        }
+
+        //prevent hand in on other days
+        $now = new \DateTime();
+        $today = $now->format('Y-m-d');
+        if ($today !== $event->getDate()) {
+            return false;
+        }
+
+        //prevent hand in too late
+        $currentTime = $now->format('H:i');
+        $eventEndTime = \DateTime::createFromFormat('H:i:s', $event->getFeedbackEndTime());
+        //allow additional 1 hour to hand in after the feedback has been closed
+        $threshold = $eventEndTime->add(new \DateInterval('PT1H'))->format('H:i');
+        //prevent if current time higher than threshold & threshold has not done a wrap around
+        if ($currentTime > $threshold && $event->getFeedbackEndTime() < $threshold) {
+            return false;
+        }
+
+        return true;
     }
 }

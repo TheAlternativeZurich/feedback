@@ -76,29 +76,39 @@
 </head>
 <body>
 
-{% if is_granted('ROLE_USER') %}
+{% if is_granted('ROLE_ADMIN') %}
     <header class="header">
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container">
-                <a class="navbar-brand" href="{{ path("index") }}">{{ "base.brand"|trans({}, "layout") }}</a>
+                <a class="navbar-brand" href="{{ path("index") }}">{{ "index.title"|trans({}, "index") }}</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
                         aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNavDropdown">
                     <ul class="navbar-nav">
-                        {{ own_macros.menu_entry("index.title"|trans({}, "index"), path("index")) }}
-                        {% if app.user is defined and app.user.administrator and not (app.request.requestUri starts with "/administration") %}
-                            <div class="form-inline">
-                                <a class="btn btn-sm btn-outline-secondary" type="button"
-                                   href="{{ path("administration") }}">{{ "index.title"|trans({}, "administration") }}</a>
-                            </div>
-                        {% endif %}
+                        {{ own_macros.menu_entry("index.title"|trans({}, "administration_semester"), path("administration_semesters")) }}
                     </ul>
 
                     <ul class="navbar-nav ml-auto">
-                        {{ own_macros.menu_icon_entry("fas fa-user", path("account")) }}
                         {{ own_macros.menu_icon_entry("fas fa-sign-out", path("login_logout")) }}
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+{% else %}
+    <header class="header">
+        <nav class="navbar navbar-expand-lg navbar-light bg-transparent">
+            <div class="container">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+                        aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                    <ul class="navbar-nav ml-auto">
+                        {{ own_macros.menu_icon_entry("fas fa-sign-in", path("login")) }}
                     </ul>
                 </div>
             </div>

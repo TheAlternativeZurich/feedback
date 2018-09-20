@@ -7,4 +7,4 @@ require("./font_awesome_light");
 require("./font_awesome_solid");
 
 // apps
-require('./apps/Vote/bootstrap');
+require('./apps/Feedback/bootstrap');

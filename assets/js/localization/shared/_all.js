@@ -1,12 +1,10 @@
 // library import
 import merge from 'deepmerge'
 // get all shared lang files
-import actions from './actions'
 import messages from './messages'
-import view from './view'
 
 // merge in single object; mapping to the correct property
-const translations = {actions, messages, view};
+const translations = {messages};
 let sharedTranslations = {};
 Object.keys(translations).forEach(property => {
     const translation = translations[property];

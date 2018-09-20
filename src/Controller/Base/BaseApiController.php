@@ -11,6 +11,7 @@
 
 namespace App\Controller\Base;
 
+use App\Entity\Answer;
 use App\Entity\Event;
 use App\Entity\Semester;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -52,6 +53,16 @@ class BaseApiController extends BaseDoctrineController
     protected function returnActiveEvent($events)
     {
         return $this->returnJson($events, ['id', 'name', 'date', 'template', 'categoryWhitelist']);
+    }
+
+    /**
+     * @param Answer[]|Answer $answers
+     *
+     * @return JsonResponse
+     */
+    protected function returnAnswers($answers)
+    {
+        return $this->returnJson($answers, ['questionNumber', 'value']);
     }
 
     /**

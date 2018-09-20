@@ -268,7 +268,7 @@ class Event extends BaseEntity
      *
      * @return array
      */
-    public function categoryWhitelist()
+    public function getCategoryWhitelist()
     {
         $base = ['event'];
         if ($this->getHasExercise()) {
