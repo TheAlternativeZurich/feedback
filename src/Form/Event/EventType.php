@@ -18,6 +18,7 @@ use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\TimeType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -44,8 +45,9 @@ class EventType extends AbstractType
     {
         $builder->add('name', TextType::class);
         $builder->add('date', DateType::class, ['input' => 'string', 'widget' => 'single_text']);
-        $builder->add('feedbackStartTime', TextType::class, ['input' => 'string', 'widget' => 'single_text']);
-        $builder->add('feedbackEndTime', TextType::class, ['input' => 'string', 'widget' => 'single_text']);
+
+        $builder->add('feedbackStartTime', TimeType::class, ['input' => 'string', 'widget' => 'single_text']);
+        $builder->add('feedbackEndTime', TimeType::class, ['input' => 'string', 'widget' => 'single_text']);
 
         //get all templates
         $templates = [];
@@ -54,7 +56,7 @@ class EventType extends AbstractType
                 $templates[mb_substr($template, 0, -5)] = $template;
             }
         }
-        $builder->add('template', ChoiceType::class, ['choices' => $templates]);
+        $builder->add('templateName', ChoiceType::class, ['choices' => $templates, 'choice_translation_domain' => false]);
         $builder->add('hasExercise', CheckboxType::class, ['required' => false]);
         $builder->add('hasLecture', CheckboxType::class, ['required' => false]);
     }

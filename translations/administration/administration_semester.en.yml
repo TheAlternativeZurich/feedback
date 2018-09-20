@@ -1,0 +1,9 @@
+index:
+  title: "Eventmanagement"
+  description: 'create/change/remove events & semesters'
+  no_events_added_yet: 'no events added yet to this semester'
+  welcome: "Welcome!"
+  welcome_description: "Add all events from the current semester, the rest works by itself: At the end of each event, simply point the participants to the homepage, the event with the feedback window open will appear there, and be ready to be filled out."
+
+new:
+  title: "add a new semester"

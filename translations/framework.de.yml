@@ -24,8 +24,3 @@ form:
     delete: 'entfernen'
   fields:
     confirm_consequences: 'Ich verstehe, das ich dies nicht rückgängig machen kann.'
-
-email:
-  wrongly_displayed: "Wird diese Mail nicht richtig dargestellt? Klicken Sie hier."
-  is_generated: "Bitte antworten Sie nicht auf dieses automatisch generierte E-Mail."
-  questions: "Administrator kontaktieren"

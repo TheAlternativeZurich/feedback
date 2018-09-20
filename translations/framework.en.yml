@@ -1,0 +1,26 @@
+time:
+  format:
+    date_time: 'd.m.Y H:i' # gives a date with the time of the form 2.12.2012 16:20
+    date: 'd.m.Y' # gives a date of the form 2.12.2012
+  weekdays:
+    Mon: "Mon"
+    Tue: "Tue"
+    Wed: "Wed"
+    Thu: "Thu"
+    Fri: "Fri"
+    Sat: "Sat"
+    Sun: "Sun"
+
+form:
+  error:
+    validation_failed: 'The request could not be processed. Were all required fields filled out?'
+  successful:
+    created: 'created successfully'
+    updated: 'updated successfully'
+    deleted: 'removed successfully'
+  submit_buttons:
+    create: 'create'
+    update: 'update'
+    delete: 'delete'
+  fields:
+    confirm_consequences: 'I understand that this action can not be undone.'

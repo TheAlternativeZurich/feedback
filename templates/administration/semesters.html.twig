@@ -1,0 +1,81 @@
+{% extends "single_content_base.html.twig" %}
+
+{% block title %}{{ "index.title"|trans }}{% endblock %}
+{% block description %}{{ "index.description"|trans }}{% endblock %}
+
+{% trans_default_domain "administration_semester" %}
+
+{% block single_content %}
+    <div class="row">
+        <div class="col-md-8">
+            <p><b>{{ "index.welcome"|trans }}</b><br/>
+                {{ "index.welcome_description"|trans }}
+            </p>
+        </div>
+        <div class="col-md-4">
+            <span class="text-secondary">{{ "new.title"|trans }}</span>
+            {{ form(form) }}
+        </div>
+    </div>
+    {% for semester in semesters %}
+        <div class="mt-5">
+            <h2>{{ semester.name }}</h2>
+
+            <div class="btn-group mb-2">
+                <a class="btn btn-secondary"
+                   href="{{ path("administration_semester_event_new", {"semester": semester.id}) }}">
+                    {{ "new.title"|trans({}, "administration_semester_event") }}
+                </a>
+            </div>
+            {% if semester.events|length == 0 %}
+                <p>{{ "index.no_events_added_yet"|trans }}
+                    (<span class="btn-group btn-group-sm">
+                <a class="btn btn-danger"
+                   href="{{ path("administration_semester_remove", {"semester": semester.id}) }}">
+                    <i class="fal fa-trash"></i>
+                </a>
+            </span>)
+                </p>
+            {% else %}
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>{{ "name"|trans({}, "entity_event") }}</th>
+                        <th>{{ "date"|trans({}, "entity_event") }}</th>
+                        <th>{{ "feedback_time"|trans({}, "entity_event") }}</th>
+                        <th class="minimal-width"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    {% for event in semester.events %}
+                        <tr>
+                            <td>{{ event.name }}</td>
+                            <td>{{ event.date }}</td>
+                            <td>{{ event.feedbackStartTime|timeFormat }} - {{ event.feedbackEndTime|timeFormat }}</td>
+                            <td>
+                                <div class="btn-group">
+                                    <a class="btn btn-primary"
+                                       href="{{ path("administration_semester_event_view", {"event" : event.id, "semester": semester.id}) }}">
+                                        <i class="fal fa-eye"></i>
+                                    </a>
+                                    {% if not event.feedbackHasStarted %}
+                                        <a class="btn btn-secondary"
+                                           href="{{ path("administration_semester_event_edit", {"event" : event.id, "semester": semester.id}) }}">
+                                            <i class="fal fa-pencil"></i>
+                                        </a>
+                                        <a class="btn btn-danger"
+                                           href="{{ path("administration_semester_event_remove", {"event" : event.id, "semester": semester.id}) }}">
+                                            <i class="fal fa-trash"></i>
+                                        </a>
+                                    {% endif %}
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            {% endif %}
+        </div>
+    {% endfor %}
+{% endblock %}

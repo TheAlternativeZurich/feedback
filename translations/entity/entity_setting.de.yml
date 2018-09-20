@@ -1,5 +1,0 @@
-entity:
-  name: 'Einstellung'
-  description: 'Eine Einstellung konfiguriert die Webapplikation'
-
-max_show_users_in_list: "Maximale Benutzer dargestellt im Adminbereich"

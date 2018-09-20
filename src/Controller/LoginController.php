@@ -34,7 +34,7 @@ class LoginController extends BaseFormController
     public function indexAction(AuthenticationUtils $authenticationUtils)
     {
         //check if auth failed last try
-        if (null !== $authenticationUtils->getLastAuthenticationError(true)) {
+        if ($errorOccurred = (null !== $authenticationUtils->getLastAuthenticationError(true))) {
             $this->displayError($this->getTranslator()->trans('login.error.login_failed', [], 'login'));
         }
 
@@ -42,7 +42,7 @@ class LoginController extends BaseFormController
         $form = $this->createForm(LoginType::class, new PasswordContainer(''));
         $form->add('form.login', SubmitType::class, ['translation_domain' => 'login', 'label' => 'login.do_login']);
 
-        return $this->render('login/login.html.twig', ['form' => $form->createView()]);
+        return $this->render('login/login.html.twig', ['form' => $form->createView(), 'error_occurred' => $errorOccurred]);
     }
 
     /**

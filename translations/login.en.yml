@@ -1,0 +1,7 @@
+login:
+  title: 'Login'
+  description: 'welcome back!'
+  forgot_password: 'Did you forget the password? It can be configured with the file located at WEBPAGE_ROOT/../.env.'
+  do_login: "login"
+  error:
+    login_failed: 'login failed'

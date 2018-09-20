@@ -20,10 +20,10 @@ security:
         authenticator: App\Security\PasswordAuthenticator
         login_path: login
         check_path: login_check
-        default_target_path: index
+        default_target_path: administration
         csrf_token_generator: security.csrf.token_manager
         # field names for the username and password fields
-        username_parameter: login[email]
+        username_parameter: login[password]
         password_parameter: login[password]
       logout:
         path: login_logout

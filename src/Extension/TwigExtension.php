@@ -38,6 +38,7 @@ class TwigExtension extends Twig_Extension
     {
         return [
             new Twig_SimpleFilter('dateFormat', [$this, 'dateFormatFilter']),
+            new Twig_SimpleFilter('timeFormat', [$this, 'timeFormatFilter']),
             new Twig_SimpleFilter('dateTimeFormat', [$this, 'dateTimeFilter']),
             new Twig_SimpleFilter('booleanFormat', [$this, 'booleanFilter']),
             new Twig_SimpleFilter('camelCaseToUnderscore', [$this, 'camelCaseToUnderscoreFilter']),
@@ -81,6 +82,20 @@ class TwigExtension extends Twig_Extension
             $dateTimeFormat = $this->translator->trans('time.format.date_time', [], 'framework');
 
             return $this->prependDayName($date) . ', ' . $date->format($dateTimeFormat);
+        }
+
+        return '-';
+    }
+
+    /**
+     * @param $date
+     *
+     * @return string
+     */
+    public function timeFormatFilter($date)
+    {
+        if (\is_string($date)) {
+            return mb_substr($date, 0, 5);
         }
 
         return '-';

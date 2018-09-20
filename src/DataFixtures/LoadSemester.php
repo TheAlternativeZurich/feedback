@@ -26,10 +26,14 @@ class LoadSemester extends BaseFixture
      */
     public function load(ObjectManager $manager)
     {
-        $semester = new Semester();
-        $semester->setName('HS 2018');
-        $semester->setCreationDate(new \DateTime());
-        $manager->persist($semester);
+        $semesters = ['HS 2018', 'FS 2019'];
+        $count = 0;
+        foreach ($semesters as $semesterName) {
+            $semester = new Semester();
+            $semester->setName($semesterName);
+            $semester->setCreationDate((new \DateTime('today'))->modify('+' . $count++ . ' day'));
+            $manager->persist($semester);
+        }
         $manager->flush();
     }
 

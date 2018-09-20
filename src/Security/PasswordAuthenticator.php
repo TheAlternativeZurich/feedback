@@ -15,7 +15,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Core\Exception\BadCredentialsException;
-use Symfony\Component\Security\Core\Exception\CustomUserMessageAuthenticationException;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Http\Authentication\SimpleFormAuthenticatorInterface;
@@ -35,20 +34,9 @@ class PasswordAuthenticator implements SimpleFormAuthenticatorInterface
             if ('' === ($givenPassword = $token->getCredentials())) {
                 throw new BadCredentialsException('The given password cannot be empty.');
             }
-            if (!$user->getPassword() !== $givenPassword) {
+            if ($user->getPassword() !== $givenPassword) {
                 throw new BadCredentialsException('The given password is invalid.');
             }
-        }
-
-        $currentHour = date('G');
-        if ($currentHour < 14 || $currentHour > 16) {
-            // CAUTION: this message will be returned to the client
-            // (so don't put any un-trusted messages / error strings here)
-            throw new CustomUserMessageAuthenticationException(
-                'You can only log in between 2 and 4!',
-                [], // Message Data
-                412 // HTTP 412 Precondition Failed
-            );
         }
 
         return new UsernamePasswordToken(

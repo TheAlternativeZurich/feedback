@@ -1,7 +1,0 @@
-trait:
-  name: 'Name'
-
-given_name: 'Vorname'
-family_name: 'Nachname'
-
-full_name: 'Name'

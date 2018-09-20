@@ -11,7 +11,7 @@
 
 namespace App\Controller\Administration;
 
-use App\Controller\Base\BaseFormController;
+use App\Controller\Administration\Base\BaseController;
 use App\Entity\Semester;
 use App\Model\Breadcrumb;
 use Symfony\Component\HttpFoundation\Request;
@@ -21,7 +21,7 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * @Route("/semester")
  */
-class SemesterController extends BaseFormController
+class SemesterController extends BaseController
 {
     /**
      * @Route("", name="administration_semesters")
@@ -33,6 +33,7 @@ class SemesterController extends BaseFormController
         //allow semester creation
         $semester = new Semester();
         $semester->setCreationDate(new \DateTime());
+        $semester->setName('');
         $form = $this->handleCreateForm($request, $semester);
 
         //get all existing semesters

@@ -172,6 +172,8 @@ class BaseFormController extends BaseDoctrineController
                 $manager->remove($entity);
                 $manager->flush();
                 $this->displaySuccess($successText);
+
+                return null;
             }
 
             return $form;

@@ -54,15 +54,35 @@ class LoadEvent extends BaseFixture
 
         //fill semester with events
         $semesters = $manager->getRepository(Semester::class)->findAll();
+        $now = new \DateTime();
         foreach ($semesters as $semester) {
+            //skip if created in the future
+            if ($semester->getCreationDate() > $now) {
+                continue;
+            }
+
             /** @var Event[] $events */
             $events = $this->serializer->deserialize($json, Event::class . '[]', 'json');
             foreach ($events as $event) {
                 $event->setSemester($semester);
                 $event->setTemplateName($templateName);
                 $event->setTemplate($template);
+                $event->setFeedbackStartTime($event->getFeedbackStartTime() . ':00');
+                $event->setFeedbackEndTime($event->getFeedbackEndTime() . ':00');
                 $manager->persist($event);
             }
+
+            //add text event
+            $event = new Event();
+            $event->setName('Textevent');
+            $event->setDate((new \DateTime())->format('Y-m-d'));
+            $event->setFeedbackStartTime('00:01:00');
+            $event->setFeedbackEndTime('23:59:00');
+            $event->setTemplateName($templateName);
+            $event->setTemplate($template);
+            $event->setHasExercise(true);
+            $event->setHasLecture(true);
+            $manager->persist($event);
         }
 
         $manager->flush();

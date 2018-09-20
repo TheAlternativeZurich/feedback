@@ -1,0 +1,11 @@
+entity:
+  name: 'Event'
+
+name: "name"
+date: "date"
+feedback_start_time: "feedback start time"
+feedback_end_time: "feedback end time"
+feedback_time: "feedback open"
+has_exercise: "contains/is an exercise"
+has_lecture: "contains/is a talk"
+template_name: "questionnaire template to use"

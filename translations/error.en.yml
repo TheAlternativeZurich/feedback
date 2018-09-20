@@ -1,0 +1,7 @@
+error:
+  title: 'Error'
+  description: 'This page does not exist or the server is unable to display it'
+  404: 'Page was not found'
+  fallback: 'An error occurred which prevented the request from execution'
+  500: 'A critical error prevented the request from execution. Please try again, and if the problem persist do not hesitate to contact us.'
+  back_to_homepage: 'Go back to the home page'

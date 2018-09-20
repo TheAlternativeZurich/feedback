@@ -11,7 +11,7 @@
 
 namespace App\Controller\Administration\Semester;
 
-use App\Controller\Base\BaseFormController;
+use App\Controller\Administration\Base\BaseController;
 use App\Entity\Event;
 use App\Entity\Semester;
 use App\Model\Breadcrumb;
@@ -19,37 +19,40 @@ use App\Security\Voter\Base\BaseVoter;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Translation\TranslatorInterface;
 
 /**
  * @Route("/event")
  */
-class EventController extends BaseFormController
+class EventController extends BaseController
 {
     /**
      * @Route("/new", name="administration_semester_event_new")
      *
      * @param Request $request
      * @param Semester $semester
-     * @param TranslatorInterface $translator
      *
      * @return Response
      */
-    public function newAction(Request $request, Semester $semester, TranslatorInterface $translator)
+    public function newAction(Request $request, Semester $semester)
     {
         //create the event
         $event = new Event();
         $event->setSemester($semester);
+        $event->setName('');
 
         //fill out default values as smart as possible
-        $lastEvent = $this->getDoctrine()->getRepository(Event::class)->findBy([], ['createdAt' => 'DESC'], 1);
-        if (\count($lastEvent) > 0) {
-            $event->setFeedbackStartTime($lastEvent[0]->getFeedbackStartTime());
-            $event->setFeedbackEndTime($$lastEvent[0]->getFeedbackEndTime());
+        /** @var Event|null $lastEvent */
+        $lastEvent = $semester->getEvents()->first();
+        if ($lastEvent) {
+            $event->setFeedbackStartTime($lastEvent->getFeedbackStartTime());
+            $event->setFeedbackEndTime($lastEvent->getFeedbackEndTime());
+            $event->setTemplateName($lastEvent->getTemplateName());
         } else {
-            $event->setFeedbackStartTime('19:00');
-            $event->setFeedbackEndTime('21:00');
+            $event->setFeedbackStartTime('19:00:00');
+            $event->setFeedbackEndTime('21:00:00');
+            $event->setTemplateName('default.json');
         }
+        $event->setDate((new \DateTime())->modify('+20 day')->format('Y-m-d'));
 
         //check if can indeed create the event
         $this->ensureAccessGranted($event);
@@ -75,11 +78,10 @@ class EventController extends BaseFormController
      * @param Request $request
      * @param Semester $semester
      * @param Event $event
-     * @param TranslatorInterface $translator
      *
      * @return Response
      */
-    public function editAction(Request $request, Semester $semester, Event $event, TranslatorInterface $translator)
+    public function editAction(Request $request, Semester $semester, Event $event)
     {
         $this->ensureAccessGranted($event);
 
@@ -96,6 +98,19 @@ class EventController extends BaseFormController
         }
 
         return $this->renderWithSemester('administration/semester/event/edit.html.twig', $semester, ['form' => $myForm->createView(), 'event' => $event]);
+    }
+
+    /**
+     * @Route("/{event}/view", name="administration_semester_event_view")
+     *
+     * @param Semester $semester
+     * @param Event $event
+     *
+     * @return Response
+     */
+    public function viewAction(Semester $semester, Event $event)
+    {
+        return $this->renderWithSemester('administration/semester/event/view.html.twig', $semester, ['event' => $event]);
     }
 
     /**     *

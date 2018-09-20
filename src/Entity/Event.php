@@ -312,7 +312,7 @@ class Event extends BaseEntity
     /**
      * @return string
      */
-    public function getTemplateFilepath()
+    public function getTemplateFilePath()
     {
         return 'templates/' . $this->getTemplateName();
     }
@@ -330,7 +330,7 @@ class Event extends BaseEntity
             $this->finalTemplateVersionLoaded = true;
         }
 
-        $filePath = $publicDir . '/' . $this->getTemplateFilepath();
+        $filePath = $publicDir . '/' . $this->getTemplateFilePath();
         if (file_exists($filePath)) {
             $this->template = file_get_contents($filePath);
         }

@@ -1,0 +1,16 @@
+new:
+  title: 'new event'
+  description: 'add a new event to the semester'
+  change_template: "If you want to change/add the questionnaire templates add corresponding .json files inside the public/templates dir on the server."
+
+edit:
+  title: 'edit event'
+  description: 'change the event'
+
+view:
+  title: 'view event'
+  description: 'view the results of the questionnaire'
+
+remove:
+  title: 'remove event'
+  description: 'remove the event and all associated data'

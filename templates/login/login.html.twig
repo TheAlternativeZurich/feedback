@@ -10,13 +10,8 @@
     {{ form_errors(form) }}
     <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
     {{ form_end(form) }}
-{% endblock %}
 
-{% block form_description %}
-    <p>
-        {{ "login.problems_with_login"|trans }}<br/>
-        <a href="{{ path("login_recover") }}">{{ "recover.title"|trans }}</a><br/>
-        <a href="{{ path("register") }}">{{ "index.title"|trans({}, "register") }}</a><br/>
-        <a href="{{ path("contact") }}">{{ "index.title"|trans({}, "contact") }}</a><br/>
-    </p>
+    {% if error_occurred %}
+        <p>{{ "login.forgot_password"|trans }}</p>
+    {% endif %}
 {% endblock %}
