@@ -73,7 +73,7 @@
         },
         methods: {
             finish: function () {
-                axios.post("/api/" + this.activeEventContainer.event.id + "/finish", {
+                axios.post(window.location + "api/" + this.activeEventContainer.event.id + "/finish", {
                     identifier: this.identifier,
                     timeNeededInSeconds: ((new Date()).getTime() - this.startedAt.getTime()) / 1000
                 }).then((response) => {
@@ -82,7 +82,7 @@
             },
             answer: function (eventContainer, answer) {
                 answer.identifier = this.identifier;
-                axios.post("/api/" + eventContainer.event.id + "/answer", answer);
+                axios.post(window.location + "api/" + eventContainer.event.id + "/answer", answer);
             }
         },
         computed: {
