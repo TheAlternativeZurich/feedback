@@ -1,10 +1,9 @@
 <template>
     <div>
         <label :for="questionContainer.key"><b>{{questionContainer.question.title}}</b></label>
-        <input type="range" class="form-control-range" min="0" max="100"
+        <input type="range" disabled="disabled" class="form-control-range" min="0" max="100"
                :id="questionContainer.key"
-               v-model="sliderValue"
-               @input="valueChanged">
+               :value="average">
         <div class="row">
             <div class="col text-left">
                 {{questionContainer.question.min}}
@@ -16,15 +15,11 @@
                 {{questionContainer.question.max}}
             </div>
         </div>
-        <p v-if="showValueHighText" class="alert mt-2 alert-success">
-            {{questionContainer.question.value_high_text}}
-        </p>
+        <p class="small">{{$t('slider.average', {response_count: responseCount})}}</p>
     </div>
 </template>
 
 <script>
-    import debounce from 'debounce'
-
     export default {
         props: {
             questionContainer: {
@@ -34,30 +29,14 @@
         },
         data() {
             return {
-                sliderValue: null
-            };
-        },
-        methods: {
-            valueChanged: debounce(function () {
-                let answer = {
-                    value: this.sliderValue,
-                    action: "override"
-                };
-
-                this.$emit('answer', answer);
-            }, 500)
-        },
-        computed: {
-            showValueHighText: function () {
-                return 'value_high_text' in this.questionContainer.question && this.sliderValue > 80
+                average: null,
+                responseCount: 0
             }
         },
         mounted() {
-            if (this.questionContainer.answers.length > 0) {
-                this.sliderValue = this.questionContainer.answers[0].value;
-            } else {
-                this.sliderValue = this.questionContainer.question.start_value;
-            }
+            const values = this.questionContainer.participants.reduce((acc, current) => acc.concat(current.answers.filter(a => a.questionIndex == this.questionContainer.questionIndex).map(a => parseInt(a.value))), []);
+            this.responseCount = values.length;
+            this.average = values.reduce((acc, curr) => acc + curr) / this.responseCount;
         }
     }
 </script>

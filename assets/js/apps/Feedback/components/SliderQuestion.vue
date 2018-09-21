@@ -39,13 +39,16 @@
         },
         methods: {
             valueChanged: debounce(function () {
+                this.sendAnswer();
+            }, 500),
+            sendAnswer: function () {
                 let answer = {
                     value: this.sliderValue,
                     action: "override"
                 };
 
                 this.$emit('answer', answer);
-            }, 500)
+            }
         },
         computed: {
             showValueHighText: function () {
@@ -57,6 +60,7 @@
                 this.sliderValue = this.questionContainer.answers[0].value;
             } else {
                 this.sliderValue = this.questionContainer.question.start_value;
+                this.sendAnswer();
             }
         }
     }

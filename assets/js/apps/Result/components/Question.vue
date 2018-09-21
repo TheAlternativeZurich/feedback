@@ -7,13 +7,13 @@
                     :question-container="questionContainer"
                     @select-participants="$emit('select-participants', arguments[0])"
             />
-            <!--
             <SliderQuestion
                     v-else-if="questionContainer.question.type === 'slider'"
                     :key="questionContainer.key"
                     :question-container="questionContainer"
                     @select-participants="$emit('select-participants', arguments[0])"
             />
+            <!--
             <OpenFeedbackQuestion
                     v-else-if="questionContainer.question.type === 'open_feedback'"
                     :key="questionContainer.key"
