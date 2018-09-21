@@ -14,7 +14,9 @@
     import ChoiceQuestionEntry from "./ChoiceQuestionEntry";
 
     export default {
-        components: {ChoiceQuestionEntry},
+        components: {
+            ChoiceQuestionEntry
+        },
         props: {
             questionContainer: {
                 type: Object,
@@ -28,7 +30,20 @@
         },
         methods: {
             selected: function (choiceContainer) {
-                this.$emit('participants-selected', choiceContainer.participants);
+                this.$emit('select-participants', choiceContainer.participants);
+            },
+            refreshParticipants: function () {
+                this.choiceContainers.forEach(c => {
+                    c.participants = this.questionContainer.participants.filter(p => p.answers.filter(a => a.questionIndex == this.questionContainer.questionIndex && a.value == c.answerIndex).length > 0)
+                })
+            }
+        },
+        watch: {
+            questionContainer: {
+                handler: function() {
+                    this.refreshParticipants();
+                },
+                deep: true
             }
         },
         mounted() {
@@ -39,12 +54,13 @@
                     key: this.questionContainer.key + "_" + answerIndex,
                     answerIndex: answerIndex,
                     choice: c,
-                    participants: this.questionContainer.participants.filter(p => p.answers.filter(a => a.questionIndex == this.questionContainer.questionIndex && a.value == answerIndex).length > 0)
+                    participants: []
                 });
                 answerIndex++;
             });
 
             this.choiceContainers = choiceContainers;
+            this.refreshParticipants();
         }
     }
 </script>

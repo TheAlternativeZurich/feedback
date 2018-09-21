@@ -13,14 +13,13 @@
                     :question-container="questionContainer"
                     @select-participants="$emit('select-participants', arguments[0])"
             />
-            <!--
             <OpenFeedbackQuestion
                     v-else-if="questionContainer.question.type === 'open_feedback'"
                     :key="questionContainer.key"
                     :question-container="questionContainer"
-                    :feedback-inspiration="openFeedbackInspiration"
                     @select-participants="$emit('select-participants', arguments[0])"
             />
+            <!--
             <EventListQuestion
                     v-else-if="questionContainer.question.type === 'event_list'"
                     :key="questionContainer.key"

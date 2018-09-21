@@ -1,67 +1,47 @@
 <template>
     <div>
         <label :for="questionContainer.key"><b>{{questionContainer.question.title}}</b></label>
-        <textarea
-                :title="questionContainer.question.title"
-                rows="5"
-                class="form-control"
-                :id="questionContainer.key"
-                :placeholder="placeholder"
-                v-model="textValue"
-                @input="valueChanged">
-        </textarea>
+        <p v-for="textContainer in textContainers"><i @click="selected(textContainer.participant)">{{textContainer.text}}</i></p>
     </div>
 </template>
 
 <script>
-    import debounce from 'debounce'
 
     export default {
         props: {
             questionContainer: {
                 type: Object,
                 required: true
-            },
-            feedbackInspiration: {
-                type: Array,
-                required: true
             }
         },
         data() {
             return {
-                textValue: null,
-                placeholder: ""
+                textContainers: []
             };
         },
-        watch: {
-            feedbackInspiration() {
-                let currentFeedback = "";
-                let max = 3;
-                this.feedbackInspiration.forEach(fi => {
-                    if (max-- > 0) {
-                        currentFeedback += fi + "\n";
+        methods: {
+            refreshParticipants: function () {
+                this.textContainers = this.questionContainer.participants.reduce((acc, current) => acc.concat(current.answers.filter(a => a.questionIndex == this.questionContainer.questionIndex).map(a => {
+                    return {
+                        text: a.value,
+                        participant: current
                     }
-                });
-                if (currentFeedback === "") {
-                    currentFeedback = this.$t('open_feedback.default_placeholder');
-                }
-                this.placeholder = currentFeedback;
+                })), []);
+            },
+            selected: function (participant) {
+                this.$emit('select-participants', [participant]);
             }
         },
-        methods: {
-            valueChanged: debounce(function () {
-                let answer = {
-                    value: this.textValue,
-                    action: "override"
-                };
-
-                this.$emit('answer', answer);
-            }, 500)
+        watch: {
+            questionContainer: {
+                handler: function () {
+                    this.refreshParticipants();
+                },
+                deep: true
+            }
         },
         mounted() {
-            if (this.questionContainer.answers.length > 0) {
-                this.textValue = this.questionContainer.answers[0].value;
-            }
+            this.refreshParticipants();
         }
     }
 </script>

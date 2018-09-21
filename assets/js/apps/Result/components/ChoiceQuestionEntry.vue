@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div @click="$emit('selected')">
         <b>{{choiceContainer.participants.length}}</b> {{choiceContainer.choice.title}}
     </div>
 </template>

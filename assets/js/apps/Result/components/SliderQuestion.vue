@@ -33,10 +33,23 @@
                 responseCount: 0
             }
         },
+        methods: {
+            refreshParticipants: function () {
+                const values = this.questionContainer.participants.reduce((acc, current) => acc.concat(current.answers.filter(a => a.questionIndex == this.questionContainer.questionIndex).map(a => parseInt(a.value))), []);
+                this.responseCount = values.length;
+                this.average = values.reduce((acc, curr) => acc + curr) / this.responseCount;
+            }
+        },
+        watch: {
+            questionContainer: {
+                handler: function() {
+                    this.refreshParticipants();
+                },
+                deep: true
+            }
+        },
         mounted() {
-            const values = this.questionContainer.participants.reduce((acc, current) => acc.concat(current.answers.filter(a => a.questionIndex == this.questionContainer.questionIndex).map(a => parseInt(a.value))), []);
-            this.responseCount = values.length;
-            this.average = values.reduce((acc, curr) => acc + curr) / this.responseCount;
+            this.refreshParticipants()
         }
     }
 </script>
