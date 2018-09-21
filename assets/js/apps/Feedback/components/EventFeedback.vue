@@ -13,7 +13,7 @@
             </div>
             <EventFeedbackPage v-for="pageContainer in pageContainers"
                                :key="pageContainer.key"
-                               v-if="currentPage === pageContainer.key"
+                               :class="{'d-none' : currentPage !== pageContainer.key}"
                                :pageContainer="pageContainer"
                                :future-events="futureEvents"
                                @answer="$emit('answer', arguments[0])"
