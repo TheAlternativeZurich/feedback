@@ -1,53 +1,34 @@
 <template>
-    <div id="assign-app">
-        <div v-if="isLoading">
-            <LoadingIndicator/>
-        </div>
+    <div>
+        <LoadingIndicator v-if="isLoading"/>
         <div v-else-if="activeEventContainer !== null" class="container">
-            <EventFeedback :eventContainer="activeEventContainer"
-                           :future-events="futureEvents"
-                           :is-finished="isFinished"
-                           @answer="answer(activeEventContainer, arguments[0])"
-                           @finish="finish"
+            <EventResult :eventContainer="activeEventContainer"
+                         :future-events="futureEvents"
             />
         </div>
+        <NoQuestionnaire v-else :events="futureEvents"/>
     </div>
 </template>
 
 <script>
     import axios from "axios"
-    import EventFeedback from './components/EventFeedback'
-    import LoadingIndicator from "../components/LoadingIndicator";
+    import EventResult from './components/EventResult'
+    import LoadingIndicator from '../components/LoadingIndicator'
+    import NoQuestionnaire from '../components/NoQuestionnaire'
 
     export default {
         data() {
             return {
                 isLoading: true,
-                identifier: null,
 
                 activeEventContainer: null,
-                semesters: [],
-                startedAt: null,
-                isFinished: false
+                semesters: []
             }
         },
         components: {
             LoadingIndicator,
-            EventFeedback
-        },
-        methods: {
-            finish: function () {
-                axios.post(window.location + "api/" + this.activeEventContainer.event.id + "/finish", {
-                    identifier: this.identifier,
-                    timeNeededInSeconds: ((new Date()).getTime() - this.startedAt.getTime()) / 1000
-                }).then((response) => {
-                    this.isFinished = true;
-                });
-            },
-            answer: function (eventContainer, answer) {
-                answer.identifier = this.identifier;
-                axios.post(window.location + "api/" + eventContainer.event.id + "/answer", answer);
-            }
+            EventResult,
+            NoQuestionnaire
         },
         computed: {
             futureEvents: function () {
@@ -80,15 +61,15 @@
                         template: null
                     };
 
-                    //recover questionnaire state
+                    //get more infos if event exists
                     if (eventContainer.event !== null) {
                         //parse the template
                         eventContainer.template = JSON.parse(eventContainer.event.template);
 
-                        //restore any previous answers
-                        axios.get(window.location + "api/" + eventContainer.event.id + "/" + this.identifier + "/answers")
+                        //get questionnaire result
+                        axios.get(window.location + "api/" + eventContainer.event.id + "/participants")
                             .then((response) => {
-                                eventContainer.answers = response.data;
+                                eventContainer.participants = response.data;
                                 this.activeEventContainer = eventContainer;
                                 this.isLoading = false;
                             });

@@ -35,13 +35,13 @@ class ResultApiController extends BaseApiController
     }
 
     /**
-     * @Route("/{event2}/answers", name="administration_semester_event_result_api_answers")
+     * @Route("/{event2}/participants", name="administration_semester_event_result_api_participants")
      *
      * @param Event $event
      *
      * @return JsonResponse
      */
-    public function answersAction(Event $event)
+    public function participantsAction(Event $event)
     {
         return $this->returnParticipant($event->getParticipants());
     }
