@@ -2,11 +2,13 @@
     <div>
         <label :for="questionContainer.key"><b>{{questionContainer.question.title}}</b></label>
         <textarea
+                :title="questionContainer.question.title"
                 rows="5"
                 class="form-control"
-               :id="questionContainer.key"
-               v-model="textValue"
-               @input="valueChanged">
+                :id="questionContainer.key"
+                :placeholder="placeholder"
+                v-model="textValue"
+                @input="valueChanged">
         </textarea>
     </div>
 </template>
@@ -19,12 +21,32 @@
             questionContainer: {
                 type: Object,
                 required: true
+            },
+            feedbackInspiration: {
+                type: Array,
+                required: true
             }
         },
         data() {
             return {
-                textValue: null
+                textValue: null,
+                placeholder: ""
             };
+        },
+        watch: {
+            feedbackInspiration() {
+                let currentFeedback = "";
+                let max = 3;
+                this.feedbackInspiration.forEach(fi => {
+                    if (max-- > 0) {
+                        currentFeedback += fi + "\n";
+                    }
+                });
+                if (currentFeedback === "") {
+                    currentFeedback = this.$t('open_feedback.default_placeholder');
+                }
+                this.placeholder = currentFeedback;
+            }
         },
         methods: {
             valueChanged: debounce(function () {

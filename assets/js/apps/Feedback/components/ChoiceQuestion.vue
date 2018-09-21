@@ -21,6 +21,11 @@
                 required: true
             }
         },
+        data() {
+            return {
+                choiceContainers: []
+            }
+        },
         methods: {
             valueChanged: function (choiceContainer) {
                 let answer = {
@@ -35,24 +40,44 @@
                 choiceContainer.selected = !choiceContainer.selected;
 
                 this.$emit('answer', answer);
+                this.raiseFeedbackInspirationEvents(choiceContainer);
+            },
+            raiseFeedbackInspirationEvents: function (choiceContainer) {
+                if (choiceContainer.selected) {
+                    if ("on_feedback_inspiration" in choiceContainer.choice) {
+                        this.$emit('add-feedback-inspiration', choiceContainer.choice.on_feedback_inspiration);
+                    }
+                    if ("off_feedback_inspiration" in choiceContainer.choice) {
+                        this.$emit('remove-feedback-inspiration', choiceContainer.choice.off_feedback_inspiration);
+                    }
+                } else {
+                    if ("off_feedback_inspiration" in choiceContainer.choice) {
+                        this.$emit('add-feedback-inspiration', choiceContainer.choice.off_feedback_inspiration);
+                    }
+                    if ("on_feedback_inspiration" in choiceContainer.choice) {
+                        this.$emit('remove-feedback-inspiration', choiceContainer.choice.on_feedback_inspiration);
+                    }
+                }
             }
         },
-        computed: {
-            choiceContainers: function () {
-                let choiceContainers = [];
-                let answerIndex = 0;
-                this.questionContainer.question.choices.forEach(c => {
-                    choiceContainers.push({
-                        key: this.questionContainer.key + "_" + answerIndex,
-                        answerIndex: answerIndex,
-                        choice: c,
-                        selected: this.questionContainer.answers.filter(a => a.value == answerIndex).length > 0
-                    });
-                    answerIndex++;
+        mounted() {
+            let choiceContainers = [];
+            let answerIndex = 0;
+            this.questionContainer.question.choices.forEach(c => {
+                choiceContainers.push({
+                    key: this.questionContainer.key + "_" + answerIndex,
+                    answerIndex: answerIndex,
+                    choice: c,
+                    selected: this.questionContainer.answers.filter(a => a.value == answerIndex).length > 0
                 });
+                answerIndex++;
+            });
 
-                return choiceContainers;
-            }
+            this.choiceContainers = choiceContainers;
+
+            this.choiceContainers.forEach(c => {
+                this.raiseFeedbackInspirationEvents(c);
+            })
         }
     }
 </script>

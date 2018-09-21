@@ -17,21 +17,12 @@
                 </div>
             </div>
         </div>
-        <div v-else-if="activeEventContainer !== null" class="container card">
-            <div class="card-body pl-1 pr-1">
-                <div class="row">
-                    <div class="col">
-                        <EventFeedback class="feedback-content"
-                                       :eventContainer="activeEventContainer"
-                                       :future-events="futureEvents"
-                                       @answer="answer(activeEventContainer, arguments[0])"/>
-                    </div>
-                    <div class="col-md-auto text-right">
-                        <h3>{{activeEventContainer.event.name}}</h3>
-                        <p>{{formattedEventDate}}</p>
-                    </div>
-                </div>
-            </div>
+        <div v-else-if="activeEventContainer !== null" class="container">
+            <EventFeedback :eventContainer="activeEventContainer"
+                           :future-events="futureEvents"
+                           @answer="answer(activeEventContainer, arguments[0])"
+                           @finish="finish"
+            />
         </div>
         <div v-else class="container">
             <div class="row">
@@ -86,10 +77,6 @@
             }
         },
         computed: {
-            formattedEventDate: function () {
-                let date = new Date(this.activeEventContainer.event.date);
-                return date.toLocaleDateString();
-            },
             futureEvents: function () {
                 let events = [];
                 const now = new Date();
@@ -143,9 +130,3 @@
     }
 
 </script>
-
-<style>
-    .feedback-content {
-        max-width: 500px;
-    }
-</style>

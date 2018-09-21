@@ -16,6 +16,9 @@
                 {{questionContainer.question.max}}
             </div>
         </div>
+        <p v-if="showValueHighText" class="alert mt-2 alert-success">
+            {{questionContainer.question.value_high_text}}
+        </p>
     </div>
 </template>
 
@@ -43,6 +46,11 @@
 
                 this.$emit('answer', answer);
             }, 500)
+        },
+        computed: {
+            showValueHighText: function () {
+                return 'value_high_text' in this.questionContainer.question && this.sliderValue > 80
+            }
         },
         mounted() {
             if (this.questionContainer.answers.length > 0) {

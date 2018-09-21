@@ -7,6 +7,9 @@
                              :key="choiceContainer.key"
                              :choice-container="choiceContainer"
                              @value-changed="valueChanged(choiceContainer)"/>
+        <p v-if="showLotSelectedText" class="alert alert-success mt-2">
+            {{questionContainer.question.lot_selected_text}}
+        </p>
     </div>
 </template>
 
@@ -25,6 +28,12 @@
                 required: true
             }
         },
+        data() {
+            return {
+                choiceContainers: [],
+                showLotSelectedText: false
+            }
+        },
         methods: {
             valueChanged: function (choiceContainer) {
                 let answer = {
@@ -37,12 +46,15 @@
                     answer.action = "ensure_value_exists";
                 }
                 choiceContainer.selected = !choiceContainer.selected;
+                this.refreshShowLotSelectedText();
 
                 this.$emit('answer', answer);
-            }
-        },
-        computed: {
-            choiceContainers: function () {
+            },
+            refreshShowLotSelectedText: function () {
+                const activeChoices = this.choiceContainers.filter(c => c.selected).length;
+                this.showLotSelectedText = 'lot_selected_text' in this.questionContainer.question && activeChoices >= this.choiceContainers.length * 0.7 && activeChoices >= 2;
+            },
+            refreshChoiceContainers: function () {
                 let choiceContainers = [];
                 this.events.forEach(e => {
                     choiceContainers.push({
@@ -55,8 +67,17 @@
                     });
                 });
 
-                return choiceContainers;
+                this.choiceContainers = choiceContainers;
+                this.refreshShowLotSelectedText();
             }
+        },
+        watch: {
+            events() {
+                this.refreshChoiceContainers()
+            }
+        },
+        mounted() {
+            this.refreshChoiceContainers();
         }
     }
 </script>
