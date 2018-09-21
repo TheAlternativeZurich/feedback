@@ -49,7 +49,7 @@ class LoadParticipants extends BaseFixture
         $now = (new \DateTime())->format('Y-m-d');
 
         //prepare participants
-        $dir = file_get_contents(__DIR__ . '/Resources/participants');
+        $dir = __DIR__ . '/Resources/participants';
         $fileNames = scandir($dir);
         /** @var Answer[][] $participantJson */
         $participantJson = [];
