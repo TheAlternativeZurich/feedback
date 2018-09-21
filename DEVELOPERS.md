@@ -1,5 +1,5 @@
 # Developers
-useful tipps for development and its environment.
+knowledge base for developers.
 
 ## Useful commands
 
@@ -42,8 +42,7 @@ if [ "$status" = 0 ] ; then
 else
     ./vendor/bin/php-cs-fixer fix > /dev/null 2>&1
     git add *
-    echo 1>&2 "Found not properly formatted files. php-cs-fixer
-was run."
+    echo 1>&2 "Found not properly formatted files. php-cs-fixer was run."
     exit 0
 fi
 
