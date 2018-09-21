@@ -64,7 +64,7 @@
                         pageContainers[q.category] = {
                             key: pageIndex,
                             title: q.category,
-                            questionContainers: [],
+                            questionContainers: []
                         };
                         pageIndex++;
                     }
