@@ -52,7 +52,7 @@
             },
             refreshShowLotSelectedText: function () {
                 const activeChoices = this.choiceContainers.filter(c => c.selected).length;
-                this.showLotSelectedText = 'lot_selected_text' in this.questionContainer.question && activeChoices >= this.choiceContainers.length * 0.7 && activeChoices >= 2;
+                this.showLotSelectedText = 'lot_selected_text' in this.questionContainer.question && ((activeChoices >= this.choiceContainers.length * 0.7 && activeChoices >= 2) || activeChoices > 4);
             },
             refreshChoiceContainers: function () {
                 let choiceContainers = [];

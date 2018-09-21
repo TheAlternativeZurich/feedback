@@ -26,7 +26,7 @@
       "choices": [
         {
           "title": "was clearly structured",
-          "off_feedback_inspiration": "how can we restructure the lecture to make it easier to understand?"
+          "off_feedback_inspiration": "how can we improve the structure of the lecture?"
         },
         {
           "title": "contained information useful to me",
@@ -121,7 +121,7 @@
         },
         {
           "title": "fulfilled my expectations",
-          "off_feedback_inspiration": "what should have been included in the course which wasn't?"
+          "off_feedback_inspiration": "what should have been included in the event which wasn't?"
         },
         {
           "title": "will be recommended by me to others"
@@ -131,8 +131,8 @@
     {
       "category": "event",
       "type": "event_list",
-      "title": "other courses I'll visit",
-      "lot_selected_text": "You know who else is at most of the events? We are! Leave your E-Mail at the end, we will be happy to get to know you!"
+      "title": "other courses/events I'll visit",
+      "lot_selected_text": "Wow, we will see us often! Why not leave us your E-Mail at the end? We'd love to get to know you!"
     },
     {
       "category": "event",
