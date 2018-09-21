@@ -1,28 +1,10 @@
 {% extends 'layout_base.html.twig' %}
 
 {% block content %}
-    <section class="content">
-        <div class="container">
-            <div class="p-1 pt-5 pb-4">
-                <h1>{{ block("title") }}</h1>
-                <p class="lead">{% block description %}{% endblock %}</p>
-            </div>
+    <div class="container card">
+        <div class="card-body pl-1 pr-1">
+            {% block single_content %}
+            {% endblock single_content %}
         </div>
-        {% set _pre_content = block('pre_content') %}
-        {% if _pre_content|trim is not empty %}
-            <div class="container card">
-                <div class="card-body">
-                    {% block pre_content %}
-                    {% endblock pre_content %}
-                </div>
-            </div>
-        {% endif %}
-
-        <div class="container card">
-            <div class="card-body pl-1 pr-1">
-                {% block single_content %}
-                {% endblock single_content %}
-            </div>
-        </div>
-    </section>
+    </div>
 {% endblock %}

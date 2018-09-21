@@ -1,22 +1,58 @@
 <template>
     <div id="assign-app">
         <div v-if="isLoading">
-            <AtomSpinner
-                    :animation-duration="1000"
-                    :size="60"
-                    :color="'#007bff'"
-            />
-        </div>
-        <div v-else-if="activeEventContainer !== null" class="row">
-            <div class="col">
-                <EventFeedback class="feedback-content"
-                               :eventContainer="activeEventContainer"
-                               :future-events="futureEvents"
-                               @answer="answer(activeEventContainer, arguments[0])"/>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="row justify-content-center">
+                            <div class="col-1">
+                                <AtomSpinner
+                                        :animation-duration="1000"
+                                        :size="60"
+                                        :color="'#007bff'"
+                                />
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="col-md-auto text-right">
-                <h3>{{activeEventContainer.event.name}}</h3>
-                <p>{{formattedEventDate}}</p>
+        </div>
+        <div v-else-if="activeEventContainer !== null" class="container card">
+            <div class="card-body pl-1 pr-1">
+                <div class="row">
+                    <div class="col">
+                        <EventFeedback class="feedback-content"
+                                       :eventContainer="activeEventContainer"
+                                       :future-events="futureEvents"
+                                       @answer="answer(activeEventContainer, arguments[0])"/>
+                    </div>
+                    <div class="col-md-auto text-right">
+                        <h3>{{activeEventContainer.event.name}}</h3>
+                        <p>{{formattedEventDate}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div v-else class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <p class="alert alert-light">
+                        {{$t('messages.no_active_questionnaire')}}
+                    </p>
+                    <div v-if="futureEvents.length > 0" class="card">
+                        <div class="card-header">
+                            {{$t('messages.join_us_at_future_courses')}}
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item" v-for="event in futureEvents" :key="event.id">
+                                {{(new Date(event.date)).toLocaleDateString() + ": " + event.name}}
+                            </li>
+                        </ul>
+                        <div class="card-footer">
+                            <a href="https://thealternative.ch" target="_blank">{{$t('messages.visit_us')}}</a>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
