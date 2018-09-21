@@ -5,7 +5,7 @@
         </div>
         <div class="card-body">
             <div class="row">
-                <EventFeedbackQuestion class="mb-4 col-md-6" v-for="questionContainer in pageContainer.questionContainers"
+                <Question class="mb-4 col-md-6" v-for="questionContainer in pageContainer.questionContainers"
                                        :key="questionContainer.key"
                                        :question-container="questionContainer"
                                        :future-events="futureEvents"
@@ -22,7 +22,7 @@
 </template>
 
 <script>
-    import EventFeedbackQuestion from "./EventFeedbackQuestion";
+    import Question from "./Question";
 
     export default {
         props: {
@@ -41,7 +41,7 @@
             }
         },
         components: {
-            EventFeedbackQuestion
+            Question
         },
         methods: {
             addFeedbackInspiration: function (inspiration) {

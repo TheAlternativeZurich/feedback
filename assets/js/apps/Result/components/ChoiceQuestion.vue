@@ -6,7 +6,7 @@
         <ChoiceQuestionEntry v-for="choiceContainer in choiceContainers"
                              :key="choiceContainer.key"
                              :choice-container="choiceContainer"
-                             @value-changed="valueChanged(choiceContainer)"/>
+                             @selected="selected(choiceContainer)"/>
     </div>
 </template>
 
@@ -27,37 +27,8 @@
             }
         },
         methods: {
-            valueChanged: function (choiceContainer) {
-                let answer = {
-                    value: choiceContainer.answerIndex,
-                };
-
-                if (choiceContainer.selected) {
-                    answer.action = "remove_value";
-                } else {
-                    answer.action = "ensure_value_exists";
-                }
-                choiceContainer.selected = !choiceContainer.selected;
-
-                this.$emit('answer', answer);
-                this.raiseFeedbackInspirationEvents(choiceContainer);
-            },
-            raiseFeedbackInspirationEvents: function (choiceContainer) {
-                if (choiceContainer.selected) {
-                    if ("on_feedback_inspiration" in choiceContainer.choice) {
-                        this.$emit('add-feedback-inspiration', choiceContainer.choice.on_feedback_inspiration);
-                    }
-                    if ("off_feedback_inspiration" in choiceContainer.choice) {
-                        this.$emit('remove-feedback-inspiration', choiceContainer.choice.off_feedback_inspiration);
-                    }
-                } else {
-                    if ("off_feedback_inspiration" in choiceContainer.choice) {
-                        this.$emit('add-feedback-inspiration', choiceContainer.choice.off_feedback_inspiration);
-                    }
-                    if ("on_feedback_inspiration" in choiceContainer.choice) {
-                        this.$emit('remove-feedback-inspiration', choiceContainer.choice.on_feedback_inspiration);
-                    }
-                }
+            selected: function (choiceContainer) {
+                this.$emit('participants-selected', choiceContainer.participants);
             }
         },
         mounted() {
@@ -68,16 +39,12 @@
                     key: this.questionContainer.key + "_" + answerIndex,
                     answerIndex: answerIndex,
                     choice: c,
-                    selected: this.questionContainer.answers.filter(a => a.value == answerIndex).length > 0
+                    participants: this.questionContainer.participants.filter(p => p.answers.filter(a => a.value = choiceContainer.answerIndex))
                 });
                 answerIndex++;
             });
 
             this.choiceContainers = choiceContainers;
-
-            this.choiceContainers.forEach(c => {
-                this.raiseFeedbackInspirationEvents(c);
-            })
         }
     }
 </script>

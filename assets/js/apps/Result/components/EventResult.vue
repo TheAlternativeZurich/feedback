@@ -5,12 +5,12 @@
                 {{$t('feedback_for')}}
                 <b>{{(new Date(eventContainer.event.date)).toLocaleDateString()}}: {{eventContainer.event.name}}</b>
             </p>
-            <EventResultPage v-for="pageContainer in pageContainers"
-                             :key="pageContainer.key"
-                             :pageContainer="pageContainer"
-                             :future-events="futureEvents"
-                             :participants="selectedParticipants"
-                             @select-participants="selectedParticipants = arguments[0]"
+            <EventResultPage
+                    v-for="pageContainer in pageContainers"
+                    :key="pageContainer.key"
+                    :pageContainer="pageContainer"
+                    :future-events="futureEvents"
+                    @select-participants="changeParticipants(arguments[0])"
             />
         </div>
     </div>
@@ -32,12 +32,30 @@
         },
         data() {
             return {
-                pageContainers: [],
-                selectedParticipants: []
+                pageContainers: []
             }
         },
         components: {
             EventResultPage
+        },
+        methods: {
+            changeParticipants: function (participants) {
+                this.refreshQuestionContainers(participants);
+            },
+            refreshQuestionContainers: function (participants) {
+                //collect all answers
+                let answers = [];
+                participants.forEach(p => {
+                    answers = answers.concat(p.answers);
+                });
+
+                //refresh at all questions
+                this.pageContainers.forEach(p => {
+                    p.questionContainers.forEach(q => {
+                        q.answers = answers
+                    })
+                });
+            }
         },
         mounted() {
             //create page & question containers
@@ -61,13 +79,15 @@
                     let questionContainer = {
                         key: questionIndex,
                         question: q,
-                        questionIndex: questionIndex
+                        questionIndex: questionIndex,
+                        answers: []
                     };
                     pageContainers[q.category].questionContainers.push(questionContainer);
                 }
                 questionIndex++;
             });
             this.pageContainers = pageContainers;
+            this.refreshQuestionContainers(this.eventContainer.participants);
         }
     }
 </script>

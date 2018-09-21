@@ -8,3 +8,4 @@ require("./font_awesome_solid");
 
 // apps
 require('./apps/Feedback/bootstrap');
+require('./apps/Result/bootstrap');

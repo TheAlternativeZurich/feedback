@@ -43,16 +43,6 @@
             }
         },
         mounted() {
-            //set identifier
-            if (!localStorage.identifier) {
-                localStorage.identifier = Math.random().toString(36).substr(2, 20);
-            }
-
-            this.identifier = localStorage.identifier;
-
-            //remember when started with questionnaire
-            this.startedAt = new Date();
-
             axios.get(window.location + "api/active")
                 .then((response) => {
                     let eventContainer = {
