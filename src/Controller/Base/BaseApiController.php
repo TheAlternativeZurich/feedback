@@ -13,6 +13,7 @@ namespace App\Controller\Base;
 
 use App\Entity\Answer;
 use App\Entity\Event;
+use App\Entity\Participant;
 use App\Entity\Semester;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Serializer\SerializerInterface;
@@ -50,7 +51,7 @@ class BaseApiController extends BaseDoctrineController
      *
      * @return JsonResponse
      */
-    protected function returnActiveEvent($events)
+    protected function returnEvent($events)
     {
         return $this->returnJson($events, ['id', 'name', 'date', 'template', 'categoryWhitelist']);
     }
@@ -66,29 +67,17 @@ class BaseApiController extends BaseDoctrineController
     }
 
     /**
-     * @param Event|Event[] $events
+     * @param Participant|Participant[] $participants
      *
      * @return JsonResponse
      */
-    protected function returnEventPublic($events)
+    protected function returnParticipant($participants)
     {
-        return $this->returnJson($events, ['id', 'name', 'date', 'template', 'categoryWhitelist', 'publicFeedback' => [
-            'questionIndex', 'value',
-        ]]);
-    }
-
-    /**
-     * @param Event|Event[] $events
-     *
-     * @return JsonResponse
-     */
-    protected function returnEventPrivate($events)
-    {
-        return $this->returnJson($events, ['id', 'name', 'date', 'template', 'categoryWhitelist', 'participants' => [
+        return $this->returnJson($participants, [
             'timeNeededInMinutes', 'answers' => [
                 'questionIndex', 'value',
             ],
-        ]]);
+        ]);
     }
 
     /**

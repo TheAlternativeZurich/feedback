@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace App\Controller\Administration\Semester;
+namespace App\Controller\Administration\Semester\Event;
 
 use App\Controller\Base\BaseApiController;
 use App\Entity\Event;
@@ -18,9 +18,9 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/event/{event}/view/api")
+ * @Route("/view/api")
  */
-class ApiController extends BaseApiController
+class ViewApiController extends BaseApiController
 {
     /**
      * @Route("/active", name="administration_semester_event_view_api_active")
@@ -31,7 +31,7 @@ class ApiController extends BaseApiController
      */
     public function activeEventAction(Event $event)
     {
-        return $this->returnActiveEvent($event);
+        return $this->returnEvent($event);
     }
 
     /**

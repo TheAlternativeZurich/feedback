@@ -7,10 +7,6 @@ export default {
             join_us_at_future_courses: "Join us at one of our future events!",
             visit_us: "Visit us for always up-to-date information"
         },
-        academic_background: {
-            field: "field",
-            institution: "institution"
-        },
         open_feedback: {
             default_placeholder: "any other recommendations to us?"
         },

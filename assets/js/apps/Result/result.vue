@@ -1,6 +1,8 @@
 <template>
-    <div>
-        <LoadingIndicator v-if="isLoading"/>
+    <div id="assign-app">
+        <div v-if="isLoading">
+            <LoadingIndicator/>
+        </div>
         <div v-else-if="activeEventContainer !== null" class="container">
             <EventFeedback :eventContainer="activeEventContainer"
                            :future-events="futureEvents"
@@ -9,15 +11,13 @@
                            @finish="finish"
             />
         </div>
-        <NoQuestionnaire v-else :events="futureEvents" />
     </div>
 </template>
 
 <script>
     import axios from "axios"
     import EventFeedback from './components/EventFeedback'
-    import LoadingIndicator from '../components/LoadingIndicator'
-    import NoQuestionnaire from '../components/NoQuestionnaire'
+    import LoadingIndicator from "../components/LoadingIndicator";
 
     export default {
         data() {
@@ -33,8 +33,7 @@
         },
         components: {
             LoadingIndicator,
-            EventFeedback,
-            NoQuestionnaire
+            EventFeedback
         },
         methods: {
             finish: function () {

@@ -11,6 +11,10 @@ view:
   title: 'view questionnaire'
   description: 'try out the questionnaire by yourself'
 
+result:
+  title: 'view results'
+  description: 'find out what others thought about the event'
+
 remove:
   title: 'remove event'
   description: 'remove the event and all associated data'

@@ -41,11 +41,11 @@ class ApiController extends BaseApiController
             if ($event->getFeedbackStartTime() < $time && $event->getFeedbackEndTime() > $time) {
                 $event->loadTemplateIfSafe($this->getParameter('PUBLIC_DIR'));
 
-                return $this->returnActiveEvent($event);
+                return $this->returnEvent($event);
             }
         }
 
-        return $this->returnActiveEvent(null);
+        return $this->returnEvent(null);
     }
 
     /**
