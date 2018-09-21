@@ -39,7 +39,7 @@
                     key: this.questionContainer.key + "_" + answerIndex,
                     answerIndex: answerIndex,
                     choice: c,
-                    participants: this.questionContainer.participants.filter(p => p.answers.filter(a => a.value = choiceContainer.answerIndex))
+                    participants: this.questionContainer.participants.filter(p => p.answers.filter(a => a.value = answerIndex).length > 0)
                 });
                 answerIndex++;
             });

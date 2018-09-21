@@ -23,7 +23,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class ResultApiController extends BaseApiController
 {
     /**
-     * @Route("/active", name="administration_semester_event_view_api_active")
+     * @Route("/active", name="administration_semester_event_result_api_active")
      *
      * @param Event $event
      *

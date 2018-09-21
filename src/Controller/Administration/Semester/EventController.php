@@ -114,7 +114,7 @@ class EventController extends BaseController
     }
 
     /**
-     * @Route("/{event}/result", name="administration_semester_event_result")
+     * @Route("/{event}/result/", name="administration_semester_event_result")
      *
      * @param Semester $semester
      * @param Event $event

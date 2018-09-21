@@ -73,7 +73,7 @@
                             this.semesters = response.data;
                         });
                 });
-        },
+        }
     }
 
 </script>

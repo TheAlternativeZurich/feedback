@@ -2,7 +2,7 @@
     <div>
         <div>
             <p class="alert alert-light">
-                {{$t('feedback_for')}}
+                {{$t('result_for')}}
                 <b>{{(new Date(eventContainer.event.date)).toLocaleDateString()}}: {{eventContainer.event.name}}</b>
             </p>
             <EventResultPage
@@ -43,16 +43,10 @@
                 this.refreshQuestionContainers(participants);
             },
             refreshQuestionContainers: function (participants) {
-                //collect all answers
-                let answers = [];
-                participants.forEach(p => {
-                    answers = answers.concat(p.answers);
-                });
-
                 //refresh at all questions
                 this.pageContainers.forEach(p => {
                     p.questionContainers.forEach(q => {
-                        q.answers = answers
+                        q.participants = participants
                     })
                 });
             }
@@ -80,13 +74,13 @@
                         key: questionIndex,
                         question: q,
                         questionIndex: questionIndex,
-                        answers: []
+                        participants: []
                     };
                     pageContainers[q.category].questionContainers.push(questionContainer);
                 }
                 questionIndex++;
             });
-            this.pageContainers = pageContainers;
+            this.pageContainers = Object.keys(pageContainers).map(e => pageContainers[e]);
             this.refreshQuestionContainers(this.eventContainer.participants);
         }
     }
