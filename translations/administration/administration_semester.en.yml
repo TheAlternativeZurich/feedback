@@ -7,3 +7,6 @@ index:
 
 new:
   title: "add a new semester"
+
+remove:
+  still_events_attached: "Can't remove as there are events assigned to this semester"

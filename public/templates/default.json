@@ -1,5 +1,6 @@
 {
   "start_text": "We need your feedback so we can further improve this course in the next semester. Thank you for your help!",
+  "end_text": "Thank you for your help!",
   "questions": [
     {
       "category": "lecture",
@@ -25,7 +26,7 @@
       "choices": [
         {
           "title": "was clearly structured",
-          "off_feedback_inspiration": "how can we restructure the lecture that it makes more sense?"
+          "off_feedback_inspiration": "how can we restructure the lecture to make it easier to understand?"
         },
         {
           "title": "contained information useful to me",
@@ -60,7 +61,7 @@
       "choices": [
         {
           "title": "were clearly formulated",
-          "off_feedback_inspiration": "can you tell us of a specific question which was poorly formulated?"
+          "off_feedback_inspiration": "can you tell us of a specific poorly formulated question?"
         },
         {
           "title": "were solvable given the material from the lecture",
@@ -101,7 +102,7 @@
       "center": "the same",
       "max": "more exercises",
       "start_value": 50,
-      "needs_category": "lecture"
+      "requires_category": "lecture"
     },
     {
       "category": "exercise",

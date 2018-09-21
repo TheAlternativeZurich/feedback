@@ -101,7 +101,7 @@ class EventController extends BaseController
     }
 
     /**
-     * @Route("/{event}/view", name="administration_semester_event_view")
+     * @Route("/{event}/view/", name="administration_semester_event_view")
      *
      * @param Semester $semester
      * @param Event $event
@@ -111,6 +111,19 @@ class EventController extends BaseController
     public function viewAction(Semester $semester, Event $event)
     {
         return $this->renderWithSemester('administration/semester/event/view.html.twig', $semester, ['event' => $event]);
+    }
+
+    /**
+     * @Route("/{event}/result", name="administration_semester_event_result")
+     *
+     * @param Semester $semester
+     * @param Event $event
+     *
+     * @return Response
+     */
+    public function resultAction(Semester $semester, Event $event)
+    {
+        return $this->renderWithSemester('administration/semester/event/result.html.twig', $semester, ['event' => $event]);
     }
 
     /**     *

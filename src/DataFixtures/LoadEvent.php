@@ -74,7 +74,7 @@ class LoadEvent extends BaseFixture
 
             //add text event
             $event = new Event();
-            $event->setName('Textevent');
+            $event->setName('Testevent');
             $event->setDate((new \DateTime())->format('Y-m-d'));
             $event->setFeedbackStartTime('00:01:00');
             $event->setFeedbackEndTime('23:59:00');
@@ -82,6 +82,7 @@ class LoadEvent extends BaseFixture
             $event->setTemplate($template);
             $event->setHasExercise(true);
             $event->setHasLecture(true);
+            $event->setSemester($semester);
             $manager->persist($event);
         }
 

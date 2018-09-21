@@ -8,8 +8,8 @@ edit:
   description: 'change the event'
 
 view:
-  title: 'view event'
-  description: 'view the results of the questionnaire'
+  title: 'view questionnaire'
+  description: 'try out the questionnaire by yourself'
 
 remove:
   title: 'remove event'

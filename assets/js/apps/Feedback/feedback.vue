@@ -20,6 +20,7 @@
         <div v-else-if="activeEventContainer !== null" class="container">
             <EventFeedback :eventContainer="activeEventContainer"
                            :future-events="futureEvents"
+                           :is-finished="isFinished"
                            @answer="answer(activeEventContainer, arguments[0])"
                            @finish="finish"
             />
@@ -61,7 +62,9 @@
                 identifier: null,
 
                 activeEventContainer: null,
-                semesters: []
+                semesters: [],
+                startedAt: null,
+                isFinished: false
             }
         },
         components: {
@@ -70,6 +73,12 @@
         },
         methods: {
             finish: function () {
+                axios.post("/api/" + this.activeEventContainer.event.id + "/finish", {
+                    identifier: this.identifier,
+                    timeNeededInSeconds: ((new Date()).getTime() - this.startedAt.getTime()) / 1000
+                }).then((response) => {
+                    this.isFinished = true;
+                });
             },
             answer: function (eventContainer, answer) {
                 answer.identifier = this.identifier;
@@ -96,7 +105,10 @@
 
             this.identifier = localStorage.identifier;
 
-            axios.get("/api/active")
+            //remember when started with questionnaire
+            this.startedAt = new Date();
+
+            axios.get(window.location + "api/active")
                 .then((response) => {
                     let eventContainer = {
                         event: response.data,
@@ -110,7 +122,7 @@
                         eventContainer.template = JSON.parse(eventContainer.event.template);
 
                         //restore any previous answers
-                        axios.get("/api/" + eventContainer.event.id + "/" + this.identifier + "/answers")
+                        axios.get(window.location + "api/" + eventContainer.event.id + "/" + this.identifier + "/answers")
                             .then((response) => {
                                 eventContainer.answers = response.data;
                                 this.activeEventContainer = eventContainer;
@@ -121,7 +133,7 @@
                     }
 
                     //get semesters with their events
-                    axios.get("/api/semesters")
+                    axios.get(window.location + "api/semesters")
                         .then((response) => {
                             this.semesters = response.data;
                         });

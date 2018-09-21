@@ -177,30 +177,18 @@ class ApiController extends BaseApiController
 
         //get request fields
         $identifier = $request->request->get('identifier');
-        $timeNeededInMinutes = (int)$request->request->get('timeNeededInMinutes');
+        $timeNeededInSeconds = (int)$request->request->get('timeNeededInSeconds');
 
         $participant = $this->getDoctrine()->getRepository(Participant::class)->findOneBy(['identifier' => $identifier, 'event' => $event->getId()]);
-        if ($participant === null || $participant->getTimeNeededInMinutes() !== null) {
+        if ($participant === null || $participant->getTimeNeededInSeconds() !== null) {
             return $this->json(false);
         }
 
         //set time info
-        $participant->setTimeNeededInMinutes($timeNeededInMinutes);
+        $participant->setTimeNeededInSeconds($timeNeededInSeconds);
         $this->fastSave($participant);
 
         return $this->json(true);
-    }
-
-    /**
-     * @Route("/{event}", name="api_event")
-     *
-     * @param Event $event
-     *
-     * @return JsonResponse
-     */
-    public function eventPublicAction(Event $event)
-    {
-        return $this->returnEventPublic($event->feedbackHasStarted() ? $event : null);
     }
 
     /**

@@ -68,6 +68,11 @@
                                            href="{{ path("administration_semester_event_remove", {"event" : event.id, "semester": semester.id}) }}">
                                             <i class="fal fa-trash"></i>
                                         </a>
+                                    {% else %}
+                                        <a class="btn btn-info"
+                                           href="{{ path("administration_semester_event_result", {"event" : event.id, "semester": semester.id}) }}">
+                                            <i class="fal fa-chart-area"></i>
+                                        </a>
                                     {% endif %}
                                 </div>
                             </td>

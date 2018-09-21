@@ -38,7 +38,7 @@ class Participant extends BaseEntity
      *
      * @ORM\Column(type="integer", nullable=true)
      */
-    private $timeNeededInMinutes;
+    private $timeNeededInSeconds;
 
     /**
      * @var Answer[]|ArrayCollection
@@ -89,17 +89,17 @@ class Participant extends BaseEntity
     /**
      * @return int|null
      */
-    public function getTimeNeededInMinutes(): ?int
+    public function getTimeNeededInSeconds(): ?int
     {
-        return $this->timeNeededInMinutes;
+        return $this->timeNeededInSeconds;
     }
 
     /**
-     * @param int|null $timeNeededInMinutes
+     * @param int|null $timeNeededInSeconds
      */
-    public function setTimeNeededInMinutes(?int $timeNeededInMinutes): void
+    public function setTimeNeededInSeconds(?int $timeNeededInSeconds): void
     {
-        $this->timeNeededInMinutes = $timeNeededInMinutes;
+        $this->timeNeededInSeconds = $timeNeededInSeconds;
     }
 
     /**
