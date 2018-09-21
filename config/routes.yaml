@@ -13,6 +13,6 @@ app_administration_semester:
   prefix:   /administration/{semester}
 
 app_administration_semester_event:
-  resource: "../src/Controller/Administration/Semester"
+  resource: "../src/Controller/Administration/Semester/Event"
   type:     annotation
   prefix:   /administration/{semester}/event/{event}
