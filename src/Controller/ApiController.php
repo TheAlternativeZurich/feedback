@@ -172,16 +172,26 @@ class ApiController extends BaseApiController
     public function finishAction(Request $request, Event $event)
     {
         if (!$this->canGiveFeedback($event)) {
-            return $this->json(false);
+            return $this->json(1);
         }
 
         //get request fields
-        $identifier = $request->request->get('identifier');
-        $timeNeededInSeconds = (int)$request->request->get('timeNeededInSeconds');
+        $payload = json_decode($request->getContent());
+        $requiredFields = ['identifier', 'timeNeededInSeconds'];
+        foreach ($requiredFields as $requiredField) {
+            if (!property_exists($payload, $requiredField)) {
+                return $this->json(false);
+            }
+        }
 
+        //write fields
+        $identifier = $payload->identifier;
+        $timeNeededInSeconds = (int)$payload->timeNeededInSeconds;
+
+        //get participant
         $participant = $this->getDoctrine()->getRepository(Participant::class)->findOneBy(['identifier' => $identifier, 'event' => $event->getId()]);
         if ($participant === null || $participant->getTimeNeededInSeconds() !== null) {
-            return $this->json(false);
+            return $this->json(2);
         }
 
         //set time info

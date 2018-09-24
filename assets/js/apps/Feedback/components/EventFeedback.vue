@@ -8,7 +8,7 @@
                 <b>{{(new Date(eventContainer.event.date)).toLocaleDateString()}}: {{eventContainer.event.name}}</b>
             </p>
             <div>
-                <progress class="mb-1 w-100" :max="pageCount" :value="currentPage + 1">
+                <progress v-if="pageCount > 1" class="mb-1 w-100" :max="pageCount - 1" :value="currentPage">
                 </progress>
             </div>
             <EventFeedbackPage v-for="pageContainer in pageContainers"

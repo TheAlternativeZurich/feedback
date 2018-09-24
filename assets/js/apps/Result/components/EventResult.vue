@@ -5,6 +5,9 @@
                 {{$t('result_for')}}
                 <b>{{(new Date(eventContainer.event.date)).toLocaleDateString()}}: {{eventContainer.event.name}}</b>
             </p>
+            <EventResultSummary
+                :event-container="eventContainer"
+                :selected-participants="selectedParticipants" />
             <EventResultPage
                     v-for="pageContainer in pageContainers"
                     :key="pageContainer.key"
@@ -18,6 +21,7 @@
 
 <script>
     import EventResultPage from './EventResultPage'
+    import EventResultSummary from './EventResultSummary'
 
     export default {
         props: {
@@ -32,14 +36,17 @@
         },
         data() {
             return {
-                pageContainers: []
+                pageContainers: [],
+                selectedParticipants: []
             }
         },
         components: {
-            EventResultPage
+            EventResultPage,
+            EventResultSummary
         },
         methods: {
             changeParticipants: function (participants) {
+                this.selectedParticipants = participants;
                 this.refreshQuestionContainers(participants);
             },
             refreshQuestionContainers: function (participants) {

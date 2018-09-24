@@ -1,0 +1,18 @@
+@mixin progress-bar
+  background-color: $primary
+
+
+progress
+  background-color: white
+  border: 1px solid rgba(0, 0, 0, 0.125)
+
+progress::-webkit-progress-bar
+  @include progress-bar
+
+progress::-webkit-progress-value
+  @include progress-bar
+
+progress::-moz-progress-bar
+  @include progress-bar
+
+

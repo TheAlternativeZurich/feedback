@@ -101,16 +101,10 @@
 {% else %}
     <header class="header">
         <nav class="navbar navbar-expand-lg navbar-light bg-transparent">
-            <div class="container">
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
-                        aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarNavDropdown">
-                    <ul class="navbar-nav ml-auto">
-                        {{ own_macros.menu_icon_entry("fas fa-sign-in", path("login")) }}
-                    </ul>
-                </div>
+            <div class="container feedback-container">
+                <ul class="navbar-nav ml-auto">
+                    {{ own_macros.menu_icon_entry("fas fa-sign-in", path("login")) }}
+                </ul>
             </div>
         </nav>
     </header>
@@ -159,14 +153,16 @@
     {% endif %}
 
     <section class="content">
-        <div class="container">
-            <div class="p-1 pt-5 pb-4">
-                <h1>{{ block("title") }}</h1>
-                <p class="lead">{% block description %}{% endblock %}</p>
+        {% block bare_content %}
+            <div class="container">
+                <div class="p-1 pt-5 pb-4">
+                    <h1>{{ block("title") }}</h1>
+                    <p class="lead">{% block description %}{% endblock %}</p>
+                </div>
             </div>
-        </div>
-        {% block content %}
+            {% block content %}
 
+            {% endblock %}
         {% endblock %}
     </section>
 </div>

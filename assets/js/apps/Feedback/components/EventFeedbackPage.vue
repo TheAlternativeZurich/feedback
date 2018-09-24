@@ -5,7 +5,7 @@
         </div>
         <div class="card-body">
             <div class="row">
-                <Question class="mb-4 col-md-6" v-for="questionContainer in pageContainer.questionContainers"
+                <Question class="mb-4 col-md-12" v-for="questionContainer in pageContainer.questionContainers"
                                        :key="questionContainer.key"
                                        :question-container="questionContainer"
                                        :future-events="futureEvents"

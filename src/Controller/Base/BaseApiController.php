@@ -53,7 +53,7 @@ class BaseApiController extends BaseDoctrineController
      */
     protected function returnEvent($events)
     {
-        return $this->returnJson($events, ['id', 'name', 'date', 'template', 'categoryWhitelist']);
+        return $this->returnJson($events, ['id', 'name', 'feedbackStartTime', 'feedbackEndTime', 'date', 'template', 'categoryWhitelist']);
     }
 
     /**
@@ -74,7 +74,7 @@ class BaseApiController extends BaseDoctrineController
     protected function returnParticipant($participants)
     {
         return $this->returnJson($participants, [
-            'timeNeededInMinutes', 'answers' => [
+            'timeNeededInSeconds', 'answers' => [
                 'questionIndex', 'value',
             ],
         ]);
