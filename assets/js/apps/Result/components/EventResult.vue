@@ -1,27 +1,26 @@
 <template>
     <div>
-        <div>
-            <p class="alert alert-light">
-                {{$t('result_for')}}
-                <b>{{(new Date(eventContainer.event.date)).toLocaleDateString()}}: {{eventContainer.event.name}}</b>
-            </p>
-            <EventResultSummary
+        <EventResultFilter
                 :event-container="eventContainer"
-                :selected-participants="selectedParticipants" />
-            <EventResultPage
-                    v-for="pageContainer in pageContainers"
-                    :key="pageContainer.key"
-                    :pageContainer="pageContainer"
-                    :future-events="futureEvents"
-                    @select-participants="changeParticipants(arguments[0])"
-            />
-        </div>
+                :selected-participants="selectedParticipants"
+                @select-participants="changeParticipants(arguments[0])"/>
+        <EventResultSummary
+                :event-container="eventContainer"
+                :selected-participants="selectedParticipants"/>
+        <EventResultPage
+                v-for="pageContainer in pageContainers"
+                :key="pageContainer.key"
+                :pageContainer="pageContainer"
+                :future-events="futureEvents"
+                @select-participants="changeParticipants(arguments[0])"
+        />
     </div>
 </template>
 
 <script>
     import EventResultPage from './EventResultPage'
     import EventResultSummary from './EventResultSummary'
+    import EventResultFilter from "./EventResultFilter";
 
     export default {
         props: {
@@ -41,6 +40,7 @@
             }
         },
         components: {
+            EventResultFilter,
             EventResultPage,
             EventResultSummary
         },
@@ -88,7 +88,7 @@
                 questionIndex++;
             });
             this.pageContainers = Object.keys(pageContainers).map(e => pageContainers[e]);
-            this.refreshQuestionContainers(this.eventContainer.participants);
+            this.changeParticipants(this.eventContainer.participants);
         }
     }
 </script>

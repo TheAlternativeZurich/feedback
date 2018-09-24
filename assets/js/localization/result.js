@@ -2,12 +2,15 @@ export default {
     en: {
         result_for: "result for",
         about_the: "about the",
+        completion_time: 'completion time',
+        participant: 'participant',
+        seconds: 'seconds',
         filter: {
             title: 'filter',
-            completion_time: 'completion time',
-            participant: 'participant',
+            help: 'the filter is applied to all sections below',
+            hint_click_answers: 'you can also click on any answer which then filters by all participants which have answered equal',
             actions: {
-                clear_filter: 'clear filter',
+                select_all: 'select all',
                 invert_filter: 'invert filter'
             }
         },
@@ -19,7 +22,6 @@ export default {
             participants: 'participants',
             completion_rate: 'completion rate',
             average_completion_time: 'average completion time',
-            seconds: 'seconds'
         },
         slider: {
             average: 'average over {response_count} responses'

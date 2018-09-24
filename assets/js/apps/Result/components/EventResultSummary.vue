@@ -18,10 +18,13 @@
                 <div class="col">
                     <b>{{$t('summary.participants')}}</b>: {{allParticipants.length}}<br/>
                     <b>{{$t('summary.completion_rate')}}</b>:
-                    {{completingParticipants.length === 0 ? 0 : Math.round(completingParticipants.length / allParticipants.length * 100, 2)}}%<br/>
-                    <b>{{$t('summary.average_completion_time')}}</b>:
-                    {{completingParticipants.reduce((prev, current) => prev + current.timeNeededInSeconds, 0)}}
-                    {{$t('summary.seconds')}}
+                    {{completingParticipants.length === 0 ? 0 : Math.round(completingParticipants.length /
+                    allParticipants.length * 100, 2)}}%<br/>
+                    <span v-if="completingParticipants.length > 0">
+                        <b>{{$t('summary.average_completion_time')}}</b>:
+                        {{completingParticipants.reduce((prev, current) => prev + current.timeNeededInSeconds, 0)}}
+                        {{$t('seconds')}}
+                    </span>
                 </div>
             </div>
         </div>
@@ -46,7 +49,7 @@
                 return this.allParticipants.filter(p => p.timeNeededInSeconds > 0);
             },
             allParticipants: function () {
-                return this.eventContainer.participants;
+                return this.selectedParticipants;
             }
         }
     }
