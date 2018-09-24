@@ -58,12 +58,24 @@
         mounted() {
             if (this.questionContainer.answers.length > 0) {
                 const value = this.questionContainer.answers[0].value;
-                const parts = value.split(" at ");
-                console.log(parts);
+                if (value.indexOf(" at ") > 0) {
+                    const parts = value.split(" at ");
+                    if (this.fields.filter(a => a === parts[0]).length > 0) {
+                        this.selectedField = parts[0];
+                    }
+                    if (this.institutions.filter(a => a === parts[1]).length > 0) {
+                        this.selectedInstitution = parts[1];
+                    }
+                }
             }
 
-            this.selectedField = this.fields[0];
-            this.selectedInstitution = this.institutions[0];
+            if (this.selectedField === null) {
+                this.selectedField = this.fields[0];
+            }
+
+            if (this.selectedInstitution === null) {
+                this.selectedInstitution = this.institutions[0];
+            }
         }
     }
 </script>

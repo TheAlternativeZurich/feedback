@@ -1,19 +1,19 @@
 <template>
     <div>
         <label :for="questionContainer.key"><b>{{questionContainer.question.title}}</b></label>
-        <input
-                type="email"
-                class="form-control"
-                :id="questionContainer.key"
-                v-model="emailValue"
-                placeholder="stallmann@gnu.com"
-                @input="valueChanged">
-        </input>
+        <p>
+            <span v-for="textContainer in textContainers" @click="$emit('select-participants', [textContainer.participant])">
+                <a :href="'mailto:' + textContainer.text" >
+                    <i class="fal fa-envelope"></i>
+                </a>
+                {{textContainer.text}}
+                <br/>
+            </span>
+        </p>
     </div>
 </template>
 
 <script>
-    import debounce from 'debounce'
 
     export default {
         props: {
@@ -24,23 +24,29 @@
         },
         data() {
             return {
-                emailValue: null
+                textContainers: []
             };
         },
         methods: {
-            valueChanged: debounce(function () {
-                let answer = {
-                    value: this.emailValue,
-                    action: "override"
-                };
-
-                this.$emit('answer', answer);
-            }, 500)
+            refreshParticipants: function () {
+                this.textContainers = this.questionContainer.participants.reduce((acc, current) => acc.concat(current.answers.filter(a => a.questionIndex == this.questionContainer.questionIndex).map(a => {
+                    return {
+                        text: a.value,
+                        participant: current
+                    }
+                })), []);
+            }
+        },
+        watch: {
+            questionContainer: {
+                handler: function () {
+                    this.refreshParticipants();
+                },
+                deep: true
+            }
         },
         mounted() {
-            if (this.questionContainer.answers.length > 0) {
-                this.emailValue = this.questionContainer.answers[0].value;
-            }
+            this.refreshParticipants();
         }
     }
 </script>

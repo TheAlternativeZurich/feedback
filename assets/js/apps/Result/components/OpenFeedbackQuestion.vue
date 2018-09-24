@@ -1,7 +1,7 @@
 <template>
     <div>
         <label :for="questionContainer.key"><b>{{questionContainer.question.title}}</b></label>
-        <p v-for="textContainer in textContainers"><i @click="selected(textContainer.participant)">{{textContainer.text}}</i></p>
+        <p v-for="textContainer in textContainers"><i @click="$emit('select-participants', [textContainer.participant])">{{textContainer.text}}</i></p>
     </div>
 </template>
 
@@ -27,9 +27,6 @@
                         participant: current
                     }
                 })), []);
-            },
-            selected: function (participant) {
-                this.$emit('select-participants', [participant]);
             }
         },
         watch: {

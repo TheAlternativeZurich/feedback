@@ -1,28 +1,15 @@
 <template>
     <div>
         <span><b>{{questionContainer.question.title}}</b></span>
-        <div class="row mt-2">
-            <div class="col-md-8">
-                <select :title="$t('academic_background.field')" class="form-control" v-model="selectedField" @input="valueChanged">
-                    <option v-for="field in fields" :key="field" :value="field">
-                        {{field}}
-                    </option>
-                </select>
-            </div>
-            <div class="col-md-4">
-                <select :title="$t('academic_background.institution')" class="form-control" v-model="selectedInstitution" @input="valueChanged">
-                    <option v-for="institution in institutions" :key="institution" :value="institution">
-                        {{institution}}
-                    </option>
-                </select>
-            </div>
-
-        </div>
+        <p>
+            <span v-for="textContainer in textContainers" @click="$emit('select-participants', textContainer.participants)">
+                <b>{{textContainer.participants.length}}</b> {{textContainer.text}}<br/>
+            </span>
+        </p>
     </div>
 </template>
 
 <script>
-    import debounce from 'debounce'
 
     export default {
         props: {
@@ -33,37 +20,35 @@
         },
         data() {
             return {
-                selectedField: null,
-                selectedInstitution: null
+                values: [],
+                textContainers: []
             };
         },
         methods: {
-            valueChanged: debounce(function () {
-                let answer = {
-                    value: this.selectedField + " at " + this.selectedInstitution,
-                    action: "override"
-                };
-
-                this.$emit('answer', answer);
-            }, 500)
-        },
-        computed: {
-            fields: function () {
-                return this.questionContainer.question.fields;
+            refreshParticipants: function () {
+                const allValues = this.questionContainer.participants.reduce((pre, current) => pre.concat(current.answers.filter(a => a.questionIndex == this.questionContainer.questionIndex).map(a => a.value)), []);
+                const values = [...new Set(allValues)];
+                this.textContainers = values.map(v => {
+                    return {
+                        text: v,
+                        participants: this.questionContainer.participants.filter(p => p.answers.filter(a => a.questionIndex == this.questionContainer.questionIndex && a.value === v).length > 0)
+                    };
+                })
             },
-            institutions: function () {
-                return this.questionContainer.question.institutions;
+            selected: function (participant) {
+                this.$emit('select-participants', [participant]);
+            }
+        },
+        watch: {
+            questionContainer: {
+                handler: function () {
+                    this.refreshParticipants();
+                },
+                deep: true
             }
         },
         mounted() {
-            if (this.questionContainer.answers.length > 0) {
-                const value = this.questionContainer.answers[0].value;
-                const parts = value.split(" at ");
-                console.log(parts);
-            }
-
-            this.selectedField = this.fields[0];
-            this.selectedInstitution = this.institutions[0];
+            this.refreshParticipants();
         }
     }
 </script>

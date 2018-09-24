@@ -1,8 +1,6 @@
 export default {
     en: {
-        academic_background: {
-            field: "field",
-            institution: "institution"
-        }
+        field: "field",
+        institution: "institution"
     }
 }

@@ -19,7 +19,6 @@
                     :question-container="questionContainer"
                     @select-participants="$emit('select-participants', arguments[0])"
             />
-            <!--
             <EventListQuestion
                     v-else-if="questionContainer.question.type === 'event_list'"
                     :key="questionContainer.key"
@@ -39,7 +38,6 @@
                     :question-container="questionContainer"
                     @select-participants="$emit('select-participants', arguments[0])"
             />
-            -->
         </div>
     </div>
 </template>

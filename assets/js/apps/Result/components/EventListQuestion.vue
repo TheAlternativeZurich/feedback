@@ -6,10 +6,7 @@
         <ChoiceQuestionEntry v-for="choiceContainer in choiceContainers"
                              :key="choiceContainer.key"
                              :choice-container="choiceContainer"
-                             @value-changed="valueChanged(choiceContainer)"/>
-        <p v-if="showLotSelectedText" class="alert alert-success mt-2">
-            {{questionContainer.question.lot_selected_text}}
-        </p>
+                             @selected="$emit('select-participants', choiceContainer.participants)"/>
     </div>
 </template>
 
@@ -30,29 +27,17 @@
         },
         data() {
             return {
-                choiceContainers: [],
-                showLotSelectedText: false
+                choiceContainers: []
             }
         },
         methods: {
-            valueChanged: function (choiceContainer) {
-                let answer = {
-                    value: choiceContainer.eventId
-                };
-
-                if (choiceContainer.selected) {
-                    answer.action = "remove_value";
-                } else {
-                    answer.action = "ensure_value_exists";
-                }
-                choiceContainer.selected = !choiceContainer.selected;
-                this.refreshShowLotSelectedText();
-
-                this.$emit('answer', answer);
+            selected: function (choiceContainer) {
+                this.$emit('select-participants', choiceContainer.participants);
             },
-            refreshShowLotSelectedText: function () {
-                const activeChoices = this.choiceContainers.filter(c => c.selected).length;
-                this.showLotSelectedText = 'lot_selected_text' in this.questionContainer.question && ((activeChoices >= this.choiceContainers.length * 0.7 && activeChoices >= 2) || activeChoices > 4);
+            refreshParticipants: function () {
+                this.choiceContainers.forEach(c => {
+                    c.participants = this.questionContainer.participants.filter(p => p.answers.filter(a => a.questionIndex == this.questionContainer.questionIndex && a.value == c.eventId).length > 0)
+                })
             },
             refreshChoiceContainers: function () {
                 let choiceContainers = [];
@@ -63,15 +48,21 @@
                         choice: {
                             title: (new Date(e.date)).toLocaleDateString() + ": " + e.name
                         },
-                        selected: this.questionContainer.answers.filter(a => a.value == e.id).length > 0
+                        participants: []
                     });
                 });
 
                 this.choiceContainers = choiceContainers;
-                this.refreshShowLotSelectedText();
+                this.refreshParticipants();
             }
         },
         watch: {
+            questionContainer: {
+                handler: function() {
+                    this.refreshParticipants();
+                },
+                deep: true
+            },
             events() {
                 this.refreshChoiceContainers()
             }

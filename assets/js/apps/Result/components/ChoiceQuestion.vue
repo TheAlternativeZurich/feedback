@@ -6,7 +6,7 @@
         <ChoiceQuestionEntry v-for="choiceContainer in choiceContainers"
                              :key="choiceContainer.key"
                              :choice-container="choiceContainer"
-                             @selected="selected(choiceContainer)"/>
+                             @selected="$emit('select-participants', choiceContainer.participants)"/>
     </div>
 </template>
 
@@ -29,9 +29,6 @@
             }
         },
         methods: {
-            selected: function (choiceContainer) {
-                this.$emit('select-participants', choiceContainer.participants);
-            },
             refreshParticipants: function () {
                 this.choiceContainers.forEach(c => {
                     c.participants = this.questionContainer.participants.filter(p => p.answers.filter(a => a.questionIndex == this.questionContainer.questionIndex && a.value == c.answerIndex).length > 0)
