@@ -76,6 +76,13 @@
 </head>
 <body>
 
+
+<div id="outdated">
+    <h6>{{ "outdated.your_browser_is_outdated"|trans({}, "framework") }}</h6>
+    <p>{{ "outdated.update_to_view_correctly"|trans({}, "framework") }} <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">{{ "outdated.update_now"|trans({}, "framework") }}</a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+
 {% if is_granted('ROLE_ADMIN') %}
     <header class="header">
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
