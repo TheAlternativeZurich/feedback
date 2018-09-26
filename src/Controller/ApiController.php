@@ -102,12 +102,8 @@ class ApiController extends BaseApiController
         }
 
         //get request fields
-        $payload = json_decode($request->getContent());
-        $requiredFields = ['identifier', 'questionIndex', 'value', 'action'];
-        foreach ($requiredFields as $requiredField) {
-            if (!property_exists($payload, $requiredField)) {
-                return $this->json(false);
-            }
+        if (!$this->checkAllFieldsSet($request, ['identifier', 'questionIndex', 'value', 'action'], $payload)) {
+            return $this->json(false);
         }
 
         //write fields
@@ -119,9 +115,7 @@ class ApiController extends BaseApiController
 
         //ensure all fields set & valid
         if (!isset($identifier) || !\is_int($questionIndex) || !isset($value) || !\in_array($action, ['override', 'ensure_value_exists', 'remove_value'], true)) {
-            dump($request->getContent());
-
-            return $this->json(3);
+            return $this->json(false);
         }
 
         //get participant or create a new one
@@ -140,7 +134,7 @@ class ApiController extends BaseApiController
         }
         $answer = $this->getDoctrine()->getRepository(Answer::class)->findOneBy($conditions);
 
-        //create new of not found && not want to remove anyways
+        //create new of not found && not want to remove
         if ($answer === null && $action !== 'remove_value') {
             $answer = new Answer();
             $answer->setParticipant($participant);
@@ -175,13 +169,8 @@ class ApiController extends BaseApiController
             return $this->json(1);
         }
 
-        //get request fields
-        $payload = json_decode($request->getContent());
-        $requiredFields = ['identifier', 'timeNeededInSeconds'];
-        foreach ($requiredFields as $requiredField) {
-            if (!property_exists($payload, $requiredField)) {
-                return $this->json(false);
-            }
+        if (!$this->checkAllFieldsSet($request, ['identifier', 'timeNeededInSeconds'], $payload)) {
+            return $this->json(false);
         }
 
         //write fields
@@ -191,7 +180,7 @@ class ApiController extends BaseApiController
         //get participant
         $participant = $this->getDoctrine()->getRepository(Participant::class)->findOneBy(['identifier' => $identifier, 'event' => $event->getId()]);
         if ($participant === null || $participant->getTimeNeededInSeconds() !== null) {
-            return $this->json(2);
+            return $this->json(false);
         }
 
         //set time info
@@ -199,6 +188,26 @@ class ApiController extends BaseApiController
         $this->fastSave($participant);
 
         return $this->json(true);
+    }
+
+    /**
+     * @param Request $request
+     * @param string[] $requiredFields
+     * @param string[] $payload
+     *
+     * @return bool
+     */
+    private function checkAllFieldsSet(Request $request, array $requiredFields, &$payload)
+    {
+        //get request fields
+        $payload = json_decode($request->getContent());
+        foreach ($requiredFields as $requiredField) {
+            if (!property_exists($payload, $requiredField)) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     /**

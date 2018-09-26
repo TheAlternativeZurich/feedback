@@ -54,32 +54,30 @@ class LoadParticipants extends BaseFixture
         /** @var Answer[][] $participantJson */
         $participantJson = [];
         foreach ($fileNames as $fileName) {
-            if ($fileName === '.' || $fileName === '..') {
-                continue;
+            //filter out folder links
+            if ($fileName !== '.' && $fileName !== '..') {
+                $participantJson[] = file_get_contents($dir . '/' . $fileName);
             }
-            $participantJson[] = file_get_contents($dir . '/' . $fileName);
         }
 
         //add participants to all events
         foreach ($events as $event) {
-            //skip if not yet happened
-            if ($event->getDate() >= $now) {
-                continue;
-            }
+            //only add if already happened
+            if ($event->getDate() < $now) {
+                foreach ($participantJson as $json) {
+                    $participant = new Participant();
+                    $participant->setIdentifier(uniqid());
+                    $participant->setEvent($event);
+                    $participant->setTimeNeededInSeconds(rand(0, 60 * 3));
 
-            foreach ($participantJson as $json) {
-                $participant = new Participant();
-                $participant->setIdentifier(uniqid());
-                $participant->setEvent($event);
-                $participant->setTimeNeededInSeconds(rand(0, 60 * 3));
-
-                /** @var Answer[] $answers */
-                $answers = $this->serializer->deserialize($json, Answer::class . '[]', 'json');
-                foreach ($answers as $answer) {
-                    $answer->setParticipant($participant);
-                    $manager->persist($answer);
+                    /** @var Answer[] $answers */
+                    $answers = $this->serializer->deserialize($json, Answer::class . '[]', 'json');
+                    foreach ($answers as $answer) {
+                        $answer->setParticipant($participant);
+                        $manager->persist($answer);
+                    }
+                    $manager->persist($participant);
                 }
-                $manager->persist($participant);
             }
         }
         $manager->flush();
