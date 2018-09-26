@@ -79,7 +79,9 @@
 
 <div id="outdated">
     <h6>{{ "outdated.your_browser_is_outdated"|trans({}, "framework") }}</h6>
-    <p>{{ "outdated.update_to_view_correctly"|trans({}, "framework") }} <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">{{ "outdated.update_now"|trans({}, "framework") }}</a></p>
+    <p>{{ "outdated.update_to_view_correctly"|trans({}, "framework") }} <a id="btnUpdateBrowser"
+                                                                           href="http://outdatedbrowser.com/">{{ "outdated.update_now"|trans({}, "framework") }}</a>
+    </p>
     <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
 </div>
 
@@ -160,17 +162,15 @@
     {% endif %}
 
     <section class="content">
-        {% block bare_content %}
-            <div class="container">
-                <div class="p-1 pt-5 pb-4">
-                    <h1>{{ block("title") }}</h1>
-                    <p class="lead">{% block description %}{% endblock %}</p>
-                </div>
+        <div class="{% block container_class %}container{% endblock %}">
+            <div class="p-1 pt-5 pb-4">
+                <h1>{{ block("title") }}</h1>
+                <p class="lead">{% block description %}{% endblock %}</p>
             </div>
             {% block content %}
 
             {% endblock %}
-        {% endblock %}
+        </div>
     </section>
 </div>
 

@@ -1,7 +1,7 @@
 <template>
     <div>
         <LoadingIndicator v-if="isLoading"/>
-        <div v-else-if="activeEventContainer !== null" class="container feedback-container">
+        <div v-else-if="activeEventContainer !== null">
             <EventFeedback :eventContainer="activeEventContainer"
                            :future-events="futureEvents"
                            :is-finished="isFinished"

@@ -1,17 +1,19 @@
-{% extends "form_content_base.html.twig" %}
+{% extends "single_content_base.html.twig" %}
 
 {% block title %}{{ "login.title"|trans }}{% endblock %}
 {% block description %}{{ "login.description"|trans }}{% endblock %}
 
 {% trans_default_domain "login" %}
 
-{% block form_content %}
+{% block container_class %}container feedback-container{% endblock %}
+{% block single_content %}
     {{ form_start(form, {"action" : path("login_check")}) }}
     {{ form_errors(form) }}
     <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
     {{ form_end(form) }}
+    <p class="small text-secondary">{{ "login.password_helper"|trans }}</p>
 
     {% if error_occurred %}
-        <p>{{ "login.forgot_password"|trans }}</p>
+        <p>{{ "login.password_config"|trans }}</p>
     {% endif %}
 {% endblock %}
