@@ -33,10 +33,8 @@
         computed: {
             futureEvents: function () {
                 let events = [];
-                const now = new Date();
-                const todayDate = now.getFullYear() + "-" + ("0" + now.getMonth()).slice(-2) + "-" + ("0" + now.getDay()).slice(-2);
                 this.semesters.forEach(s => {
-                    events = events.concat(s.events.filter(e => e.date > todayDate));
+                    events = events.concat(s.events.filter(e => e.date > this.activeEventContainer.event.date));
                 });
                 events.reverse();
                 return events;
