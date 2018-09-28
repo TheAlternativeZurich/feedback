@@ -3,7 +3,7 @@
         <LoadingIndicator v-if="isLoading"/>
         <div v-else-if="activeEventContainer !== null">
             <EventFeedback :eventContainer="activeEventContainer"
-                           :future-events="futureEvents"
+                           :future-events="selectableEvents"
                            :is-finished="isFinished"
                            @answer="answer(activeEventContainer, arguments[0])"
                            @finish="finish"
@@ -53,6 +53,16 @@
         },
         computed: {
             futureEvents: function () {
+                let events = [];
+                const now = new Date();
+                const todayDate = now.getFullYear() + "-" + ("0" + now.getMonth()).slice(-2) + "-" + ("0" + now.getDay()).slice(-2);
+                this.semesters.forEach(s => {
+                    events = events.concat(s.events.filter(e => e.date > todayDate));
+                });
+                events.reverse();
+                return events;
+            },
+            selectableEvents: function () {
                 let events = [];
                 this.semesters.forEach(s => {
                     events = events.concat(s.events.filter(e => e.date > this.activeEventContainer.event.date));

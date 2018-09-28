@@ -1,12 +1,11 @@
 <template>
     <div>
         <LoadingIndicator v-if="isLoading"/>
-        <div v-else-if="activeEventContainer !== null" class="container">
+        <div v-else class="container">
             <EventResult :eventContainer="activeEventContainer"
-                         :future-events="futureEvents"
+                         :future-events="selectableEvents"
             />
         </div>
-        <NoQuestionnaire v-else :events="futureEvents"/>
     </div>
 </template>
 
@@ -31,7 +30,7 @@
             NoQuestionnaire
         },
         computed: {
-            futureEvents: function () {
+            selectableEvents: function () {
                 let events = [];
                 this.semesters.forEach(s => {
                     events = events.concat(s.events.filter(e => e.date > this.activeEventContainer.event.date));

@@ -31,6 +31,8 @@ class ViewApiController extends BaseApiController
      */
     public function activeEventAction(Event $event)
     {
+        $event->loadTemplateIfSafe($this->getParameter('PUBLIC_DIR'));
+
         return $this->returnEvent($event);
     }
 
