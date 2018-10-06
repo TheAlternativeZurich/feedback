@@ -4,6 +4,7 @@ export default {
         feedback_for: "Feedback for ",
         messages: {
             no_active_questionnaire: "Currently, no questionnaire is open.",
+            next_active_questionnaire: "The questionnaire for {name} opens at {time}.",
             join_us_at_future_courses: "Join us at one of our future events!",
             visit_us: "Visit us for always up-to-date information"
         },

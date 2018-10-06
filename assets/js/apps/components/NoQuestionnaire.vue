@@ -1,8 +1,13 @@
 <template>
     <div>
-        <p class="alert alert-light">
-            {{$t('messages.no_active_questionnaire')}}
-        </p>
+        <div>
+            <p v-if="nextEvent !== null" class="alert alert-light">
+                {{$t('messages.next_active_questionnaire', {name: nextEvent.name, time: nextEvent.feedbackStartTime.substring(0, 5)})}}
+            </p>
+            <p v-else class="alert alert-light">
+                {{$t('messages.no_active_questionnaire')}}
+            </p>
+        </div>
         <div v-if="events.length > 0" class="card">
             <div class="card-header">
                 {{$t('messages.join_us_at_future_courses')}}
@@ -25,6 +30,21 @@
             events: {
                 type: Array,
                 required: true
+            }
+        },
+        computed: {
+            nextEvent: function () {
+                //format date
+                const now = new Date();
+                const todayDate = now.getFullYear() + "-" + ("0" + (now.getMonth() + 1)).slice(-2) + "-" + ("0" + now.getDay()).slice(-2);
+                const nowTime = ("0" + (now.getHours())).slice(-2) + ":" + ("0" + (now.getMinutes())).slice(-2);
+
+                console.log(nowTime);
+                const todayEvents = this.events.filter(e => e.date === todayDate && e.feedbackStartTime > nowTime).sort(e => e.feedbackStartTime);
+                if (todayEvents.length > 0) {
+                    return todayEvents[0];
+                }
+                return null;
             }
         }
     }
