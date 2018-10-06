@@ -33,7 +33,7 @@
             selectableEvents: function () {
                 let events = [];
                 this.semesters.forEach(s => {
-                    events = events.concat(s.events.filter(e => e.date > this.activeEventContainer.event.date));
+                    events = events.concat(s.events.filter(e => e.date >= this.activeEventContainer.event.date));
                 });
                 events.reverse();
                 return events;

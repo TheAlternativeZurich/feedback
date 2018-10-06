@@ -43,7 +43,7 @@ class BaseApiController extends BaseDoctrineController
      */
     protected function returnSemester($semester)
     {
-        return $this->returnJson($semester, ['name', 'events' => ['id', 'name', 'date']]);
+        return $this->returnJson($semester, ['name', 'events' => ['id', 'name', 'date', 'feedbackStartTime']]);
     }
 
     /**
