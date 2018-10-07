@@ -42,7 +42,6 @@
                     identifier: this.identifier,
                     timeNeededInSeconds: ((new Date()).getTime() - this.startedAt.getTime()) / 1000
                 }).then((response) => {
-                    console.log(response.data);
                     this.isFinished = true;
                 });
             },
