@@ -39,7 +39,6 @@
                 const todayDate = now.getFullYear() + "-" + ("0" + (now.getMonth() + 1)).slice(-2) + "-" + ("0" + now.getDay()).slice(-2);
                 const nowTime = ("0" + (now.getHours())).slice(-2) + ":" + ("0" + (now.getMinutes())).slice(-2);
 
-                console.log(nowTime);
                 const todayEvents = this.events.filter(e => e.date === todayDate && e.feedbackStartTime > nowTime).sort(e => e.feedbackStartTime);
                 if (todayEvents.length > 0) {
                     return todayEvents[0];
