@@ -55,7 +55,7 @@
             futureEvents: function () {
                 let events = [];
                 const now = new Date();
-                const todayDate = now.getFullYear() + "-" + ("0" + (now.getMonth() + 1)).slice(-2) + "-" + ("0" + now.getDay()).slice(-2);
+                const todayDate = now.getFullYear() + "-" + ("0" + (now.getMonth() + 1)).slice(-2) + "-" + ("0" + now.getDate()).slice(-2);
                 this.semesters.forEach(s => {
                     events = events.concat(s.events.filter(e => e.date >= todayDate));
                 });
