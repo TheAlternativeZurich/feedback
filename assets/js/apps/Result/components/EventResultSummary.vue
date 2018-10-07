@@ -22,7 +22,7 @@
                     allParticipants.length * 100, 2)}}%<br/>
                     <span v-if="completingParticipants.length > 0">
                         <b>{{$t('summary.average_completion_time')}}</b>:
-                        {{completingParticipants.reduce((prev, current) => prev + current.timeNeededInSeconds, 0)}}
+                        {{completingParticipants.reduce((prev, current) => prev + current.timeNeededInSeconds, 0) / completingParticipants.length}}
                         {{$t('seconds')}}
                     </span>
                 </div>
