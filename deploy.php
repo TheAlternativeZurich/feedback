@@ -18,8 +18,7 @@ set('var_dir', 'var');
 
 // Configuration
 set('repository', 'https://github.com/TheAlternativeZurich/feedback.git');
-set('shared_dirs', array_merge(get('shared_dirs'), ['var']));
-set('shared_files', ['.env.local']);
+set('shared_files', ['.env.local', 'var/data.sqlite']);
 set('composer_options', '{{composer_action}} --verbose --prefer-dist --no-progress --no-interaction --no-dev --optimize-autoloader --no-scripts');
 set('env_file_path', '.env');
 
