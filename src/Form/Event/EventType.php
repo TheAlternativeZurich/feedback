@@ -56,9 +56,9 @@ class EventType extends AbstractType
                 $templates[mb_substr($template, 0, -5)] = $template;
             }
         }
-        $builder->add('templateName', ChoiceType::class, ['choices' => $templates, 'choice_translation_domain' => false, 'help' => "help.template_name"]);
-        $builder->add('hasExercise', CheckboxType::class, ['required' => false, 'help' => "help.has_exercise"]);
-        $builder->add('hasLecture', CheckboxType::class, ['required' => false, 'help' => "help.has_lecture"]);
+        $builder->add('templateName', ChoiceType::class, ['choices' => $templates, 'choice_translation_domain' => false, 'help' => 'help.template_name']);
+        $builder->add('hasExercise', CheckboxType::class, ['required' => false, 'help' => 'help.has_exercise']);
+        $builder->add('hasLecture', CheckboxType::class, ['required' => false, 'help' => 'help.has_lecture']);
     }
 
     /**
@@ -73,7 +73,7 @@ class EventType extends AbstractType
         if ($needle === '') {
             return true;
         }
-        $diff = \mb_strlen($haystack) - \mb_strlen($needle);
+        $diff = mb_strlen($haystack) - mb_strlen($needle);
 
         return $diff >= 0 && mb_strpos($haystack, $needle, $diff) !== false;
     }
