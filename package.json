@@ -1,7 +1,7 @@
 {
   "devDependencies": {
     "@symfony/webpack-encore": "^0.17",
-    "jquery": "^3.2",
+    "jquery": "^3.4",
     "node-sass": "^4",
     "sass-loader": "^6",
     "vue-loader": "^14.2.2",
