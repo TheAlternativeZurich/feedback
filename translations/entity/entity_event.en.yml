@@ -1,6 +1,11 @@
 entity:
   name: 'Event'
 
+help:
+  template_name: 'this defines which questions are asked. the templates are located within the public/templates directory on the server'
+  has_exercise: 'if enabled, additional questions about the exercise are asked'
+  has_lecture: 'if enabled, additional questions about the lecture are asked'
+
 name: "name"
 date: "date"
 feedback_start_time: "feedback start time"
