@@ -1,5 +1,5 @@
 {
-  "name": "TheAlternativeZurich/feedback",
+  "name": "the-alternative-zurich/feedback",
   "description": "collect feedback from lectures & workshop with minimal setup & instant evaulation ",
   "license": "MIT",
   "require": {
