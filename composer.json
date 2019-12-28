@@ -9,7 +9,6 @@
     "ext-pdo": "*",
     "ext-pdo_sqlite": "*",
     "doctrine/doctrine-fixtures-bundle": "^3.0",
-    "php-coveralls/php-coveralls": "^2.0",
     "ramsey/uuid": "^3",
     "sensio/framework-extra-bundle": "^5.1",
     "sensiolabs/security-checker": "^5.0",
@@ -33,14 +32,15 @@
     "symfony/translation": "^4.1",
     "symfony/twig-bundle": "^4.1",
     "symfony/validator": "^4.1",
-    "symfony/webpack-encore-pack": "^1.0",
+    "symfony/webpack-encore-bundle": "^1.0",
     "symfony/yaml": "^4.1"
   },
   "require-dev": {
-    "codacy/coverage": "^1.4",
+    "brainmaestro/composer-git-hooks": "^2.6",
     "deployer/deployer": "^6.1",
     "friendsofphp/php-cs-fixer": "^2.7",
     "fzaninotto/faker": "^1.7",
+    "php-coveralls/php-coveralls": "^2.0",
     "symfony/browser-kit": "^4.1",
     "symfony/css-selector": "^4.1",
     "symfony/debug-bundle": "^4.1",
@@ -73,21 +73,33 @@
     "symfony/polyfill-php56": "*"
   },
   "scripts": {
-    "auto-scripts": {
-      "cache:clear": "symfony-cmd",
-      "assets:install --symlink --relative %PUBLIC_DIR%": "symfony-cmd",
-      "security:check": "symfony-cmd",
-      "doctrine:migrations:migrate -q": "symfony-cmd",
-      "requirements-checker": "script"
-    },
-    "post-install-cmd": [
-      "@auto-scripts"
+    "configure-environment": [
+      "cp -n .env .env.local",
+      "cp -n .php_cs.dist .php_cs",
+      "cp -n phpunit.xml.dist phpunit.xml",
+      "cp -n servers.yml.dist servers.yml"
     ],
-    "post-update-cmd": [
-      "@auto-scripts"
-    ]
+    "prepare-environment": [
+      "vendor/bin/cghooks update",
+      "vendor/bin/requirements-checker",
+      "php bin/console security:check",
+      "php bin/console doctrine:migrations:migrate -q",
+      "php bin/console doctrine:fixtures:load -q"
+    ],
+    "pre-install-cmd": "@configure-environment",
+    "post-install-cmd": "@prepare-environment",
+    "pre-update-cmd": "@configure-environment",
+    "post-update-cmd": "@prepare-environment"
   },
-  "conflict": {
-    "symfony/symfony": "*"
+  "extra": {
+    "projectTitle": "mangelio/web",
+    "hooks": {
+      "pre-commit": [
+        "echo committing as $(git config user.name)",
+        "./vendor/bin/php-cs-fixer fix  --config=.php_cs",
+        "git update-index --again"
+      ],
+      "post-merge": "composer install"
+    }
   }
 }
