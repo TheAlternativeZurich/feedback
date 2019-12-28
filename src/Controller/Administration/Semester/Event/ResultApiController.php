@@ -25,8 +25,6 @@ class ResultApiController extends BaseApiController
     /**
      * @Route("/active", name="administration_semester_event_result_api_active")
      *
-     * @param Event $event
-     *
      * @return JsonResponse
      */
     public function activeEventAction(Event $event)
@@ -36,8 +34,6 @@ class ResultApiController extends BaseApiController
 
     /**
      * @Route("/{event2}/participants", name="administration_semester_event_result_api_participants")
-     *
-     * @param Event $event
      *
      * @return JsonResponse
      */

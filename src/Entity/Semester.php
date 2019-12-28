@@ -56,17 +56,11 @@ class Semester extends BaseEntity
         $this->events = new ArrayCollection();
     }
 
-    /**
-     * @return string
-     */
     public function getName(): string
     {
         return $this->name;
     }
 
-    /**
-     * @param string $name
-     */
     public function setName(string $name): void
     {
         $this->name = $name;
@@ -80,17 +74,11 @@ class Semester extends BaseEntity
         return $this->events;
     }
 
-    /**
-     * @return \DateTime
-     */
     public function getCreationDate(): \DateTime
     {
         return $this->creationDate;
     }
 
-    /**
-     * @param \DateTime $creationDate
-     */
     public function setCreationDate(\DateTime $creationDate): void
     {
         $this->creationDate = $creationDate;

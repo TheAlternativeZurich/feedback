@@ -103,7 +103,6 @@ abstract class BaseFixture extends Fixture implements OrderedFixtureInterface, C
      * create random instances.
      *
      * @param $count
-     * @param ObjectManager $manager
      *
      * @throws \Exception
      */

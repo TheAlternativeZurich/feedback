@@ -111,97 +111,61 @@ class Event extends BaseEntity
         $this->participants = new ArrayCollection();
     }
 
-    /**
-     * @return string
-     */
     public function getName(): string
     {
         return $this->name;
     }
 
-    /**
-     * @param string $name
-     */
     public function setName(string $name): void
     {
         $this->name = $name;
     }
 
-    /**
-     * @return string
-     */
     public function getFeedbackStartTime(): string
     {
         return $this->feedbackStartTime;
     }
 
-    /**
-     * @param string $feedbackStartTime
-     */
     public function setFeedbackStartTime(string $feedbackStartTime): void
     {
         $this->feedbackStartTime = $feedbackStartTime;
     }
 
-    /**
-     * @return string
-     */
     public function getFeedbackEndTime(): string
     {
         return $this->feedbackEndTime;
     }
 
-    /**
-     * @param string $feedbackEndTime
-     */
     public function setFeedbackEndTime(string $feedbackEndTime): void
     {
         $this->feedbackEndTime = $feedbackEndTime;
     }
 
-    /**
-     * @return string
-     */
     public function getTemplate(): string
     {
         return $this->template;
     }
 
-    /**
-     * @param string $template
-     */
     public function setTemplate(string $template): void
     {
         $this->template = $template;
     }
 
-    /**
-     * @return bool
-     */
     public function getHasLecture(): bool
     {
         return $this->hasLecture;
     }
 
-    /**
-     * @param bool $hasLecture
-     */
     public function setHasLecture(bool $hasLecture): void
     {
         $this->hasLecture = $hasLecture;
     }
 
-    /**
-     * @return bool
-     */
     public function getHasExercise(): bool
     {
         return $this->hasExercise;
     }
 
-    /**
-     * @param bool $hasExercise
-     */
     public function setHasExercise(bool $hasExercise): void
     {
         $this->hasExercise = $hasExercise;
@@ -215,49 +179,31 @@ class Event extends BaseEntity
         return $this->participants;
     }
 
-    /**
-     * @return string
-     */
     public function getDate(): string
     {
         return $this->date;
     }
 
-    /**
-     * @param string $date
-     */
     public function setDate(string $date): void
     {
         $this->date = $date;
     }
 
-    /**
-     * @return string
-     */
     public function getTemplateName(): string
     {
         return $this->templateName;
     }
 
-    /**
-     * @param string $templateName
-     */
     public function setTemplateName(string $templateName): void
     {
         $this->templateName = $templateName;
     }
 
-    /**
-     * @return Semester
-     */
     public function getSemester(): Semester
     {
         return $this->semester;
     }
 
-    /**
-     * @param Semester $semester
-     */
     public function setSemester(Semester $semester): void
     {
         $this->semester = $semester;
@@ -281,17 +227,11 @@ class Event extends BaseEntity
         return $base;
     }
 
-    /**
-     * @return bool
-     */
     public function isFinalTemplateVersionLoaded(): bool
     {
         return $this->finalTemplateVersionLoaded;
     }
 
-    /**
-     * @param bool $finalTemplateVersionLoaded
-     */
     public function setFinalTemplateVersionLoaded(bool $finalTemplateVersionLoaded): void
     {
         $this->finalTemplateVersionLoaded = $finalTemplateVersionLoaded;

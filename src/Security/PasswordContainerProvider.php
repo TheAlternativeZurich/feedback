@@ -26,8 +26,6 @@ class PasswordContainerProvider implements UserProviderInterface
 
     /**
      * PasswordContainerProvider constructor.
-     *
-     * @param ParameterBagInterface $parameterBag
      */
     public function __construct(ParameterBagInterface $parameterBag)
     {
@@ -35,7 +33,6 @@ class PasswordContainerProvider implements UserProviderInterface
     }
 
     /**     *
-     * @param UserInterface $user
      *
      * @return UserInterface
      */

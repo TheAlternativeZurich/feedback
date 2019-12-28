@@ -26,9 +26,6 @@ abstract class DeleteType extends BaseAbstractType
         );
     }
 
-    /**
-     * @param OptionsResolver $resolver
-     */
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([

@@ -28,9 +28,6 @@ class EventController extends BaseController
     /**
      * @Route("/new", name="administration_semester_event_new")
      *
-     * @param Request $request
-     * @param Semester $semester
-     *
      * @return Response
      */
     public function newAction(Request $request, Semester $semester)
@@ -75,10 +72,6 @@ class EventController extends BaseController
     /**
      * @Route("/{event}/edit", name="administration_semester_event_edit")
      *
-     * @param Request $request
-     * @param Semester $semester
-     * @param Event $event
-     *
      * @return Response
      */
     public function editAction(Request $request, Semester $semester, Event $event)
@@ -103,9 +96,6 @@ class EventController extends BaseController
     /**
      * @Route("/{event}/view/", name="administration_semester_event_view")
      *
-     * @param Semester $semester
-     * @param Event $event
-     *
      * @return Response
      */
     public function viewAction(Semester $semester, Event $event)
@@ -116,9 +106,6 @@ class EventController extends BaseController
     /**
      * @Route("/{event}/result/", name="administration_semester_event_result")
      *
-     * @param Semester $semester
-     * @param Event $event
-     *
      * @return Response
      */
     public function resultAction(Semester $semester, Event $event)
@@ -128,10 +115,6 @@ class EventController extends BaseController
 
     /**     *
      * @Route("/{event}/remove", name="administration_semester_event_remove")
-     *
-     * @param Request $request
-     * @param Semester $semester
-     * @param Event $event
      *
      * @return Response
      */
@@ -163,17 +146,12 @@ class EventController extends BaseController
         ]);
     }
 
-    /**
-     * @param Event $event
-     */
     private function ensureAccessGranted(Event $event)
     {
         $this->denyAccessUnlessGranted(BaseVoter::VIEW, $event);
     }
 
     /**
-     * @param Event $event
-     *
      * @return bool
      */
     protected function prePersistActions(Event $event)
@@ -185,10 +163,6 @@ class EventController extends BaseController
 
     /**
      * renders the view & prepares views which need the active election.
-     *
-     * @param string $view
-     * @param Semester $semester
-     * @param array $parameters
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */

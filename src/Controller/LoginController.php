@@ -27,8 +27,6 @@ class LoginController extends BaseFormController
     /**
      * @Route("", name="login")
      *
-     * @param AuthenticationUtils $authenticationUtils
-     *
      * @return Response
      */
     public function indexAction(AuthenticationUtils $authenticationUtils)

@@ -34,7 +34,6 @@ class EventVoter extends BaseVoter
      *
      * @param string $attribute
      * @param Event $subject
-     * @param TokenInterface $token
      *
      * @return bool
      */

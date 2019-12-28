@@ -51,7 +51,6 @@ class ApiController extends BaseApiController
     /**
      * @Route("/{event}/{identifier}/answers", name="api_active_answers")
      *
-     * @param Event $event
      * @param $identifier
      *
      * @throws \Exception
@@ -87,9 +86,6 @@ class ApiController extends BaseApiController
 
     /**
      * @Route("/{event}/answer", name="api_event_answer")
-     *
-     * @param Request $request
-     * @param Event $event
      *
      * @throws \Exception
      *
@@ -156,9 +152,6 @@ class ApiController extends BaseApiController
     /**
      * @Route("/{event}/finish", name="api_event_finish")
      *
-     * @param Request $request
-     * @param Event $event
-     *
      * @throws \Exception
      *
      * @return JsonResponse
@@ -191,7 +184,6 @@ class ApiController extends BaseApiController
     }
 
     /**
-     * @param Request $request
      * @param string[] $requiredFields
      * @param string[] $payload
      *
@@ -211,8 +203,6 @@ class ApiController extends BaseApiController
     }
 
     /**
-     * @param Event $event
-     *
      * @throws \Exception
      *
      * @return bool
