@@ -25,8 +25,6 @@ class ViewApiController extends BaseApiController
     /**
      * @Route("/active", name="administration_semester_event_view_api_active")
      *
-     * @param Event $event
-     *
      * @return JsonResponse
      */
     public function activeEventAction(Event $event)

@@ -70,49 +70,31 @@ class Participant extends BaseEntity
         return $this->answers;
     }
 
-    /**
-     * @return Event
-     */
     public function getEvent(): Event
     {
         return $this->event;
     }
 
-    /**
-     * @param Event $event
-     */
     public function setEvent(Event $event): void
     {
         $this->event = $event;
     }
 
-    /**
-     * @return int|null
-     */
     public function getTimeNeededInSeconds(): ?int
     {
         return $this->timeNeededInSeconds;
     }
 
-    /**
-     * @param int|null $timeNeededInSeconds
-     */
     public function setTimeNeededInSeconds(?int $timeNeededInSeconds): void
     {
         $this->timeNeededInSeconds = $timeNeededInSeconds;
     }
 
-    /**
-     * @return string
-     */
     public function getIdentifier(): string
     {
         return $this->identifier;
     }
 
-    /**
-     * @param string $identifier
-     */
     public function setIdentifier(string $identifier): void
     {
         $this->identifier = $identifier;

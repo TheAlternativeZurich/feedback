@@ -53,65 +53,41 @@ class Answer extends BaseEntity
      */
     private $participant;
 
-    /**
-     * @return int
-     */
     public function getQuestionIndex(): int
     {
         return $this->questionIndex;
     }
 
-    /**
-     * @param int $questionIndex
-     */
     public function setQuestionIndex(int $questionIndex): void
     {
         $this->questionIndex = $questionIndex;
     }
 
-    /**
-     * @return string
-     */
     public function getValue(): string
     {
         return $this->value;
     }
 
-    /**
-     * @param string $value
-     */
     public function setValue(string $value): void
     {
         $this->value = $value;
     }
 
-    /**
-     * @return Participant
-     */
     public function getParticipant(): Participant
     {
         return $this->participant;
     }
 
-    /**
-     * @param Participant $participant
-     */
     public function setParticipant(Participant $participant): void
     {
         $this->participant = $participant;
     }
 
-    /**
-     * @return bool
-     */
     public function isPrivate(): bool
     {
         return $this->private;
     }
 
-    /**
-     * @param bool $private
-     */
     public function setPrivate(bool $private): void
     {
         $this->private = $private;

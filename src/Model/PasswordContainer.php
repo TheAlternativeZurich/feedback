@@ -22,25 +22,17 @@ class PasswordContainer implements UserInterface
 
     /**
      * PasswordContainer constructor.
-     *
-     * @param string $password
      */
     public function __construct(string $password)
     {
         $this->password = $password;
     }
 
-    /**
-     * @return string
-     */
     public function getPassword(): string
     {
         return $this->password;
     }
 
-    /**
-     * @param string $password
-     */
     public function setPassword(string $password): void
     {
         $this->password = $password;

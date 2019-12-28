@@ -29,18 +29,12 @@ class EventType extends AbstractType
 
     /**
      * EventType constructor.
-     *
-     * @param ParameterBagInterface $parameterBag
      */
     public function __construct(ParameterBagInterface $parameterBag)
     {
         $this->publicDir = $parameterBag->get('PUBLIC_DIR');
     }
 
-    /**
-     * @param FormBuilderInterface $builder
-     * @param array $options
-     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('name', TextType::class);
@@ -78,9 +72,6 @@ class EventType extends AbstractType
         return $diff >= 0 && mb_strpos($haystack, $needle, $diff) !== false;
     }
 
-    /**
-     * @param OptionsResolver $resolver
-     */
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([

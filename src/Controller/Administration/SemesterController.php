@@ -45,8 +45,6 @@ class SemesterController extends BaseController
     /**     *
      * @Route("/{semester}/remove", name="administration_semester_remove")
      *
-     * @param Semester $semester
-     *
      * @return Response
      */
     public function removeAction(Semester $semester)

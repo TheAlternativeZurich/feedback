@@ -21,7 +21,6 @@ abstract class BaseVoter extends Voter
     /**
      * @param string $attribute
      * @param object $subject
-     * @param TokenInterface $token
      *
      * @return bool
      */

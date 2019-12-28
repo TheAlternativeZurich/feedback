@@ -21,9 +21,6 @@ class TwigExtension extends Twig_Extension
 {
     private $translator;
 
-    /**
-     * @param TranslatorInterface $translator
-     */
     public function __construct(TranslatorInterface $translator)
     {
         $this->translator = $translator;
@@ -103,8 +100,6 @@ class TwigExtension extends Twig_Extension
 
     /**
      * translates the day of the week.
-     *
-     * @param DateTime $date
      *
      * @return string
      */
