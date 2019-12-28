@@ -1,0 +1,23 @@
+build:
+    environment:
+        php:
+            version: 7.2
+    nodes:
+        analysis:
+            project_setup:
+                override: true
+            tests:
+                override:
+                    - php-scrutinizer-run --enable-security-analysis
+    dependencies:
+        override:
+            - composer install --no-scripts
+
+checks:
+    php:
+        code_rating: true
+        duplication: true
+
+filter:
+    paths: ["src/*"]
+    excluded_paths: ["src/Migrations/*"]
