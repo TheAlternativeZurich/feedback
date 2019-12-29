@@ -55,6 +55,7 @@ task('deploy:refresh_symlink', function () {
     run('killall -9 php-cgi'); //kill all php processes so symlink is refreshed
 })->desc('Refreshing symlink');
 
+// use PROD env & no interaction
 set('bin/console', function () {
     return parse('{{bin/php}} {{release_path}}/bin/console --no-interaction --env=PROD');
 });
