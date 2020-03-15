@@ -1,2 +1,4 @@
 base:
   brand: 'feedback'
+  created_by: 'created with ♥ by'
+  source_code_on: 'source code on'

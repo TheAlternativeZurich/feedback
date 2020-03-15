@@ -98,8 +98,5 @@ script:
 after_script:
 # scrutinizer reporting
 - if [[ $COVERAGE == true ]]; then wget https://scrutinizer-ci.com/ocular.phar && php ocular.phar code-coverage:upload --format=php-clover ./build/logs/clover.xml; fi
-# codacy reporting
-- if [[ $COVERAGE == true ]]; then bash <(curl -s https://codecov.io/bash); fi
-
-# deactivated
-# install composer curl -sS https://getcomposer.org/installer | php #use now with php composer.phar
+# codacy reporting (disabled; no coverage required)
+# - if [[ $COVERAGE == true ]]; then bash <(curl -s https://codecov.io/bash); fi
