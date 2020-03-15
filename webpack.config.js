@@ -10,6 +10,11 @@ Encore
     // will create public/build/app.js and public/build/app.css
     .addEntry("app", "./assets/js/app.js")
 
+    .copyFiles({
+        from: './assets/images',
+        to: 'images/[path][name].[ext]'
+    })
+
     .enableSingleRuntimeChunk()
 
     // allow sass/scss files to be processed
