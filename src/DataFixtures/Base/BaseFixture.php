@@ -11,13 +11,9 @@
 
 namespace App\DataFixtures\Base;
 
-use App\Entity\Traits\AddressTrait;
-use App\Entity\Traits\PersonTrait;
-use App\Entity\Traits\ThingTrait;
-use App\Entity\Traits\UserTrait;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -43,60 +39,6 @@ abstract class BaseFixture extends Fixture implements OrderedFixtureInterface, C
     protected function getFaker()
     {
         return Factory::create('de_CH');
-    }
-
-    /**
-     * @param UserTrait $obj
-     */
-    protected function fillUser($obj)
-    {
-        $faker = $this->getFaker();
-        $obj->setEmail($faker->email);
-        $obj->setPlainPassword($faker->password);
-        $obj->setPassword();
-        $obj->setRegistrationDate(new \DateTime());
-        $obj->setLastLogin(new \DateTime());
-    }
-
-    /**
-     * @param AddressTrait $obj
-     */
-    protected function fillAddress($obj)
-    {
-        $faker = $this->getFaker();
-        $obj->setStreet($faker->streetAddress);
-        $obj->setStreetNr($faker->numberBetween(0, 300));
-        if ($faker->numberBetween(0, 10) > 8) {
-            $obj->setAddressLine($faker->streetAddress);
-        }
-        $obj->setPostalCode($faker->numberBetween(0, 9999));
-        $obj->setCity($faker->city);
-        $obj->setCountry($faker->countryCode);
-    }
-
-    /**
-     * @param ThingTrait $obj
-     */
-    protected function fillThing($obj)
-    {
-        $faker = $this->getFaker();
-        $obj->setName($faker->text(50));
-        if ($faker->numberBetween(0, 10) > 5) {
-            $obj->setDescription($faker->text(200));
-        }
-    }
-
-    /**
-     * @param PersonTrait $obj
-     */
-    protected function fillPerson($obj)
-    {
-        $faker = $this->getFaker();
-        $obj->setGivenName($faker->firstName);
-        $obj->setFamilyName($faker->lastName);
-        if ($faker->numberBetween(0, 10) > 5) {
-            $obj->setJobTitle($faker->jobTitle);
-        }
     }
 
     /**

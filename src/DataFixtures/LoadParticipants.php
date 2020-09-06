@@ -15,7 +15,7 @@ use App\DataFixtures\Base\BaseFixture;
 use App\Entity\Answer;
 use App\Entity\Event;
 use App\Entity\Participant;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\Serializer\SerializerInterface;
 
 class LoadParticipants extends BaseFixture
