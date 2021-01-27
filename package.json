@@ -30,5 +30,16 @@
     "vue": "^2.5",
     "vue-chartjs": "^3.4.0",
     "vue-i18n": "^7"
-  }
+  },
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "dev-server": "encore dev-server --pfx=$HOME/.symfony/certs/default.p12 --https --port 8080 --disable-host-check",
+    "dev": "encore dev",
+    "watch": "encore dev --watch",
+    "build": "encore production --progress"
+  },
+  "browserslist": [
+    "defaults"
+  ]
 }
