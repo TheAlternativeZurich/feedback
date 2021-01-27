@@ -1,0 +1,64 @@
+agnes:
+  version: 4
+
+config:
+  path: .config
+  repository:
+    url: git@gitlab.ethz.ch:thealternative/deploy/feedback.git
+
+build:
+  path: .build
+
+github:
+  api_token: '%env(GITHUB_API_TOKEN)%'
+  repository: TheAlternativeZurich/feedback
+
+data:
+  shared_folders:
+    - var/persistent
+
+  files:
+    - path: .env.local
+      required: true
+
+scripts:
+  build:
+    hook: build
+    script:
+      - composer install --verbose --prefer-dist --no-interaction --no-dev --optimize-autoloader --no-scripts
+      - yarn install
+      - yarn run encore production
+      - rm -rf node_modules
+
+  deploy:
+    hook: deploy
+    script:
+      - php bin/console cache:clear -n
+      - find var -type d -print0 | xargs -0 chmod 0755
+      - find var -type f -print0 | xargs -0 chmod 0644
+      - php bin/console doctrine:migrations:migrate -n
+
+  rollback:
+    hook: rollback
+    script:
+      - cd $PREVIOUS_RELEASE_PATH && export MIGRATE_TO=$(php bin/console doctrine:migrations:latest)
+      - php bin/console doctrine:migrations:migrate $MIGRATE_TO -n
+
+  fixtures:
+    hook: after_deploy
+    instance_filter: '*:*:dev'
+    script:
+      - wget -O composer.phar https://getcomposer.org/composer-stable.phar && chmod +x composer.phar && ./composer.phar install --optimize-autoloader --no-scripts
+      - php bin/console --env=dev doctrine:fixtures:load -q
+
+tasks:
+  copy_prod_to_staging_before_deploy:
+    before: deploy
+    task: copy
+    instance_filter: '*:*:staging'
+    arguments: { source: prod }
+
+  deploy_dev_after_release:
+    after: release
+    task: deploy
+    arguments: { target: '*:*:dev' }

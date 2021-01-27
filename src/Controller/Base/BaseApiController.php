@@ -94,7 +94,7 @@ class BaseApiController extends BaseDoctrineController
             $this->getSerializer()->serialize(
                 $content,
                 'json',
-                ['json_encode_options' => JsonResponse::DEFAULT_ENCODING_OPTIONS | JSON_UNESCAPED_UNICODE] + $addition
+                ['json_encode_options' => JsonResponse::DEFAULT_ENCODING_OPTIONS | \JSON_UNESCAPED_UNICODE] + $addition
             ),
             200,
             [],
