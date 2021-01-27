@@ -11,12 +11,6 @@
     "composer/xdebug-handler": {
         "version": "1.2.1"
     },
-    "deployer/deployer": {
-        "version": "dev-famoser-symfony-4"
-    },
-    "deployer/phar-update": {
-        "version": "dev-famoser-symfony-4"
-    },
     "doctrine/annotations": {
         "version": "1.0",
         "recipe": {
@@ -204,9 +198,6 @@
             "phpunit.xml.dist",
             "tests/bootstrap.php"
         ]
-    },
-    "pimple/pimple": {
-        "version": "v3.2.2"
     },
     "psr/cache": {
         "version": "1.0.1"

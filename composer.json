@@ -37,7 +37,6 @@
   },
   "require-dev": {
     "brainmaestro/composer-git-hooks": "^2.6",
-    "deployer/deployer": "^6.1",
     "friendsofphp/php-cs-fixer": "^2.7",
     "fzaninotto/faker": "^1.7",
     "php-coveralls/php-coveralls": "^2.0",
@@ -77,8 +76,7 @@
     "configure-environment": [
       "cp -n .env .env.local",
       "cp -n .php_cs.dist .php_cs",
-      "cp -n phpunit.xml.dist phpunit.xml",
-      "cp -n servers.yml.dist servers.yml"
+      "cp -n phpunit.xml.dist phpunit.xml"
     ],
     "prepare-environment": [
       "vendor/bin/cghooks update",
