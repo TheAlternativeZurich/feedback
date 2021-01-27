@@ -1,5 +1,6 @@
 # development
 .idea
+.config
 *.phar
 /node_modules/
 yarn-error.log
