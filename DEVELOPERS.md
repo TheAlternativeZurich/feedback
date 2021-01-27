@@ -22,8 +22,8 @@ login with `info@example.com`, `asdf`
 test error templates inside TwigBundle/views by accessing `/_error/404` and `/_error/500`
 
 ##### deploy
-server must fulfil requirements of `composer.json` & include ghostscript (`gs`)  
-if you deploy the fist time, while `deploy:composer` is running, set the `.env` file in `/shared/.env`  
+server must fulfil requirements of `composer.json`  
+deploy with `famoser/agnes`. For example `vendor/bin/agnes deploy *:*:* master` to deploy master to all environments.
  
 ##### ssh
 `ssh-copy-id -i ~/.ssh/id_rsa.pub username@domain` to add ssh key  
