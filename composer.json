@@ -75,9 +75,7 @@
   },
   "scripts": {
     "configure-environment": [
-      "cp -n .env .env.local",
-      "cp -n .php_cs.dist .php_cs",
-      "cp -n phpunit.xml.dist phpunit.xml"
+      "touch .env.local"
     ],
     "prepare-environment": [
       "vendor/bin/cghooks update",
