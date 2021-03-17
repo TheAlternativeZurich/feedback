@@ -3,7 +3,7 @@
   "description": "collect feedback from lectures & workshop with minimal setup & instant evaulation ",
   "license": "MIT",
   "require": {
-    "php": "^7.2",
+    "php": "^7.4",
     "ext-iconv": "*",
     "ext-json": "*",
     "ext-pdo": "*",
@@ -12,7 +12,6 @@
     "famoser/agnes": "^4.0",
     "ramsey/uuid": "^3",
     "sensio/framework-extra-bundle": "^5.1",
-    "sensiolabs/security-checker": "^5.0",
     "symfony/apache-pack": "^1.0",
     "symfony/asset": "^4.1",
     "symfony/console": "^4.1",
@@ -51,7 +50,7 @@
   },
   "config": {
     "platform": {
-      "php": "7.2"
+      "php": "7.4"
     },
     "preferred-install": {
       "*": "dist"
@@ -80,7 +79,6 @@
     "prepare-environment": [
       "vendor/bin/cghooks update",
       "vendor/bin/requirements-checker",
-      "php bin/console security:check",
       "php bin/console doctrine:migrations:migrate -q",
       "php bin/console doctrine:fixtures:load -q"
     ],
