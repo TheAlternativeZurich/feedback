@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the feedback project.
+ * This file is part of the thealternativezurich/feedback project.
  *
  * (c) Florian Moser <git@famoser.ch>
  *
@@ -72,7 +72,7 @@ class BaseController extends AbstractController
     private function displayFlash($type, $message, $link = null)
     {
         if (null !== $link) {
-            $message = '<a href="' . $link . '">' . $message . '</a>';
+            $message = '<a href="'.$link.'">'.$message.'</a>';
         }
         $this->get('session')->getFlashBag()->set($type, $message);
     }

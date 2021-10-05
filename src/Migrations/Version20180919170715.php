@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /*
- * This file is part of the feedback project.
+ * This file is part of the thealternativezurich/feedback project.
  *
  * (c) Florian Moser <git@famoser.ch>
  *
@@ -24,7 +24,7 @@ final class Version20180919170715 extends AbstractMigration
     public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'sqlite', 'Migration can only be executed safely on \'sqlite\'.');
+        $this->abortIf('sqlite' !== $this->connection->getDatabasePlatform()->getName(), 'Migration can only be executed safely on \'sqlite\'.');
 
         $this->addSql('CREATE TABLE semester (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, name CLOB NOT NULL, creation_date DATETIME NOT NULL)');
         $this->addSql('CREATE TABLE event (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, semester_id INTEGER DEFAULT NULL, name CLOB NOT NULL, date CLOB NOT NULL, feedback_start_time CLOB NOT NULL, feedback_end_time CLOB NOT NULL, template CLOB NOT NULL, template_name CLOB NOT NULL, has_lecture BOOLEAN NOT NULL, has_exercise BOOLEAN NOT NULL, final_template_version_loaded BOOLEAN NOT NULL)');
@@ -38,7 +38,7 @@ final class Version20180919170715 extends AbstractMigration
     public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
-        $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'sqlite', 'Migration can only be executed safely on \'sqlite\'.');
+        $this->abortIf('sqlite' !== $this->connection->getDatabasePlatform()->getName(), 'Migration can only be executed safely on \'sqlite\'.');
 
         $this->addSql('DROP TABLE semester');
         $this->addSql('DROP TABLE event');

@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the feedback project.
+ * This file is part of the thealternativezurich/feedback project.
  *
  * (c) Florian Moser <git@famoser.ch>
  *
@@ -83,7 +83,7 @@ abstract class BaseEnum
             foreach ($choices as $name => $value) {
                 $res[mb_strtolower($name)] = $value;
             }
-            $transDomain = 'enum_' . $this->camelCaseToTranslation($reflection->getShortName());
+            $transDomain = 'enum_'.$this->camelCaseToTranslation($reflection->getShortName());
 
             return ['translation_domain' => $transDomain, 'label' => 'enum.name', 'choices' => $res, 'choice_translation_domain' => $transDomain];
         } catch (\ReflectionException $e) {
@@ -105,7 +105,7 @@ abstract class BaseEnum
         try {
             $reflection = new ReflectionClass(static::class);
 
-            return $translator->trans($this->getTextInternal($enumValue, $reflection), [], 'enum_' . $this->camelCaseToTranslation($reflection->getShortName()));
+            return $translator->trans($this->getTextInternal($enumValue, $reflection), [], 'enum_'.$this->camelCaseToTranslation($reflection->getShortName()));
         } catch (\ReflectionException $e) {
             //this never fails because the class clearly exists
         }

@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the feedback project.
+ * This file is part of the thealternativezurich/feedback project.
  *
  * (c) Florian Moser <git@famoser.ch>
  *
@@ -65,7 +65,7 @@ class ApiController extends BaseApiController
 
         //get participant & return answers
         $participant = $this->getDoctrine()->getRepository(Participant::class)->findOneBy(['event' => $event->getId(), 'identifier' => $identifier]);
-        if ($participant !== null) {
+        if (null !== $participant) {
             return $this->returnAnswers($participant->getAnswers());
         }
 
@@ -107,7 +107,7 @@ class ApiController extends BaseApiController
         $questionIndex = $payload->questionIndex;
         $value = $payload->value;
         $action = $payload->action;
-        $private = property_exists($payload, 'private') && $payload->private === 'true';
+        $private = property_exists($payload, 'private') && 'true' === $payload->private;
 
         //ensure all fields set & valid
         if (!isset($identifier) || !\is_int($questionIndex) || !isset($value) || !\in_array($action, ['override', 'ensure_value_exists', 'remove_value'], true)) {
@@ -116,7 +116,7 @@ class ApiController extends BaseApiController
 
         //get participant or create a new one
         $participant = $this->getDoctrine()->getRepository(Participant::class)->findOneBy(['identifier' => $identifier, 'event' => $event->getId()]);
-        if ($participant === null) {
+        if (null === $participant) {
             $participant = new Participant();
             $participant->setEvent($event);
             $participant->setIdentifier($identifier);
@@ -125,13 +125,13 @@ class ApiController extends BaseApiController
 
         //try to find existing answer
         $conditions = ['questionIndex' => $questionIndex, 'participant' => $participant->getId()];
-        if ($action === 'ensure_value_exists' || $action === 'remove_value') {
+        if ('ensure_value_exists' === $action || 'remove_value' === $action) {
             $conditions += ['value' => $value];
         }
         $answer = $this->getDoctrine()->getRepository(Answer::class)->findOneBy($conditions);
 
         //create new of not found && not want to remove
-        if ($answer === null && $action !== 'remove_value') {
+        if (null === $answer && 'remove_value' !== $action) {
             $answer = new Answer();
             $answer->setParticipant($participant);
             $answer->setPrivate($private);
@@ -140,9 +140,9 @@ class ApiController extends BaseApiController
         $answer->setValue($value);
 
         //process actions
-        if ($action === 'override' || $action === 'ensure_value_exists') {
+        if ('override' === $action || 'ensure_value_exists' === $action) {
             $this->fastSave($answer);
-        } elseif ($action === 'remove_value' && $answer !== null) {
+        } elseif ('remove_value' === $action && null !== $answer) {
             $this->fastRemove($answer);
         }
 
@@ -168,11 +168,11 @@ class ApiController extends BaseApiController
 
         //write fields
         $identifier = $payload->identifier;
-        $timeNeededInSeconds = (int)$payload->timeNeededInSeconds;
+        $timeNeededInSeconds = (int) $payload->timeNeededInSeconds;
 
         //get participant
         $participant = $this->getDoctrine()->getRepository(Participant::class)->findOneBy(['identifier' => $identifier, 'event' => $event->getId()]);
-        if ($participant === null || $participant->getTimeNeededInSeconds() !== null) {
+        if (null === $participant || null !== $participant->getTimeNeededInSeconds()) {
             return $this->json(false);
         }
 

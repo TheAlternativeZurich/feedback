@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the feedback project.
+ * This file is part of the thealternativezurich/feedback project.
  *
  * (c) Florian Moser <git@famoser.ch>
  *
@@ -16,7 +16,7 @@ use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
 abstract class BaseVoter extends Voter
 {
-    const VIEW = 2;
+    public const VIEW = 2;
 
     /**
      * @param string $attribute
@@ -26,6 +26,6 @@ abstract class BaseVoter extends Voter
      */
     protected function voteOnAttribute($attribute, $subject, TokenInterface $token)
     {
-        return $attribute === self::VIEW;
+        return self::VIEW === $attribute;
     }
 }

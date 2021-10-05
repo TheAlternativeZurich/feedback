@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the feedback project.
+ * This file is part of the thealternativezurich/feedback project.
  *
  * (c) Florian Moser <git@famoser.ch>
  *
@@ -17,7 +17,7 @@ use Doctrine\Persistence\ObjectManager;
 
 class LoadSemester extends BaseFixture
 {
-    const ORDER = 1;
+    public const ORDER = 1;
 
     /**
      * Load data fixtures with the passed EntityManager.
@@ -29,7 +29,7 @@ class LoadSemester extends BaseFixture
         foreach ($semesters as $semesterName) {
             $semester = new Semester();
             $semester->setName($semesterName);
-            $semester->setCreationDate((new \DateTime('today'))->modify('+' . $count++ . ' day'));
+            $semester->setCreationDate((new \DateTime('today'))->modify('+'.$count++.' day'));
             $manager->persist($semester);
         }
         $manager->flush();
