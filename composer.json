@@ -8,7 +8,12 @@
     "ext-json": "*",
     "ext-pdo": "*",
     "ext-pdo_sqlite": "*",
+    "composer/package-versions-deprecated": "^1.11",
+    "doctrine/common": "^2",
+    "doctrine/doctrine-bundle": "^2",
     "doctrine/doctrine-fixtures-bundle": "^3.0",
+    "doctrine/doctrine-migrations-bundle": "^2",
+    "doctrine/orm": "^2",
     "famoser/agnes": "^4.0",
     "ramsey/uuid": "^3",
     "sensio/framework-extra-bundle": "^5.1",
@@ -23,7 +28,6 @@
     "symfony/framework-bundle": "^4.1",
     "symfony/maker-bundle": "^1.4",
     "symfony/monolog-bundle": "^3.1",
-    "symfony/orm-pack": "^1.0",
     "symfony/property-info": "^4.1",
     "symfony/requirements-checker": "^1.0",
     "symfony/security-bundle": "^4.1",
@@ -37,7 +41,7 @@
   },
   "require-dev": {
     "brainmaestro/composer-git-hooks": "^2.6",
-    "friendsofphp/php-cs-fixer": "^2.7",
+    "friendsofphp/php-cs-fixer": "^3",
     "fzaninotto/faker": "^1.7",
     "php-coveralls/php-coveralls": "^2.0",
     "phpunit/phpunit": "^8",
@@ -45,7 +49,8 @@
     "symfony/css-selector": "^4.1",
     "symfony/debug-bundle": "^4.1",
     "symfony/phpunit-bridge": "^4.1",
-    "symfony/profiler-pack": "^1.0",
+    "symfony/stopwatch": "^5.3",
+    "symfony/web-profiler-bundle": "^5.0",
     "symfony/web-server-bundle": "^4.1"
   },
   "config": {
@@ -92,7 +97,7 @@
     "hooks": {
       "pre-commit": [
         "echo committing as $(git config user.name)",
-        "./vendor/bin/php-cs-fixer fix  --config=.php_cs",
+        "./vendor/bin/php-cs-fixer fix",
         "git update-index --again"
       ],
       "post-merge": "composer install"

@@ -214,6 +214,9 @@
     "psr/http-client": {
         "version": "1.0.1"
     },
+    "psr/http-factory": {
+        "version": "1.0.1"
+    },
     "psr/http-message": {
         "version": "1.0.1"
     },
@@ -418,9 +421,6 @@
     "symfony/options-resolver": {
         "version": "v3.4.2"
     },
-    "symfony/orm-pack": {
-        "version": "v1.0.5"
-    },
     "symfony/phpunit-bridge": {
         "version": "3.3",
         "recipe": {
@@ -459,9 +459,6 @@
     },
     "symfony/process": {
         "version": "v3.4.2"
-    },
-    "symfony/profiler-pack": {
-        "version": "v1.0.3"
     },
     "symfony/property-access": {
         "version": "v3.4.2"
