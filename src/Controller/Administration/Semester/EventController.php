@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the feedback project.
+ * This file is part of the thealternativezurich/feedback project.
  *
  * (c) Florian Moser <git@famoser.ch>
  *
@@ -124,7 +124,7 @@ class EventController extends BaseController
 
         //process form
         $form = $this->handleDeleteForm($request, $event);
-        if ($form === null) {
+        if (null === $form) {
             return $this->redirectToRoute('administration_semesters');
         }
 

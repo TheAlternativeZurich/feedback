@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the feedback project.
+ * This file is part of the thealternativezurich/feedback project.
  *
  * (c) Florian Moser <git@famoser.ch>
  *
@@ -20,7 +20,7 @@ use Symfony\Component\Serializer\SerializerInterface;
 
 class LoadParticipants extends BaseFixture
 {
-    const ORDER = LoadEvent::ORDER + 1;
+    public const ORDER = LoadEvent::ORDER + 1;
 
     /**
      * @var SerializerInterface
@@ -45,14 +45,14 @@ class LoadParticipants extends BaseFixture
         $now = (new \DateTime())->format('Y-m-d');
 
         //prepare participants
-        $dir = __DIR__ . '/Resources/participants';
+        $dir = __DIR__.'/Resources/participants';
         $fileNames = scandir($dir);
         /** @var Answer[][] $participantJson */
         $participantJson = [];
         foreach ($fileNames as $fileName) {
             //filter out folder links
-            if ($fileName !== '.' && $fileName !== '..') {
-                $participantJson[] = file_get_contents($dir . '/' . $fileName);
+            if ('.' !== $fileName && '..' !== $fileName) {
+                $participantJson[] = file_get_contents($dir.'/'.$fileName);
             }
         }
 
@@ -67,7 +67,7 @@ class LoadParticipants extends BaseFixture
                     $participant->setTimeNeededInSeconds(rand(0, 60 * 3));
 
                     /** @var Answer[] $answers */
-                    $answers = $this->serializer->deserialize($json, Answer::class . '[]', 'json');
+                    $answers = $this->serializer->deserialize($json, Answer::class.'[]', 'json');
                     foreach ($answers as $answer) {
                         $answer->setParticipant($participant);
                         $manager->persist($answer);

@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the feedback project.
+ * This file is part of the thealternativezurich/feedback project.
  *
  * (c) Florian Moser <git@famoser.ch>
  *
@@ -15,8 +15,8 @@ use App\Enum\Base\BaseEnum;
 
 class MessageType extends BaseEnum
 {
-    const INFO = 0;
-    const WARNING = 1;
-    const ERROR = 2;
-    const FATAL = 3;
+    public const INFO = 0;
+    public const WARNING = 1;
+    public const ERROR = 2;
+    public const FATAL = 3;
 }

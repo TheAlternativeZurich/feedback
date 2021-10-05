@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the feedback project.
+ * This file is part of the thealternativezurich/feedback project.
  *
  * (c) Florian Moser <git@famoser.ch>
  *
@@ -254,7 +254,7 @@ class Event extends BaseEntity
      */
     public function getTemplateFilePath()
     {
-        return 'templates/' . $this->getTemplateName();
+        return 'templates/'.$this->getTemplateName();
     }
 
     /**
@@ -270,7 +270,7 @@ class Event extends BaseEntity
             $this->finalTemplateVersionLoaded = true;
         }
 
-        $filePath = $publicDir . '/' . $this->getTemplateFilePath();
+        $filePath = $publicDir.'/'.$this->getTemplateFilePath();
         if (file_exists($filePath)) {
             $this->template = file_get_contents($filePath);
         }

@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /*
- * This file is part of the feedback project.
+ * This file is part of the thealternativezurich/feedback project.
  *
  * (c) Florian Moser <git@famoser.ch>
  *
@@ -24,7 +24,7 @@ final class Version20180920070302 extends AbstractMigration
     public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'sqlite', 'Migration can only be executed safely on \'sqlite\'.');
+        $this->abortIf('sqlite' !== $this->connection->getDatabasePlatform()->getName(), 'Migration can only be executed safely on \'sqlite\'.');
 
         $this->addSql('DROP INDEX IDX_D79F6B1171F7E88B');
         $this->addSql('CREATE TEMPORARY TABLE __temp__participant AS SELECT id, event_id FROM participant');
@@ -52,7 +52,7 @@ final class Version20180920070302 extends AbstractMigration
     public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
-        $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'sqlite', 'Migration can only be executed safely on \'sqlite\'.');
+        $this->abortIf('sqlite' !== $this->connection->getDatabasePlatform()->getName(), 'Migration can only be executed safely on \'sqlite\'.');
 
         $this->addSql('DROP INDEX IDX_DADD4A259D1C3019');
         $this->addSql('CREATE TEMPORARY TABLE __temp__answer AS SELECT id, participant_id, question_number, value FROM answer');

@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the feedback project.
+ * This file is part of the thealternativezurich/feedback project.
  *
  * (c) Florian Moser <git@famoser.ch>
  *
@@ -52,7 +52,7 @@ abstract class BaseFixture extends Fixture implements OrderedFixtureInterface, C
     {
         for ($i = 0; $i < $count; ++$i) {
             $instance = $this->getRandomInstance();
-            if ($instance === null) {
+            if (null === $instance) {
                 throw new \Exception('you need to override getRandomInstance to return an instance before you can use this function');
             }
             $manager->persist($instance);

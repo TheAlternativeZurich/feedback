@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the feedback project.
+ * This file is part of the thealternativezurich/feedback project.
  *
  * (c) Florian Moser <git@famoser.ch>
  *
@@ -45,7 +45,7 @@ class EventType extends AbstractType
 
         //get all templates
         $templates = [];
-        foreach (scandir($this->publicDir . '/templates') as $template) {
+        foreach (scandir($this->publicDir.'/templates') as $template) {
             if ($this->endsWith($template, '.json')) {
                 $templates[mb_substr($template, 0, -5)] = $template;
             }
@@ -64,12 +64,12 @@ class EventType extends AbstractType
     private function endsWith($haystack, $needle)
     {
         // search forward starting from end minus needle length characters
-        if ($needle === '') {
+        if ('' === $needle) {
             return true;
         }
         $diff = mb_strlen($haystack) - mb_strlen($needle);
 
-        return $diff >= 0 && mb_strpos($haystack, $needle, $diff) !== false;
+        return $diff >= 0 && false !== mb_strpos($haystack, $needle, $diff);
     }
 
     public function configureOptions(OptionsResolver $resolver)

@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the feedback project.
+ * This file is part of the thealternativezurich/feedback project.
  *
  * (c) Florian Moser <git@famoser.ch>
  *
@@ -15,6 +15,6 @@ use App\Enum\Base\BaseEnum;
 
 class BooleanType extends BaseEnum
 {
-    const YES = 1;
-    const NO = 2;
+    public const YES = 1;
+    public const NO = 2;
 }

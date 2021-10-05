@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the feedback project.
+ * This file is part of the thealternativezurich/feedback project.
  *
  * (c) Florian Moser <git@famoser.ch>
  *
@@ -20,7 +20,7 @@ use Symfony\Component\Serializer\SerializerInterface;
 
 class LoadEvent extends BaseFixture
 {
-    const ORDER = LoadSemester::ORDER + 1;
+    public const ORDER = LoadSemester::ORDER + 1;
 
     /**
      * @var SerializerInterface
@@ -45,8 +45,8 @@ class LoadEvent extends BaseFixture
     {
         //prepare resources
         $templateName = 'default.json';
-        $template = file_get_contents($this->publicDir . '/templates/' . $templateName);
-        $json = file_get_contents(__DIR__ . '/Resources/events.json');
+        $template = file_get_contents($this->publicDir.'/templates/'.$templateName);
+        $json = file_get_contents(__DIR__.'/Resources/events.json');
 
         //fill semester with events
         $semesters = $manager->getRepository(Semester::class)->findAll();
@@ -58,13 +58,13 @@ class LoadEvent extends BaseFixture
             }
 
             /** @var Event[] $events */
-            $events = $this->serializer->deserialize($json, Event::class . '[]', 'json');
+            $events = $this->serializer->deserialize($json, Event::class.'[]', 'json');
             foreach ($events as $event) {
                 $event->setSemester($semester);
                 $event->setTemplateName($templateName);
                 $event->setTemplate($template);
-                $event->setFeedbackStartTime($event->getFeedbackStartTime() . ':00');
-                $event->setFeedbackEndTime($event->getFeedbackEndTime() . ':00');
+                $event->setFeedbackStartTime($event->getFeedbackStartTime().':00');
+                $event->setFeedbackEndTime($event->getFeedbackEndTime().':00');
                 $manager->persist($event);
             }
 

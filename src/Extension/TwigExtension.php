@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the feedback project.
+ * This file is part of the thealternativezurich/feedback project.
  *
  * (c) Florian Moser <git@famoser.ch>
  *
@@ -62,7 +62,7 @@ class TwigExtension extends AbstractExtension
         if ($date instanceof \DateTime) {
             $dateFormat = $this->translator->trans('time.format.date', [], 'framework');
 
-            return $this->prependDayName($date) . ', ' . $date->format($dateFormat);
+            return $this->prependDayName($date).', '.$date->format($dateFormat);
         }
 
         return '-';
@@ -78,7 +78,7 @@ class TwigExtension extends AbstractExtension
         if ($date instanceof \DateTime) {
             $dateTimeFormat = $this->translator->trans('time.format.date_time', [], 'framework');
 
-            return $this->prependDayName($date) . ', ' . $date->format($dateTimeFormat);
+            return $this->prependDayName($date).', '.$date->format($dateTimeFormat);
         }
 
         return '-';
@@ -105,7 +105,7 @@ class TwigExtension extends AbstractExtension
      */
     private function prependDayName(DateTime $date)
     {
-        return $this->translator->trans('time.weekdays.' . $date->format('D'), [], 'framework');
+        return $this->translator->trans('time.weekdays.'.$date->format('D'), [], 'framework');
     }
 
     /**

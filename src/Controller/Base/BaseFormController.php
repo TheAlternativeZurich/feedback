@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the feedback project.
+ * This file is part of the thealternativezurich/feedback project.
  *
  * (c) Florian Moser <git@famoser.ch>
  *
@@ -146,9 +146,9 @@ class BaseFormController extends BaseDoctrineController
     /**
      * persist the entity to the database if submitted successfully.
      *
-     * @param string $formType namespace of form type to use
-     * @param string $buttonLabel label of button
-     * @param string $successText content of text displayed if successful
+     * @param string   $formType             namespace of form type to use
+     * @param string   $buttonLabel          label of button
+     * @param string   $successText          content of text displayed if successful
      * @param callable $beforeDeleteCallable called after successful submit, before entity is deleted. return true to continue removal
      *
      * @return FormInterface the constructed form
@@ -184,8 +184,8 @@ class BaseFormController extends BaseDoctrineController
      * if $isDeleteType is true then the delete form is returned.
      *
      * @param string $classWithNamespace
-     * @param string $prepend is prepended to class name
-     * @param bool $repeatClass
+     * @param string $prepend            is prepended to class name
+     * @param bool   $repeatClass
      *
      * @return string
      */
@@ -193,6 +193,6 @@ class BaseFormController extends BaseDoctrineController
     {
         $className = mb_substr($classWithNamespace, mb_strrpos($classWithNamespace, '\\') + 1);
 
-        return 'App\\Form\\' . $className . '\\' . $prepend . ($repeatClass ? $className : '') . 'Type';
+        return 'App\\Form\\'.$className.'\\'.$prepend.($repeatClass ? $className : '').'Type';
     }
 }
